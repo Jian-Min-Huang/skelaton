@@ -1,0 +1,17 @@
+package com.example.member.service.presentation.web.dto.enu;
+
+public enum GenderEnuDto {
+    FEMALE(0),
+    MALE(1),
+    OTHER(2);
+
+    private final Integer val;
+
+    GenderEnuDto(final Integer val) {
+        this.val = val;
+    }
+
+    public Integer getVal() {
+        return val;
+    }
+}
