@@ -9,16 +9,16 @@ import com.example.member.application.usecase.port.input.ModifyMemberEmailInput;
 import com.example.member.application.usecase.port.input.QueryMemberInput;
 import com.example.member.application.usecase.port.input.QueryMembersInput;
 import com.example.member.application.usecase.port.input.RemoveMemberInput;
-import com.example.member.application.usecase.port.output.QueryMemberOutput;
+import com.example.member.application.usecase.port.output.QueryMemberOutputData;
 import com.example.member.application.usecase.query.MemberQueryUseCase;
 import com.example.member.service.presentation.web.converter.MemberConverter;
 import com.example.member.service.presentation.web.protocol.MemberProtocol;
 import com.example.member.service.presentation.web.request.CreateMemberRequest;
 import com.example.member.service.presentation.web.request.ModifyMemberEmailRequest;
 import com.example.member.service.presentation.web.request.QueryMembersRequest;
-import com.example.member.service.presentation.web.response.CreateMemberResponse;
 import com.example.member.service.presentation.web.response.QueryMemberResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -36,14 +36,14 @@ public class MemberController implements MemberProtocol {
     private final MemberQueryUseCase memberQueryUseCase;
 
     @Override
-    public ResponseEntity<CreateMemberResponse> createMember(final CreateMemberRequest request) {
+    public ResponseEntity<Void> createMember(final CreateMemberRequest request, final HttpServletRequest httpServletRequest) {
         final CreateMemberInput input = MemberConverter.toCreateMemberInput(request);
         final CqrsOutput<?> output = memberCommandUseCase.execute(input);
 
-        if (output.getExitCode() == ExitCode.SUCCESS && output.getData() != null) {
-            final CreateMemberResponse response = MemberConverter.toCreateMemberResponse((Long) output.getData());
-
-            return ResponseEntity.created(URI.create("/api/v1/members/" + response.getId())).body(response);
+        if (output.getExitCode() == ExitCode.SUCCESS && output.getData() != null && output.getData() instanceof Long id) {
+            return ResponseEntity
+                    .created(URI.create(httpServletRequest.getScheme() + "://" + httpServletRequest.getServerName() + ":" + httpServletRequest.getServerPort() + httpServletRequest.getContextPath() + "/api/v1/members/" + id))
+                    .build();
         } else {
             throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, output.getMessage());
         }
@@ -54,8 +54,8 @@ public class MemberController implements MemberProtocol {
         final QueryMemberInput input = MemberConverter.toQueryMemberInput(id);
         final CqrsOutput<?> output = memberQueryUseCase.execute(input);
 
-        if (output.getExitCode() == ExitCode.SUCCESS && output.getData() != null) {
-            final QueryMemberResponse response = MemberConverter.toQueryMemberResponse((QueryMemberOutput) output.getData());
+        if (output.getExitCode() == ExitCode.SUCCESS && output.getData() != null && output.getData() instanceof QueryMemberOutputData queryMemberOutputData) {
+            final QueryMemberResponse response = MemberConverter.toQueryMemberResponse(queryMemberOutputData);
 
             return ResponseEntity.ok(response);
         } else {
@@ -68,8 +68,21 @@ public class MemberController implements MemberProtocol {
         final QueryMembersInput input = MemberConverter.toQueryMembersInput(request);
         final CqrsOutput<?> output = memberQueryUseCase.execute(input);
 
-        if (output.getExitCode() == ExitCode.SUCCESS && output.getData() != null) {
-            return ResponseEntity.ok(Pagination.empty());
+        if (output.getExitCode() == ExitCode.SUCCESS
+                && output.getData() != null
+                && output.getData() instanceof Pagination<?> pagination
+                && pagination.getContent() != null
+                && !pagination.getContent().isEmpty()
+                && pagination.getContent().getFirst() instanceof QueryMemberOutputData) {
+            final Pagination<QueryMemberResponse> response = Pagination.<QueryMemberResponse>builder()
+                    .content(pagination.getContent().stream().map(element -> MemberConverter.toQueryMemberResponse((QueryMemberOutputData) element)).toList())
+                    .currentPage(pagination.getCurrentPage())
+                    .pageSize(pagination.getPageSize())
+                    .totalPages(pagination.getTotalPages())
+                    .totalElements(pagination.getTotalElements())
+                    .build();
+
+            return ResponseEntity.ok(response);
         } else {
             return ResponseEntity.ok(Pagination.empty());
         }

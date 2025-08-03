@@ -8,14 +8,13 @@ import com.example.member.application.usecase.port.input.ModifyMemberEmailInput;
 import com.example.member.application.usecase.port.input.QueryMemberInput;
 import com.example.member.application.usecase.port.input.QueryMembersInput;
 import com.example.member.application.usecase.port.input.RemoveMemberInput;
-import com.example.member.application.usecase.port.output.QueryMemberOutput;
+import com.example.member.application.usecase.port.output.QueryMemberOutputData;
 import com.example.member.service.presentation.web.dto.PhoneNumberDto;
 import com.example.member.service.presentation.web.dto.enu.GenderEnuDto;
 import com.example.member.service.presentation.web.dto.enu.MemberStatusEnuDto;
 import com.example.member.service.presentation.web.request.CreateMemberRequest;
 import com.example.member.service.presentation.web.request.ModifyMemberEmailRequest;
 import com.example.member.service.presentation.web.request.QueryMembersRequest;
-import com.example.member.service.presentation.web.response.CreateMemberResponse;
 import com.example.member.service.presentation.web.response.QueryMemberResponse;
 
 public class MemberConverter {
@@ -26,8 +25,8 @@ public class MemberConverter {
                 .firstName(request.getFirstName())
                 .lastName(request.getLastName())
                 .email(request.getEmail())
-                .phoneNumber(request.getPhoneNumber())
-                .gender(request.getGender())
+                .phoneNumber(toModel(request.getPhoneNumber()))
+                .gender(toModel(request.getGender()))
                 .build();
     }
 
@@ -63,11 +62,7 @@ public class MemberConverter {
                 .build();
     }
 
-    public static CreateMemberResponse toCreateMemberResponse(final Long id) {
-        return CreateMemberResponse.builder().id(id).build();
-    }
-
-    public static QueryMemberResponse toQueryMemberResponse(final QueryMemberOutput output) {
+    public static QueryMemberResponse toQueryMemberResponse(final QueryMemberOutputData output) {
         return QueryMemberResponse
                 .builder()
                 .id(output.getId())
@@ -79,6 +74,18 @@ public class MemberConverter {
                 .gender(toDto(output.getGender()))
                 .status(toDto(output.getStatus()))
                 .build();
+    }
+
+    private static PhoneNumberVoModel toModel(final PhoneNumberDto phoneNumber) {
+        return PhoneNumberVoModel
+                .builder()
+                .countryCode(phoneNumber.getCountryCode())
+                .number(phoneNumber.getNumber())
+                .build();
+    }
+
+    private static GenderEnuModel toModel(final GenderEnuDto gender) {
+        return GenderEnuModel.valueOf(gender.name());
     }
 
     private static PhoneNumberDto toDto(final PhoneNumberVoModel voModel) {

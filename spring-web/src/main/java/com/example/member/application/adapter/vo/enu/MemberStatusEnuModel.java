@@ -1,5 +1,10 @@
 package com.example.member.application.adapter.vo.enu;
 
+import lombok.Getter;
+
+import java.util.Arrays;
+
+@Getter
 public enum MemberStatusEnuModel {
     INACTIVE(0),
     SUSPENDED(10),
@@ -12,7 +17,11 @@ public enum MemberStatusEnuModel {
         this.val = val;
     }
 
-    public Integer getVal() {
-        return val;
+    public static MemberStatusEnuModel fromVal(final Integer val) {
+        return Arrays
+                .stream(values())
+                .filter(status -> status.val.equals(val))
+                .findFirst()
+                .orElseThrow(() -> new IllegalArgumentException("MemberStatusEnuModel invalid val: " + val));
     }
 }

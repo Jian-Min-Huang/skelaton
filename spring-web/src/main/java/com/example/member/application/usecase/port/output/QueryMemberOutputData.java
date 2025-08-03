@@ -14,7 +14,7 @@ import java.time.Instant;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class QueryMemberOutput {
+public class QueryMemberOutputData {
     private Long id;
     private Instant createTime;
     private String firstName;

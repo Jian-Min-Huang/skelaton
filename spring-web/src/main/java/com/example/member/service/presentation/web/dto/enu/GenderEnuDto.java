@@ -1,5 +1,8 @@
 package com.example.member.service.presentation.web.dto.enu;
 
+import lombok.Getter;
+
+@Getter
 public enum GenderEnuDto {
     FEMALE(0),
     MALE(1),
@@ -9,9 +12,5 @@ public enum GenderEnuDto {
 
     GenderEnuDto(final Integer val) {
         this.val = val;
-    }
-
-    public Integer getVal() {
-        return val;
     }
 }

@@ -4,11 +4,11 @@ import com.example.common.data.Pagination;
 import com.example.member.service.presentation.web.request.CreateMemberRequest;
 import com.example.member.service.presentation.web.request.ModifyMemberEmailRequest;
 import com.example.member.service.presentation.web.request.QueryMembersRequest;
-import com.example.member.service.presentation.web.response.CreateMemberResponse;
 import com.example.member.service.presentation.web.response.QueryMemberResponse;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.constraints.Positive;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
@@ -33,7 +33,7 @@ public interface MemberProtocol {
                     @ApiResponse(responseCode = "500", description = "Internal server error")
             })
     @PostMapping("/api/v1/members")
-    ResponseEntity<CreateMemberResponse> createMember(@RequestBody @Validated final CreateMemberRequest request);
+    ResponseEntity<Void> createMember(@RequestBody @Validated final CreateMemberRequest request, final HttpServletRequest httpServletRequest);
 
     @Operation(
             summary = "Get a member by ID",

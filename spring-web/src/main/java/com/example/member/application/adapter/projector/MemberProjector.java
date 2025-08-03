@@ -1,11 +1,11 @@
 package com.example.member.application.adapter.projector;
 
+import com.example.common.data.Pagination;
 import com.example.member.application.adapter.entity.MemberModel;
-import com.example.member.application.adapter.vo.PhoneNumberVoModel;
-import com.example.member.application.adapter.vo.enu.GenderEnuModel;
 import com.example.member.application.adapter.vo.enu.MemberStatusEnuModel;
 import com.example.member.application.usecase.port.input.CreateMemberInput;
 import com.example.member.application.usecase.port.input.ModifyMemberEmailInput;
+import com.example.member.application.usecase.port.output.QueryMemberOutputData;
 
 import java.time.Instant;
 
@@ -25,9 +25,9 @@ public class MemberProjector {
                 .firstName(input.getFirstName())
                 .lastName(input.getLastName())
                 .email(input.getEmail())
-                .phoneNumber(PhoneNumberVoModel.builder().build())
-                .gender(GenderEnuModel.valueOf(input.getGender()))
-                .status(MemberStatusEnuModel.valueOf(null))
+                .phoneNumber(input.getPhoneNumber())
+                .gender(input.getGender())
+                .status(MemberStatusEnuModel.INACTIVE)
                 .build();
     }
 
@@ -37,5 +37,13 @@ public class MemberProjector {
                 .id(input.getId())
                 .email(input.getEmail())
                 .build();
+    }
+
+    public static QueryMemberOutputData toOutput(final MemberModel memberModel) {
+        return null;
+    }
+
+    public static Pagination<QueryMemberOutputData> toOutput(final Pagination<MemberModel> memberModel) {
+        return null;
     }
 }

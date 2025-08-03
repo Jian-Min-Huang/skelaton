@@ -25,7 +25,7 @@ public class MemberCommandUseCase implements CqrsTemplate {
             switch (input) {
                 case CreateMemberInput createMemberInput -> {
                     final MemberModel model = memberWritableRepository.save(MemberProjector.toMemberModel(createMemberInput));
-                    return CqrsOutput.success(model);
+                    return CqrsOutput.success(model.getId());
                 }
                 case ModifyMemberEmailInput modifyMemberEmailInput -> {
                     memberWritableRepository.modifyEmail(MemberProjector.toMemberModel(modifyMemberEmailInput));

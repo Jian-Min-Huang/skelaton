@@ -1,5 +1,8 @@
 package com.example.member.service.presentation.web.dto.enu;
 
+import lombok.Getter;
+
+@Getter
 public enum MemberStatusEnuDto {
     INACTIVE(0),
     SUSPENDED(10),
@@ -10,9 +13,5 @@ public enum MemberStatusEnuDto {
 
     MemberStatusEnuDto(final Integer val) {
         this.val = val;
-    }
-
-    public Integer getVal() {
-        return val;
     }
 }

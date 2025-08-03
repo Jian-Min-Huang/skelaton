@@ -1,13 +1,16 @@
 package com.example.member.service.infrastructure.data.persistence.mapper;
 
 import com.example.member.application.adapter.entity.MemberModel;
+import com.example.member.application.adapter.vo.PhoneNumberVoModel;
+import com.example.member.application.adapter.vo.enu.GenderEnuModel;
+import com.example.member.application.adapter.vo.enu.MemberStatusEnuModel;
 import com.example.member.service.infrastructure.data.persistence.po.MemberPo;
 
 public class MemberMapper {
     public static MemberPo toPo(final MemberModel memberModel) {
         return MemberPo
                 .builder()
-                .id(null)
+                .id(memberModel.getId())
                 .createdBy(memberModel.getCreatedBy())
                 .lastModifiedBy(memberModel.getLastModifiedBy())
                 .deletedBy(memberModel.getDeletedBy())
@@ -20,9 +23,9 @@ public class MemberMapper {
                 .firstName(memberModel.getFirstName())
                 .lastName(memberModel.getLastName())
                 .email(memberModel.getEmail())
-                .phoneNumber("")
-                .gender(0)
-                .status(0)
+                .phoneNumber(memberModel.getPhoneNumber().getCountryCode() + memberModel.getPhoneNumber().getNumber())
+                .gender(memberModel.getGender().getVal())
+                .status(memberModel.getStatus().getVal())
                 .build();
     }
 
@@ -42,9 +45,9 @@ public class MemberMapper {
                 .firstName(memberPo.getFirstName())
                 .lastName(memberPo.getLastName())
                 .email(memberPo.getEmail())
-                .phoneNumber(null)
-                .gender(null)
-                .status(null)
+                .phoneNumber(PhoneNumberVoModel.fromRawString(memberPo.getPhoneNumber()))
+                .gender(GenderEnuModel.fromVal(memberPo.getGender()))
+                .status(MemberStatusEnuModel.fromVal(memberPo.getStatus()))
                 .build();
     }
 }

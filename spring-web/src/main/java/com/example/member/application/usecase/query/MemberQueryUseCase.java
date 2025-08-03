@@ -4,7 +4,9 @@ import com.example.common.ca.adapter.EventBus;
 import com.example.common.ca.cqrs.CqrsInput;
 import com.example.common.ca.cqrs.CqrsOutput;
 import com.example.common.ca.cqrs.CqrsTemplate;
+import com.example.common.data.Pagination;
 import com.example.member.application.adapter.entity.MemberModel;
+import com.example.member.application.adapter.projector.MemberProjector;
 import com.example.member.application.adapter.repository.readonly.MemberReadonlyRepository;
 import com.example.member.application.usecase.port.input.QueryMemberInput;
 import com.example.member.application.usecase.port.input.QueryMembersInput;
@@ -26,10 +28,12 @@ public class MemberQueryUseCase implements CqrsTemplate {
                 final Optional<MemberModel> memberModel = memberReadonlyRepository.findById(queryMemberInput.getId());
 
                 return memberModel
-                        .map(CqrsOutput::success)
+                        .map(v -> CqrsOutput.success(MemberProjector.toOutput(v)))
                         .orElseGet(() -> CqrsOutput.failure("Member not found, ID: " + queryMemberInput.getId()));
             } else if (input instanceof QueryMembersInput queryMembersInput) {
-                return CqrsOutput.failure(MemberQueryUseCase.class.getSimpleName() + " Invalid Input: " + input.toString());
+                final Pagination<MemberModel> memberModels = null;
+
+                return CqrsOutput.success(MemberProjector.toOutput(memberModels));
             } else {
                 return CqrsOutput.failure(MemberQueryUseCase.class.getSimpleName() + " Invalid Input: " + input.toString());
             }
