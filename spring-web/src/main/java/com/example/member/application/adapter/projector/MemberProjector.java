@@ -1,17 +1,19 @@
 package com.example.member.application.adapter.projector;
 
 import com.example.common.data.Pagination;
-import com.example.member.application.adapter.entity.MemberModel;
-import com.example.member.application.adapter.vo.enu.MemberStatusEnuModel;
-import com.example.member.application.usecase.port.input.CreateMemberInput;
-import com.example.member.application.usecase.port.input.ModifyMemberEmailInput;
-import com.example.member.application.usecase.port.output.QueryMemberOutputData;
+import com.example.member.application.port.input.CreateMemberInput;
+import com.example.member.application.port.input.ModifyMemberEmailInput;
+import com.example.member.application.port.output.QueryMemberOutputData;
+import com.example.member.domain.entity.Member;
+import com.example.member.domain.vo.PhoneNumber;
+import com.example.member.domain.vo.enu.Gender;
+import com.example.member.domain.vo.enu.MemberStatus;
 
 import java.time.Instant;
 
 public class MemberProjector {
-    public static MemberModel toMemberModel(final CreateMemberInput input) {
-        return MemberModel
+    public static Member toEntity(final CreateMemberInput input) {
+        return Member
                 .builder()
                 .id(null)
                 .createdBy(null)
@@ -25,25 +27,25 @@ public class MemberProjector {
                 .firstName(input.getFirstName())
                 .lastName(input.getLastName())
                 .email(input.getEmail())
-                .phoneNumber(input.getPhoneNumber())
-                .gender(input.getGender())
-                .status(MemberStatusEnuModel.INACTIVE)
+                .phoneNumber(PhoneNumber.builder().countryCode(input.getPhoneNumber().getCountryCode()).number(input.getPhoneNumber().getNumber()).build())
+                .gender(Gender.fromVal(input.getGender().getVal()))
+                .status(MemberStatus.INACTIVE)
                 .build();
     }
 
-    public static MemberModel toMemberModel(final ModifyMemberEmailInput input) {
-        return MemberModel
+    public static Member toEntity(final ModifyMemberEmailInput input) {
+        return Member
                 .builder()
                 .id(input.getId())
                 .email(input.getEmail())
                 .build();
     }
 
-    public static QueryMemberOutputData toOutput(final MemberModel memberModel) {
+    public static QueryMemberOutputData toOutput(final Member enitty) {
         return null;
     }
 
-    public static Pagination<QueryMemberOutputData> toOutput(final Pagination<MemberModel> memberModel) {
+    public static Pagination<QueryMemberOutputData> toOutput(final Pagination<Member> enitties) {
         return null;
     }
 }

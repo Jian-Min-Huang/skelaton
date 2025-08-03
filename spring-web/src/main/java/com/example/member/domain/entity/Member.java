@@ -5,12 +5,12 @@ import com.example.member.domain.vo.PhoneNumber;
 import com.example.member.domain.vo.enu.Gender;
 import com.example.member.domain.vo.enu.MemberStatus;
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
+import lombok.experimental.SuperBuilder;
 
-@Builder(toBuilder = true)
+@SuperBuilder(toBuilder = true)
 @Data
 @NoArgsConstructor
 @AllArgsConstructor

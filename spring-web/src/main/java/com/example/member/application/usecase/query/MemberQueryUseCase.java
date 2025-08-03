@@ -1,15 +1,15 @@
 package com.example.member.application.usecase.query;
 
-import com.example.common.ca.adapter.EventBus;
+import com.example.common.ca.EventBus;
 import com.example.common.ca.cqrs.CqrsInput;
 import com.example.common.ca.cqrs.CqrsOutput;
 import com.example.common.ca.cqrs.CqrsTemplate;
 import com.example.common.data.Pagination;
-import com.example.member.application.adapter.entity.MemberModel;
 import com.example.member.application.adapter.projector.MemberProjector;
-import com.example.member.application.adapter.repository.readonly.MemberReadonlyRepository;
-import com.example.member.application.usecase.port.input.QueryMemberInput;
-import com.example.member.application.usecase.port.input.QueryMembersInput;
+import com.example.member.application.port.input.QueryMemberInput;
+import com.example.member.application.port.input.QueryMembersInput;
+import com.example.member.domain.entity.Member;
+import com.example.member.domain.repository.readonly.MemberReadonlyRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
@@ -19,21 +19,26 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class MemberQueryUseCase implements CqrsTemplate {
     private final EventBus eventBus;
-    private final MemberReadonlyRepository<MemberModel, Long> memberReadonlyRepository;
+    private final MemberReadonlyRepository<Member, Long> memberReadonlyRepository;
 
     @Override
     public CqrsOutput<?> execute(final CqrsInput<?> input) {
         try {
             if (input instanceof QueryMemberInput queryMemberInput) {
-                final Optional<MemberModel> memberModel = memberReadonlyRepository.findById(queryMemberInput.getId());
+                final Optional<Member> entity = memberReadonlyRepository.findById(queryMemberInput.getId());
 
-                return memberModel
-                        .map(v -> CqrsOutput.success(MemberProjector.toOutput(v)))
+                return entity
+                        .map(element -> CqrsOutput.success(MemberProjector.toOutput(element)))
                         .orElseGet(() -> CqrsOutput.failure("Member not found, ID: " + queryMemberInput.getId()));
             } else if (input instanceof QueryMembersInput queryMembersInput) {
-                final Pagination<MemberModel> memberModels = null;
+                final Pagination<Member> entities = memberReadonlyRepository.findAll(
+                        queryMembersInput.getRegisteredInXDays(),
+                        queryMembersInput.getStatusList(),
+                        queryMembersInput.getPageNumber(),
+                        queryMembersInput.getPageSize()
+                );
 
-                return CqrsOutput.success(MemberProjector.toOutput(memberModels));
+                return CqrsOutput.success(MemberProjector.toOutput(entities));
             } else {
                 return CqrsOutput.failure(MemberQueryUseCase.class.getSimpleName() + " Invalid Input: " + input.toString());
             }
