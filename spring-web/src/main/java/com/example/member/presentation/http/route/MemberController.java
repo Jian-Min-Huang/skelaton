@@ -1,4 +1,4 @@
-package com.example.member.presentation.web.route;
+package com.example.member.presentation.http.route;
 
 import com.example.common.ca.cqrs.CqrsOutput;
 import com.example.common.ca.cqrs.ExitCode;
@@ -11,12 +11,12 @@ import com.example.member.application.port.input.RemoveMemberInput;
 import com.example.member.application.port.output.QueryMemberOutputData;
 import com.example.member.application.usecase.command.MemberCommandUseCase;
 import com.example.member.application.usecase.query.MemberQueryUseCase;
-import com.example.member.presentation.web.converter.MemberConverter;
-import com.example.member.presentation.web.protocol.MemberProtocol;
-import com.example.member.presentation.web.request.CreateMemberRequest;
-import com.example.member.presentation.web.request.ModifyMemberEmailRequest;
-import com.example.member.presentation.web.request.QueryMembersRequest;
-import com.example.member.presentation.web.response.QueryMemberResponse;
+import com.example.member.presentation.http.converter.MemberConverter;
+import com.example.member.presentation.http.protocol.MemberProtocol;
+import com.example.member.presentation.http.request.CreateMemberRequest;
+import com.example.member.presentation.http.request.ModifyMemberEmailRequest;
+import com.example.member.presentation.http.request.QueryMembersRequest;
+import com.example.member.presentation.http.response.QueryMemberResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;

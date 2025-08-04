@@ -1,4 +1,4 @@
-package com.example.member.presentation.web.dto;
+package com.example.member.presentation.http.dto;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.NotBlank;

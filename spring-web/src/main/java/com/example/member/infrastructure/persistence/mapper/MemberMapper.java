@@ -1,8 +1,8 @@
-package com.example.member.infrastructure.data.persistence.mapper;
+package com.example.member.infrastructure.persistence.mapper;
 
 import com.example.member.domain.entity.Member;
 import com.example.member.domain.vo.PhoneNumber;
-import com.example.member.infrastructure.data.persistence.po.MemberPo;
+import com.example.member.infrastructure.persistence.po.MemberPo;
 
 import java.time.Instant;
 

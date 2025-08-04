@@ -1,4 +1,4 @@
-package com.example.member.presentation.web.dto.enu;
+package com.example.member.presentation.http.dto.enu;
 
 public enum GenderEnuDto {
     MALE,

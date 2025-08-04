@@ -1,10 +1,10 @@
-package com.example.member.presentation.web.protocol;
+package com.example.member.presentation.http.protocol;
 
 import com.example.common.data.Pagination;
-import com.example.member.presentation.web.request.CreateMemberRequest;
-import com.example.member.presentation.web.request.ModifyMemberEmailRequest;
-import com.example.member.presentation.web.request.QueryMembersRequest;
-import com.example.member.presentation.web.response.QueryMemberResponse;
+import com.example.member.presentation.http.request.CreateMemberRequest;
+import com.example.member.presentation.http.request.ModifyMemberEmailRequest;
+import com.example.member.presentation.http.request.QueryMembersRequest;
+import com.example.member.presentation.http.response.QueryMemberResponse;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;

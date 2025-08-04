@@ -1,6 +1,6 @@
-package com.example.member.presentation.web.request;
+package com.example.member.presentation.http.request;
 
-import com.example.member.presentation.web.dto.enu.MemberStatusEnuDto;
+import com.example.member.presentation.http.dto.enu.MemberStatusEnuDto;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;

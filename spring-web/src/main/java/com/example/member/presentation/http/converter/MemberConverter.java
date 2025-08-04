@@ -1,4 +1,4 @@
-package com.example.member.presentation.web.converter;
+package com.example.member.presentation.http.converter;
 
 import com.example.member.application.adapter.vo.PhoneNumberVoModel;
 import com.example.member.application.adapter.vo.enu.GenderEnuModel;
@@ -9,13 +9,13 @@ import com.example.member.application.port.input.QueryMemberInput;
 import com.example.member.application.port.input.QueryMembersInput;
 import com.example.member.application.port.input.RemoveMemberInput;
 import com.example.member.application.port.output.QueryMemberOutputData;
-import com.example.member.presentation.web.dto.PhoneNumberDto;
-import com.example.member.presentation.web.dto.enu.GenderEnuDto;
-import com.example.member.presentation.web.dto.enu.MemberStatusEnuDto;
-import com.example.member.presentation.web.request.CreateMemberRequest;
-import com.example.member.presentation.web.request.ModifyMemberEmailRequest;
-import com.example.member.presentation.web.request.QueryMembersRequest;
-import com.example.member.presentation.web.response.QueryMemberResponse;
+import com.example.member.presentation.http.dto.PhoneNumberDto;
+import com.example.member.presentation.http.dto.enu.GenderEnuDto;
+import com.example.member.presentation.http.dto.enu.MemberStatusEnuDto;
+import com.example.member.presentation.http.request.CreateMemberRequest;
+import com.example.member.presentation.http.request.ModifyMemberEmailRequest;
+import com.example.member.presentation.http.request.QueryMembersRequest;
+import com.example.member.presentation.http.response.QueryMemberResponse;
 
 public class MemberConverter {
     public static CreateMemberInput toCreateMemberInput(final CreateMemberRequest request) {

@@ -1,8 +1,8 @@
-package com.example.member.presentation.web.response;
+package com.example.member.presentation.http.response;
 
-import com.example.member.presentation.web.dto.PhoneNumberDto;
-import com.example.member.presentation.web.dto.enu.GenderEnuDto;
-import com.example.member.presentation.web.dto.enu.MemberStatusEnuDto;
+import com.example.member.presentation.http.dto.PhoneNumberDto;
+import com.example.member.presentation.http.dto.enu.GenderEnuDto;
+import com.example.member.presentation.http.dto.enu.MemberStatusEnuDto;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AllArgsConstructor;
 import lombok.Builder;

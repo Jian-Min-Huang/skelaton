@@ -1,4 +1,4 @@
-package com.example.member.presentation.web.request;
+package com.example.member.presentation.http.request;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.Email;

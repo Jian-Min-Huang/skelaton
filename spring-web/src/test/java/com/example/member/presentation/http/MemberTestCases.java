@@ -1,13 +1,13 @@
-package com.example.member.presentation.web;
+package com.example.member.presentation.http;
 
 import com.example.common.data.Pagination;
-import com.example.member.presentation.web.dto.PhoneNumberDto;
-import com.example.member.presentation.web.dto.enu.GenderEnuDto;
-import com.example.member.presentation.web.dto.enu.MemberStatusEnuDto;
-import com.example.member.presentation.web.request.CreateMemberRequest;
-import com.example.member.presentation.web.request.ModifyMemberEmailRequest;
-import com.example.member.presentation.web.request.QueryMembersRequest;
-import com.example.member.presentation.web.response.QueryMemberResponse;
+import com.example.member.presentation.http.dto.PhoneNumberDto;
+import com.example.member.presentation.http.dto.enu.GenderEnuDto;
+import com.example.member.presentation.http.dto.enu.MemberStatusEnuDto;
+import com.example.member.presentation.http.request.CreateMemberRequest;
+import com.example.member.presentation.http.request.ModifyMemberEmailRequest;
+import com.example.member.presentation.http.request.QueryMembersRequest;
+import com.example.member.presentation.http.response.QueryMemberResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpHeaders;

@@ -1,10 +1,10 @@
-package com.example.member.presentation.web;
+package com.example.member.presentation.http;
 
 import com.example.common.TestcontainersConfiguration;
 import com.example.common.data.Pagination;
-import com.example.member.presentation.web.dto.PhoneNumberDto;
-import com.example.member.presentation.web.dto.enu.GenderEnuDto;
-import com.example.member.presentation.web.response.QueryMemberResponse;
+import com.example.member.presentation.http.dto.PhoneNumberDto;
+import com.example.member.presentation.http.dto.enu.GenderEnuDto;
+import com.example.member.presentation.http.response.QueryMemberResponse;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;

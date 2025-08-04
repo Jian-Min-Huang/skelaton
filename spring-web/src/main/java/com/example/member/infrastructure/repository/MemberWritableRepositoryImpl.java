@@ -1,10 +1,10 @@
-package com.example.member.infrastructure.data.repository;
+package com.example.member.infrastructure.repository;
 
 import com.example.member.domain.entity.Member;
 import com.example.member.domain.repository.writable.MemberWritableRepository;
-import com.example.member.infrastructure.data.persistence.dao.MemberDao;
-import com.example.member.infrastructure.data.persistence.mapper.MemberMapper;
-import com.example.member.infrastructure.data.persistence.po.MemberPo;
+import com.example.member.infrastructure.persistence.dao.MemberDao;
+import com.example.member.infrastructure.persistence.mapper.MemberMapper;
+import com.example.member.infrastructure.persistence.po.MemberPo;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 

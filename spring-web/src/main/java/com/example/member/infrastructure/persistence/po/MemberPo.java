@@ -1,4 +1,4 @@
-package com.example.member.infrastructure.data.persistence.po;
+package com.example.member.infrastructure.persistence.po;
 
 import com.example.member.domain.vo.enu.Gender;
 import com.example.member.domain.vo.enu.MemberStatus;

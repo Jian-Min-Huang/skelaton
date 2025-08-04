@@ -1,7 +1,7 @@
-package com.example.member.presentation.web.request;
+package com.example.member.presentation.http.request;
 
-import com.example.member.presentation.web.dto.PhoneNumberDto;
-import com.example.member.presentation.web.dto.enu.GenderEnuDto;
+import com.example.member.presentation.http.dto.PhoneNumberDto;
+import com.example.member.presentation.http.dto.enu.GenderEnuDto;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.Email;

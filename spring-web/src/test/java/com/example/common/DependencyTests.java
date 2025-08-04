@@ -32,12 +32,12 @@ public class DependencyTests {
                 .layeredArchitecture().consideringOnlyDependenciesInLayers()
 
                 .layer("Presentation").definedBy(
-                        BASE_PACKAGE + "..presentation.web.converter..",
-                        BASE_PACKAGE + "..presentation.web.dto..",
-                        BASE_PACKAGE + "..presentation.web.protocol..",
-                        BASE_PACKAGE + "..presentation.web.request..",
-                        BASE_PACKAGE + "..presentation.web.response..",
-                        BASE_PACKAGE + "..presentation.web.route..")
+                        BASE_PACKAGE + "..presentation.http.converter..",
+                        BASE_PACKAGE + "..presentation.http.dto..",
+                        BASE_PACKAGE + "..presentation.http.protocol..",
+                        BASE_PACKAGE + "..presentation.http.request..",
+                        BASE_PACKAGE + "..presentation.http.response..",
+                        BASE_PACKAGE + "..presentation.http.route..")
                 .layer("Application").definedBy(
                         BASE_PACKAGE + "..application.adapter..",
                         BASE_PACKAGE + "..application.port..",
@@ -50,7 +50,8 @@ public class DependencyTests {
                         BASE_PACKAGE + "..domain.vo..")
                 .layer("Infrastructure").definedBy(
                         BASE_PACKAGE + "..infrastructure.config..",
-                        BASE_PACKAGE + "..infrastructure.data..",
+                        BASE_PACKAGE + "..infrastructure.persistence..",
+                        BASE_PACKAGE + "..infrastructure.repository..",
                         BASE_PACKAGE + "..infrastructure.eventbus..")
 
                 .whereLayer("Presentation").mayNotBeAccessedByAnyLayer()
