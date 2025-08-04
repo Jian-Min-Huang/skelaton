@@ -8,6 +8,8 @@ import com.example.member.infrastructure.data.persistence.po.MemberPo;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
+import java.time.Instant;
+
 @Repository
 @RequiredArgsConstructor
 public class MemberWritableRepositoryImpl implements MemberWritableRepository<Member, Long> {
@@ -15,24 +17,38 @@ public class MemberWritableRepositoryImpl implements MemberWritableRepository<Me
 
     @Override
     public void modifyEmail(final Member data) {
+        memberDao
+                .findById(data.getId())
+                .ifPresent(element -> {
+                    element.setEmail(data.getEmail());
+                    element.setLastModifyTime(Instant.now());
 
+                    memberDao.save(element);
+                });
     }
 
     @Override
     public void remove(final Long id) {
-
+        memberDao.deleteById(id);
     }
 
     @Override
     public Member save(final Member data) {
-        final MemberPo po = MemberMapper.toPo(data);
+        final MemberPo po = MemberMapper.toNewPo(data);
         final MemberPo save = memberDao.save(po);
 
-        return MemberMapper.toModel(save);
+        return MemberMapper.toEntity(save);
     }
 
     @Override
     public void markDeleted(final Long id) {
+        memberDao
+                .findById(id)
+                .ifPresent(element -> {
+                    element.setDeleted(1);
+                    element.setDeleteTime(Instant.now());
 
+                    memberDao.save(element);
+                });
     }
 }

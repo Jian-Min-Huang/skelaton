@@ -34,7 +34,7 @@ public class MemberQueryUseCase implements CqrsTemplate {
             } else if (input instanceof QueryMembersInput queryMembersInput) {
                 final Pagination<Member> entities = memberReadonlyRepository.findAll(
                         queryMembersInput.getRegisteredInXDays(),
-                        queryMembersInput.getStatusList().stream().map(element -> MemberStatus.fromVal(element.getVal())).toList(),
+                        queryMembersInput.getStatuses().stream().map(element -> MemberStatus.valueOf(element.name())).toList(),
                         queryMembersInput.getPageNumber(),
                         queryMembersInput.getPageSize()
                 );

@@ -15,7 +15,7 @@ import java.util.List;
 @EqualsAndHashCode(callSuper = true)
 public class QueryMembersInput extends CqrsInput<Long> {
     private Integer registeredInXDays;
-    private List<MemberStatusEnuModel> statusList;
+    private List<MemberStatusEnuModel> statuses;
     private Integer pageNumber;
     private Integer pageSize;
 }

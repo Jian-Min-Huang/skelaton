@@ -9,7 +9,7 @@ import java.util.List;
 public interface MemberReadonlyRepository<T, ID> extends ReadonlyRepository<T, ID> {
     Pagination<T> findAll(
             final Integer registeredInXDays,
-            final List<MemberStatus> statusList,
+            final List<MemberStatus> statuses,
             final Integer pageNumber,
             final Integer pageSize
     );

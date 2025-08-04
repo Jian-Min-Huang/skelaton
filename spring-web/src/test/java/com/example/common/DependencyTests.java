@@ -56,7 +56,6 @@ public class DependencyTests {
                 .whereLayer("Presentation").mayNotBeAccessedByAnyLayer()
                 .whereLayer("Application").mayOnlyBeAccessedByLayers("Presentation", "Infrastructure")
                 .whereLayer("Domain").mayOnlyBeAccessedByLayers("Application", "Infrastructure")
-                .whereLayer("Infrastructure").mayOnlyAccessLayers("Application", "Domain")
 
                 .ensureAllClassesAreContainedInArchitecture()
                 // but ignore com.example.common.. and com.example.*Application
@@ -96,7 +95,7 @@ public class DependencyTests {
         return new DescribedPredicate<>("Classes to ignore in architecture validation") {
             @Override
             public boolean test(final JavaClass javaClass) {
-                return isInCommonPackage(javaClass) /*|| isInFacadePackage(javaClass) || isController(javaClass) || isService(javaClass)*/ || isApplication(javaClass);
+                return isInCommonPackage(javaClass) || isApplication(javaClass);
             }
 
             private boolean isInCommonPackage(final JavaClass javaClass) {

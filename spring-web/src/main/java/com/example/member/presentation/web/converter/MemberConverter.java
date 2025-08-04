@@ -41,7 +41,7 @@ public class MemberConverter {
         return QueryMembersInput
                 .builder()
                 .registeredInXDays(request.getRegisteredInXDays())
-                .statusList(request.getStatusList().stream().map(element -> MemberStatusEnuModel.valueOf(element.name())).toList())
+                .statuses(request.getStatuses().stream().map(element -> MemberStatusEnuModel.valueOf(element.name())).toList())
                 .pageNumber(request.getPageNumber())
                 .pageSize(request.getPageSize())
                 .build();

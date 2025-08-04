@@ -13,7 +13,7 @@ import java.util.Arrays;
 @Aspect
 @Component
 public class LoggingAspect {
-    @Pointcut("execution(* com.example..*(..))")
+    @Pointcut("execution(* com.example..presentation..route..*(..))")
     public void loggingMethod() {
     }
 

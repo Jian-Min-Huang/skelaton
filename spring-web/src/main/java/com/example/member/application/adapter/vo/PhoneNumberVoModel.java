@@ -12,12 +12,4 @@ import lombok.NoArgsConstructor;
 public class PhoneNumberVoModel {
     private String countryCode;
     private String number;
-
-    public static PhoneNumberVoModel fromRawString(final String phoneNumber) {
-        return PhoneNumberVoModel
-                .builder()
-                .countryCode(phoneNumber.substring(0, 4))
-                .number(phoneNumber.substring(4))
-                .build();
-    }
 }

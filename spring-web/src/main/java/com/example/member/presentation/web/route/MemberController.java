@@ -50,12 +50,12 @@ public class MemberController implements MemberProtocol {
     }
 
     @Override
-    public ResponseEntity<QueryMemberResponse> getMemberById(final Long id) {
+    public ResponseEntity<QueryMemberResponse> queryMemberById(final Long id) {
         final QueryMemberInput input = MemberConverter.toQueryMemberInput(id);
         final CqrsOutput<?> output = memberQueryUseCase.execute(input);
 
-        if (output.getExitCode() == ExitCode.SUCCESS && output.getData() != null && output.getData() instanceof QueryMemberOutputData queryMemberOutputData) {
-            final QueryMemberResponse response = MemberConverter.toQueryMemberResponse(queryMemberOutputData);
+        if (output.getExitCode() == ExitCode.SUCCESS && output.getData() != null && output.getData() instanceof QueryMemberOutputData outputData) {
+            final QueryMemberResponse response = MemberConverter.toQueryMemberResponse(outputData);
 
             return ResponseEntity.ok(response);
         } else {
@@ -64,7 +64,7 @@ public class MemberController implements MemberProtocol {
     }
 
     @Override
-    public ResponseEntity<Pagination<QueryMemberResponse>> getMembers(final QueryMembersRequest request) {
+    public ResponseEntity<Pagination<QueryMemberResponse>> queryMembers(final QueryMembersRequest request) {
         final QueryMembersInput input = MemberConverter.toQueryMembersInput(request);
         final CqrsOutput<?> output = memberQueryUseCase.execute(input);
 

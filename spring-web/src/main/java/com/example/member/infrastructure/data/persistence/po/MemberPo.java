@@ -1,6 +1,10 @@
 package com.example.member.infrastructure.data.persistence.po;
 
+import com.example.member.domain.vo.enu.Gender;
+import com.example.member.domain.vo.enu.MemberStatus;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -36,6 +40,8 @@ public class MemberPo {
     private String lastName;
     private String email;
     private String phoneNumber;
-    private Integer gender;
-    private Integer status;
+    @Enumerated(value = EnumType.STRING)
+    private Gender gender;
+    @Enumerated(value = EnumType.STRING)
+    private MemberStatus status;
 }

@@ -21,14 +21,13 @@ public class QueryMembersRequest {
     @Schema(example = "1", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
     @Positive
     private Integer registeredInXDays;
-    @Schema(example = "[SUSPENDED, ACTIVE]", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
-    @PositiveOrZero
-    private List<MemberStatusEnuDto> statusList;
+    @Schema(requiredMode = Schema.RequiredMode.NOT_REQUIRED)
+    private List<MemberStatusEnuDto> statuses;
     @Schema(example = "0", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
-    @Min(value = 0)
+    @PositiveOrZero
     private Integer pageNumber;
     @Schema(example = "20", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
-    @Min(value = 1)
-    @Max(value = 100)
+    @Min(20)
+    @Max(100)
     private Integer pageSize;
 }

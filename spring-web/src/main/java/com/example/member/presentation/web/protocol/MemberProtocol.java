@@ -14,7 +14,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -32,7 +31,7 @@ public interface MemberProtocol {
                     @ApiResponse(responseCode = "400", description = "Invalid input"),
                     @ApiResponse(responseCode = "500", description = "Internal server error")
             })
-    @PostMapping("/api/v1/members")
+    @PostMapping("/api/v1/members:create")
     ResponseEntity<Void> createMember(@RequestBody @Validated final CreateMemberRequest request, final HttpServletRequest httpServletRequest);
 
     @Operation(
@@ -45,7 +44,7 @@ public interface MemberProtocol {
             }
     )
     @GetMapping("/api/v1/members/{id}")
-    ResponseEntity<QueryMemberResponse> getMemberById(@Parameter(description = "member ID", required = true) @PathVariable @Positive final Long id);
+    ResponseEntity<QueryMemberResponse> queryMemberById(@Parameter(description = "member ID", required = true) @PathVariable @Positive final Long id);
 
     @Operation(
             summary = "Get members by various criteria",
@@ -56,8 +55,8 @@ public interface MemberProtocol {
                     @ApiResponse(responseCode = "500", description = "Internal server error")
             }
     )
-    @GetMapping("/api/v1/members")
-    ResponseEntity<Pagination<QueryMemberResponse>> getMembers(@ModelAttribute @Validated final QueryMembersRequest request);
+    @PostMapping("/api/v1/members:queryAll")
+    ResponseEntity<Pagination<QueryMemberResponse>> queryMembers(@RequestBody @Validated final QueryMembersRequest request);
 
     @Operation(
             summary = "Modify a member's email",
