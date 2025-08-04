@@ -69,7 +69,7 @@ public class DependencyTests {
     void domains_should_only_depend_on_other_domains_ipc_package() {
         final JavaClasses importedClasses = new ClassFileImporter().importPackages(BASE_PACKAGE);
 
-        final List<String> domains = List.of("member", "product");
+        final List<String> domains = List.of("member", "product", "order");
 
         for (String domain1 : domains) {
             for (String domain2 : domains) {
