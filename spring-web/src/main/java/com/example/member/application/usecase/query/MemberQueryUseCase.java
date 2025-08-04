@@ -10,6 +10,7 @@ import com.example.member.application.port.input.QueryMemberInput;
 import com.example.member.application.port.input.QueryMembersInput;
 import com.example.member.domain.entity.Member;
 import com.example.member.domain.repository.readonly.MemberReadonlyRepository;
+import com.example.member.domain.vo.enu.MemberStatus;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
@@ -33,7 +34,7 @@ public class MemberQueryUseCase implements CqrsTemplate {
             } else if (input instanceof QueryMembersInput queryMembersInput) {
                 final Pagination<Member> entities = memberReadonlyRepository.findAll(
                         queryMembersInput.getRegisteredInXDays(),
-                        queryMembersInput.getStatusList(),
+                        queryMembersInput.getStatusList().stream().map(element -> MemberStatus.fromVal(element.getVal())).toList(),
                         queryMembersInput.getPageNumber(),
                         queryMembersInput.getPageSize()
                 );

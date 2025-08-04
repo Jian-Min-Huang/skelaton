@@ -2,14 +2,14 @@ package com.example.member.domain.repository.readonly;
 
 import com.example.common.ca.domain.ReadonlyRepository;
 import com.example.common.data.Pagination;
-import com.example.member.application.adapter.vo.enu.MemberStatusEnuModel;
+import com.example.member.domain.vo.enu.MemberStatus;
 
 import java.util.List;
 
 public interface MemberReadonlyRepository<T, ID> extends ReadonlyRepository<T, ID> {
     Pagination<T> findAll(
             final Integer registeredInXDays,
-            final List<MemberStatusEnuModel> statusList,
+            final List<MemberStatus> statusList,
             final Integer pageNumber,
             final Integer pageSize
     );

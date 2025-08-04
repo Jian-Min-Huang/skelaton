@@ -1,9 +1,9 @@
 package com.example.member.infrastructure.data.repository;
 
 import com.example.common.data.Pagination;
-import com.example.member.application.adapter.vo.enu.MemberStatusEnuModel;
 import com.example.member.domain.entity.Member;
 import com.example.member.domain.repository.readonly.MemberReadonlyRepository;
+import com.example.member.domain.vo.enu.MemberStatus;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -17,7 +17,7 @@ public class MemberReadonlyRepositoryImpl implements MemberReadonlyRepository<Me
     }
 
     @Override
-    public Pagination<Member> findAll(final Integer registeredInXDays, final List<MemberStatusEnuModel> statusList, final Integer pageNumber, final Integer pageSize) {
+    public Pagination<Member> findAll(final Integer registeredInXDays, final List<MemberStatus> statusList, final Integer pageNumber, final Integer pageSize) {
         return null;
     }
 }
