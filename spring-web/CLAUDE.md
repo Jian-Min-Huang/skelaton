@@ -23,7 +23,7 @@ pattern with DDD (Domain-Driven Design) principles.
 
 ### Package Structure by Domain
 
-Each domain (currently `member`) follows this structure:
+Each domain (currently `member`, `product`) follows this structure:
 
 - `application/`: Use cases, ports, adapters, VOs
     - `usecase/command/`: Command operations (create, modify, remove)

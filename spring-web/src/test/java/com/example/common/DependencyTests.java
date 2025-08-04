@@ -69,7 +69,7 @@ public class DependencyTests {
     void domains_should_only_depend_on_other_domains_ipc_package() {
         final JavaClasses importedClasses = new ClassFileImporter().importPackages(BASE_PACKAGE);
 
-        final List<String> domains = List.of("member");
+        final List<String> domains = List.of("member", "product");
 
         for (String domain1 : domains) {
             for (String domain2 : domains) {
@@ -83,6 +83,8 @@ public class DependencyTests {
                         .resideInAnyPackage(
                                 BASE_PACKAGE + "." + domain1 + "..",
                                 BASE_PACKAGE + "." + domain2 + ".presentation.ipc..",
+                                BASE_PACKAGE + ".common..",
+                                "io.swagger..",
                                 "java..",
                                 "jakarta..",
                                 "org..",

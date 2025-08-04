@@ -1,4 +1,4 @@
-package com.example.member.presentation.http;
+package com.example.member.presentation.http.route;
 
 import com.example.common.data.Pagination;
 import com.example.member.presentation.http.dto.PhoneNumberDto;
