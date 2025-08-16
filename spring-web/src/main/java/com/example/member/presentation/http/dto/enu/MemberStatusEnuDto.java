@@ -4,5 +4,5 @@ public enum MemberStatusEnuDto {
     INACTIVE,
     SUSPENDED,
     ACTIVE,
-    DELETED;
+    DELETED
 }
