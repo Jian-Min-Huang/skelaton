@@ -3,11 +3,11 @@ package com.example.member.presentation.http.route;
 import com.example.common.ca.cqrs.CqrsOutput;
 import com.example.common.ca.cqrs.ExitCode;
 import com.example.common.data.Pagination;
-import com.example.member.application.port.input.CreateMemberInput;
-import com.example.member.application.port.input.ModifyMemberEmailInput;
-import com.example.member.application.port.input.QueryMemberInput;
-import com.example.member.application.port.input.QueryMembersInput;
-import com.example.member.application.port.input.RemoveMemberInput;
+import com.example.member.application.port.input.CreateMemberInputData;
+import com.example.member.application.port.input.ModifyMemberEmailInputData;
+import com.example.member.application.port.input.QueryMemberInputData;
+import com.example.member.application.port.input.QueryMembersInputData;
+import com.example.member.application.port.input.RemoveMemberInputData;
 import com.example.member.application.port.output.QueryMemberOutputData;
 import com.example.member.application.usecase.command.MemberCommandUseCase;
 import com.example.member.application.usecase.query.MemberQueryUseCase;
@@ -37,7 +37,7 @@ public class MemberController implements MemberProtocol {
 
     @Override
     public ResponseEntity<Void> createMember(final CreateMemberRequest request, final HttpServletRequest httpServletRequest) {
-        final CreateMemberInput input = MemberConverter.toCreateMemberInput(request);
+        final CreateMemberInputData input = MemberConverter.toCreateMemberInput(request);
         final CqrsOutput<?> output = memberCommandUseCase.execute(input);
 
         if (output.getExitCode() == ExitCode.SUCCESS && output.getData() != null && output.getData() instanceof Long id) {
@@ -51,7 +51,7 @@ public class MemberController implements MemberProtocol {
 
     @Override
     public ResponseEntity<QueryMemberResponse> queryMemberById(final Long id) {
-        final QueryMemberInput input = MemberConverter.toQueryMemberInput(id);
+        final QueryMemberInputData input = MemberConverter.toQueryMemberInput(id);
         final CqrsOutput<?> output = memberQueryUseCase.execute(input);
 
         if (output.getExitCode() == ExitCode.SUCCESS && output.getData() != null && output.getData() instanceof QueryMemberOutputData outputData) {
@@ -65,7 +65,7 @@ public class MemberController implements MemberProtocol {
 
     @Override
     public ResponseEntity<Pagination<QueryMemberResponse>> queryMembers(final QueryMembersRequest request) {
-        final QueryMembersInput input = MemberConverter.toQueryMembersInput(request);
+        final QueryMembersInputData input = MemberConverter.toQueryMembersInput(request);
         final CqrsOutput<?> output = memberQueryUseCase.execute(input);
 
         if (output.getExitCode() == ExitCode.SUCCESS
@@ -90,7 +90,7 @@ public class MemberController implements MemberProtocol {
 
     @Override
     public ResponseEntity<Void> modifyMemberEmail(final ModifyMemberEmailRequest request) {
-        final ModifyMemberEmailInput input = MemberConverter.toModifyMemberInput(request);
+        final ModifyMemberEmailInputData input = MemberConverter.toModifyMemberInput(request);
         final CqrsOutput<?> output = memberCommandUseCase.execute(input);
 
         if (output.getExitCode() == ExitCode.SUCCESS) {
@@ -102,7 +102,7 @@ public class MemberController implements MemberProtocol {
 
     @Override
     public ResponseEntity<Void> removeMemberById(final Long id) {
-        final RemoveMemberInput input = MemberConverter.toRemoveMemberInput(id);
+        final RemoveMemberInputData input = MemberConverter.toRemoveMemberInput(id);
         final CqrsOutput<?> output = memberCommandUseCase.execute(input);
 
         if (output.getExitCode() == ExitCode.SUCCESS) {

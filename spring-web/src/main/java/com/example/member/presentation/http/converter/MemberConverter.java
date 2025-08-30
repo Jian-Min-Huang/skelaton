@@ -3,11 +3,11 @@ package com.example.member.presentation.http.converter;
 import com.example.member.application.adapter.vo.PhoneNumberVoModel;
 import com.example.member.application.adapter.vo.enu.GenderEnuModel;
 import com.example.member.application.adapter.vo.enu.MemberStatusEnuModel;
-import com.example.member.application.port.input.CreateMemberInput;
-import com.example.member.application.port.input.ModifyMemberEmailInput;
-import com.example.member.application.port.input.QueryMemberInput;
-import com.example.member.application.port.input.QueryMembersInput;
-import com.example.member.application.port.input.RemoveMemberInput;
+import com.example.member.application.port.input.CreateMemberInputData;
+import com.example.member.application.port.input.ModifyMemberEmailInputData;
+import com.example.member.application.port.input.QueryMemberInputData;
+import com.example.member.application.port.input.QueryMembersInputData;
+import com.example.member.application.port.input.RemoveMemberInputData;
 import com.example.member.application.port.output.QueryMemberOutputData;
 import com.example.member.presentation.http.dto.PhoneNumberDto;
 import com.example.member.presentation.http.dto.enu.GenderEnuDto;
@@ -18,8 +18,8 @@ import com.example.member.presentation.http.request.QueryMembersRequest;
 import com.example.member.presentation.http.response.QueryMemberResponse;
 
 public class MemberConverter {
-    public static CreateMemberInput toCreateMemberInput(final CreateMemberRequest request) {
-        return CreateMemberInput
+    public static CreateMemberInputData toCreateMemberInput(final CreateMemberRequest request) {
+        return CreateMemberInputData
                 .builder()
                 .id(null)
                 .firstName(request.getFirstName())
@@ -30,15 +30,15 @@ public class MemberConverter {
                 .build();
     }
 
-    public static QueryMemberInput toQueryMemberInput(final Long id) {
-        return QueryMemberInput
+    public static QueryMemberInputData toQueryMemberInput(final Long id) {
+        return QueryMemberInputData
                 .builder()
                 .id(id)
                 .build();
     }
 
-    public static QueryMembersInput toQueryMembersInput(final QueryMembersRequest request) {
-        return QueryMembersInput
+    public static QueryMembersInputData toQueryMembersInput(final QueryMembersRequest request) {
+        return QueryMembersInputData
                 .builder()
                 .registeredInXDays(request.getRegisteredInXDays())
                 .statuses(request.getStatuses().stream().map(element -> MemberStatusEnuModel.valueOf(element.name())).toList())
@@ -47,16 +47,16 @@ public class MemberConverter {
                 .build();
     }
 
-    public static ModifyMemberEmailInput toModifyMemberInput(final ModifyMemberEmailRequest request) {
-        return ModifyMemberEmailInput
+    public static ModifyMemberEmailInputData toModifyMemberInput(final ModifyMemberEmailRequest request) {
+        return ModifyMemberEmailInputData
                 .builder()
                 .id(request.getId())
                 .email(request.getEmail())
                 .build();
     }
 
-    public static RemoveMemberInput toRemoveMemberInput(final Long id) {
-        return RemoveMemberInput
+    public static RemoveMemberInputData toRemoveMemberInput(final Long id) {
+        return RemoveMemberInputData
                 .builder()
                 .id(id)
                 .build();

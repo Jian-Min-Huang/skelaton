@@ -4,8 +4,8 @@ import com.example.common.data.Pagination;
 import com.example.member.application.adapter.vo.PhoneNumberVoModel;
 import com.example.member.application.adapter.vo.enu.GenderEnuModel;
 import com.example.member.application.adapter.vo.enu.MemberStatusEnuModel;
-import com.example.member.application.port.input.CreateMemberInput;
-import com.example.member.application.port.input.ModifyMemberEmailInput;
+import com.example.member.application.port.input.CreateMemberInputData;
+import com.example.member.application.port.input.ModifyMemberEmailInputData;
 import com.example.member.application.port.output.QueryMemberOutputData;
 import com.example.member.domain.entity.Member;
 import com.example.member.domain.vo.PhoneNumber;
@@ -13,7 +13,7 @@ import com.example.member.domain.vo.enu.Gender;
 import com.example.member.domain.vo.enu.MemberStatus;
 
 public class MemberProjector {
-    public static Member toEntity(final CreateMemberInput input) {
+    public static Member toEntity(final CreateMemberInputData input) {
         return Member
                 .builder()
                 .id(null)
@@ -34,7 +34,7 @@ public class MemberProjector {
                 .build();
     }
 
-    public static Member toEntity(final ModifyMemberEmailInput input) {
+    public static Member toEntity(final ModifyMemberEmailInputData input) {
         return Member
                 .builder()
                 .id(input.getId())

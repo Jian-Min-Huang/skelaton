@@ -6,8 +6,8 @@ import com.example.common.ca.cqrs.CqrsOutput;
 import com.example.common.ca.cqrs.CqrsTemplate;
 import com.example.common.data.Pagination;
 import com.example.member.application.adapter.projector.MemberProjector;
-import com.example.member.application.port.input.QueryMemberInput;
-import com.example.member.application.port.input.QueryMembersInput;
+import com.example.member.application.port.input.QueryMemberInputData;
+import com.example.member.application.port.input.QueryMembersInputData;
 import com.example.member.domain.entity.Member;
 import com.example.member.domain.repository.readonly.MemberReadonlyRepository;
 import com.example.member.domain.vo.enu.MemberStatus;
@@ -25,13 +25,13 @@ public class MemberQueryUseCase implements CqrsTemplate {
     @Override
     public CqrsOutput<?> execute(final CqrsInput<?> input) {
         try {
-            if (input instanceof QueryMemberInput queryMemberInput) {
+            if (input instanceof QueryMemberInputData queryMemberInput) {
                 final Optional<Member> entity = memberReadonlyRepository.findById(queryMemberInput.getId());
 
                 return entity
                         .map(element -> CqrsOutput.success(MemberProjector.toOutput(element)))
                         .orElseGet(() -> CqrsOutput.failure("Member not found, ID: " + queryMemberInput.getId()));
-            } else if (input instanceof QueryMembersInput queryMembersInput) {
+            } else if (input instanceof QueryMembersInputData queryMembersInput) {
                 final Pagination<Member> entities = memberReadonlyRepository.findAll(
                         queryMembersInput.getRegisteredInXDays(),
                         queryMembersInput.getStatuses().stream().map(element -> MemberStatus.valueOf(element.name())).toList(),
