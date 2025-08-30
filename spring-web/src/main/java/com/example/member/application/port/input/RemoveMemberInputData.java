@@ -1,14 +1,14 @@
 package com.example.member.application.port.input;
 
 import com.example.common.ca.cqrs.CqrsInput;
-import lombok.Data;
 import lombok.EqualsAndHashCode;
-import lombok.NoArgsConstructor;
+import lombok.Getter;
+import lombok.ToString;
 import lombok.experimental.SuperBuilder;
 
 @SuperBuilder(toBuilder = true)
-@Data
-@NoArgsConstructor
+@Getter
+@ToString(callSuper = true)
 @EqualsAndHashCode(callSuper = true)
 public class RemoveMemberInputData extends CqrsInput<Long> {
 }

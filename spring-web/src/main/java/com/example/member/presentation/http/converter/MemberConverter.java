@@ -27,6 +27,7 @@ public class MemberConverter {
                 .email(request.getEmail())
                 .phoneNumber(toModel(request.getPhoneNumber()))
                 .gender(toModel(request.getGender()))
+                .status(MemberStatusEnuModel.INACTIVE)
                 .build();
     }
 

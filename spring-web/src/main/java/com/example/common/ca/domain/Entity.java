@@ -1,25 +1,28 @@
 package com.example.common.ca.domain;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.EqualsAndHashCode;
+import lombok.ToString;
 import lombok.experimental.SuperBuilder;
 
 import java.time.Instant;
 
 @SuperBuilder(toBuilder = true)
-@Data
-@NoArgsConstructor
-@AllArgsConstructor
+@ToString
+@EqualsAndHashCode
 public abstract class Entity<ID> {
-    private ID id;
-    private String createdBy;
-    private String lastModifiedBy;
-    private String deletedBy;
-    private Instant createTime;
-    private Instant lastModifyTime;
-    private Instant deleteTime;
-    private String remark;
-    private Integer deleted;
-    private Integer version;
+    public ID id;
+    public String createdBy;
+    public String lastModifiedBy;
+    public String deletedBy;
+    public Instant createTime;
+    public Instant lastModifyTime;
+    public Instant deleteTime;
+    //    protected String remark;
+    public Integer deleted;
+//    protected Integer version;
+
+    protected void markDeleted() {
+        this.deleted = 1;
+        this.deleteTime = Instant.now();
+    }
 }

@@ -1,8 +1,8 @@
-### Presentation Layer (表現層)
+# Presentation Layer (表現層)
 
-#### `com.example.member.presentation.http.converter`
+## `com.example.member.presentation.http.converter`
 
-**職責**：資料轉換器，處理 DTO 與領域物件的轉換
+- 職責：資料轉換器，處理 DTO 與領域物件的轉換
 
 - 實作原則：
 
@@ -10,9 +10,9 @@
 - 處理不同層級間的資料格式轉換
 - 例如：`MemberConverter`
 
-#### `com.example.member.presentation.http.dto.enu`
+## `com.example.member.presentation.http.dto.enu`
 
-**職責**：HTTP 層使用的列舉 DTO
+- 職責：HTTP 層使用的列舉 DTO
 
 - 實作原則：
 
@@ -20,9 +20,9 @@
 - 可能與領域層列舉不同
 - 例如：`GenderEnuDto`、`MemberStatusEnuDto`
 
-#### `com.example.member.presentation.http.dto`
+## `com.example.member.presentation.http.dto`
 
-**職責**：HTTP 傳輸用的資料傳輸物件
+- 職責：HTTP 傳輸用的資料傳輸物件
 
 - 實作原則：
 
@@ -30,9 +30,9 @@
 - 包含序列化註解
 - 例如：`PhoneNumberDto`
 
-#### `com.example.member.presentation.http.protocol`
+## `com.example.member.presentation.http.protocol`
 
-**職責**：定義 HTTP API 協議和回應格式
+- 職責：定義 HTTP API 協議和回應格式
 
 - 實作原則：
 
@@ -40,9 +40,9 @@
 - 錯誤處理標準
 - 例如：`MemberProtocol`
 
-#### `com.example.member.presentation.http.request`
+## `com.example.member.presentation.http.request`
 
-**職責**：HTTP 請求物件
+- 職責：HTTP 請求物件
 
 - 實作原則：
 
@@ -50,9 +50,9 @@
 - 對應 API 端點的輸入格式
 - 例如：`CreateMemberRequest`、`ModifyMemberEmailRequest`
 
-#### `com.example.member.presentation.http.response`
+## `com.example.member.presentation.http.response`
 
-**職責**：HTTP 回應物件
+- 職責：HTTP 回應物件
 
 - 實作原則：
 
@@ -62,7 +62,7 @@
 
 #### `com.example.member.presentation.http.route`
 
-**職責**：REST API 控制器
+- 職責：REST API 控制器
 
 - 實作原則：
 

@@ -26,11 +26,11 @@ public class MemberQueryUseCase implements CqrsTemplate {
     public CqrsOutput<?> execute(final CqrsInput<?> input) {
         try {
             if (input instanceof QueryMemberInputData queryMemberInput) {
-                final Optional<Member> entity = memberReadonlyRepository.findById(queryMemberInput.getId());
+                final Optional<Member> entity = memberReadonlyRepository.findById(queryMemberInput.id);
 
                 return entity
                         .map(element -> CqrsOutput.success(MemberProjector.toOutput(element)))
-                        .orElseGet(() -> CqrsOutput.failure("Member not found, ID: " + queryMemberInput.getId()));
+                        .orElseGet(() -> CqrsOutput.failure("Member not found, ID: " + queryMemberInput.id));
             } else if (input instanceof QueryMembersInputData queryMembersInput) {
                 final Pagination<Member> entities = memberReadonlyRepository.findAll(
                         queryMembersInput.getRegisteredInXDays(),

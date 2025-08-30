@@ -16,39 +16,34 @@ public class MemberWritableRepositoryImpl implements MemberWritableRepository<Me
     private final MemberDao memberDao;
 
     @Override
-    public void modifyEmail(final Member data) {
+    public void modifyEmail(final Member entity) {
         memberDao
-                .findById(data.getId())
-                .ifPresent(element -> {
-                    element.setEmail(data.getEmail());
-                    element.setLastModifyTime(Instant.now());
+                .findById(entity.id)
+                .ifPresent(po -> {
+                    po.setEmail(entity.getEmail());
+                    po.setLastModifyTime(Instant.now());
 
-                    memberDao.save(element);
+                    memberDao.save(po);
                 });
     }
 
     @Override
-    public void remove(final Long id) {
-        memberDao.deleteById(id);
-    }
-
-    @Override
-    public Member save(final Member data) {
-        final MemberPo po = MemberMapper.toNewPo(data);
+    public Member save(final Member entity) {
+        final MemberPo po = MemberMapper.toNewPo(entity);
         final MemberPo save = memberDao.save(po);
 
         return MemberMapper.toEntity(save);
     }
 
     @Override
-    public void markDeleted(final Long id) {
+    public void markDeleted(final Member entity) {
         memberDao
-                .findById(id)
-                .ifPresent(element -> {
-                    element.setDeleted(1);
-                    element.setDeleteTime(Instant.now());
+                .findById(entity.id)
+                .ifPresent(po -> {
+                    po.setDeleteTime(entity.deleteTime);
+                    po.setDeleted(entity.deleted);
 
-                    memberDao.save(element);
+                    memberDao.save(po);
                 });
     }
 }

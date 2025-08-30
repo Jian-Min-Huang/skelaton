@@ -1,12 +1,12 @@
 package com.example.common.ca.cqrs;
 
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.EqualsAndHashCode;
+import lombok.ToString;
 import lombok.experimental.SuperBuilder;
 
 @SuperBuilder(toBuilder = true)
-@Data
-@NoArgsConstructor
+@ToString
+@EqualsAndHashCode
 public abstract class CqrsInput<ID> {
-    ID id;
+    public ID id;
 }

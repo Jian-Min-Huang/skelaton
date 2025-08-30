@@ -20,4 +20,8 @@ public class PhoneNumber {
                 .number(phoneNumber.substring(4))
                 .build();
     }
+
+    public String toRawString() {
+        return this.countryCode + this.number;
+    }
 }
