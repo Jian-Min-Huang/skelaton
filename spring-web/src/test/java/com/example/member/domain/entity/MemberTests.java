@@ -10,83 +10,89 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNotSame;
 import static org.junit.jupiter.api.Assertions.assertNull;
-import static org.junit.jupiter.api.Assertions.assertSame;
 
 public class MemberTests {
     @Test
     void testCreate() {
-        String firstName = "John";
-        String lastName = "Doe";
-        String email = "john.doe@example.com";
-        PhoneNumber phoneNumber = PhoneNumber.builder()
+        final String firstName = "John";
+        final String lastName = "Doe";
+        final String email = "john.doe@example.com";
+        final PhoneNumber phoneNumber = PhoneNumber
+            .builder()
             .countryCode("+886")
             .number("123456789")
             .build();
-        Gender gender = Gender.MALE;
-        MemberStatus status = MemberStatus.ACTIVE;
+        final Gender gender = Gender.MALE;
 
-        CreatedMemberEvent event = Member.create(firstName, lastName, email, phoneNumber, gender, status);
+        final CreatedMemberEvent createdEvent = Member.create(firstName, lastName, email, phoneNumber, gender);
+        final Member createdMember = createdEvent.extractEntity();
 
-        assertNotNull(event);
-        assertNotNull(event.extractEntity());
+        assertNotNull(createdEvent);
+        assertNotNull(createdMember);
 
-        Member member = event.extractEntity();
-        assertEquals(firstName, member.getFirstName());
-        assertEquals(lastName, member.getLastName());
-        assertEquals(email, member.getEmail());
-        assertEquals(phoneNumber, member.getPhoneNumber());
-        assertEquals(gender, member.getGender());
-        assertEquals(status, member.getStatus());
+        assertNull(createdMember.getId());
+        assertNull(createdMember.getCreatedBy());
+        assertNull(createdMember.getLastModifiedBy());
+        assertNull(createdMember.getDeletedBy());
+        assertNotNull(createdMember.getCreateTime());
+        assertNotNull(createdMember.getLastModifyTime());
+        assertNull(createdMember.getDeleteTime());
+        assertEquals(0, createdMember.getDeleted());
 
-        assertNull(member.getId());
-        assertNotNull(member.getCreateTime());
-        assertNotNull(member.getLastModifyTime());
-        assertNull(member.getDeleteTime());
-        assertEquals(0, member.getDeleted());
+        assertEquals(firstName, createdMember.getFirstName());
+        assertEquals(lastName, createdMember.getLastName());
+        assertEquals(email, createdMember.getEmail());
+        assertEquals(phoneNumber, createdMember.getPhoneNumber());
+        assertEquals(gender, createdMember.getGender());
+        assertEquals(MemberStatus.INACTIVE, createdMember.getStatus());
     }
 
     @Test
     void testModifyEmail() {
-        CreatedMemberEvent createEvent = Member.create(
+        final CreatedMemberEvent createdEvent = Member.create(
             "Jane",
             "Smith",
             "jane.smith@example.com",
             PhoneNumber.builder().countryCode("+886").number("987654321").build(),
-            Gender.FEMALE,
-            MemberStatus.ACTIVE
+            Gender.FEMALE
         );
+        final Member createdMember = createdEvent.extractEntity();
 
-        Member member = createEvent.extractEntity();
-        String newEmail = "jane.doe@example.com";
+        final String newEmail = "jane.doe@example.com";
+        final ModifiedMemberEvent modifiedEvent = createdMember.modifyEmail(newEmail);
+        final Member modifiedMember = modifiedEvent.extractEntity();
 
-        ModifiedMemberEvent modifyEvent = member.modifyEmail(newEmail);
-
-        assertNotNull(modifyEvent);
-        assertNotNull(modifyEvent.extractEntity());
-        assertEquals(newEmail, member.getEmail());
-        assertSame(member, modifyEvent.extractEntity());
+        assertNotNull(createdEvent);
+        assertNotNull(createdMember);
+        assertNotNull(modifiedEvent);
+        assertNotNull(modifiedMember);
+        assertNotSame(createdMember, modifiedMember);
+        assertEquals(newEmail, modifiedMember.getEmail());
     }
 
     @Test
     void testRemove() {
-        CreatedMemberEvent createEvent = Member.create(
-            "Bob",
-            "Johnson",
-            "bob.johnson@example.com",
-            PhoneNumber.builder().countryCode("+886").number("555666777").build(),
-            Gender.MALE,
-            MemberStatus.ACTIVE
-        );
+        final CreatedMemberEvent createdEvent = Member
+            .create(
+                "Bob",
+                "Johnson",
+                "bob.johnson@example.com",
+                PhoneNumber.builder().countryCode("+886").number("555666777").build(),
+                Gender.MALE
+            );
+        final Member createdMember = createdEvent.extractEntity();
 
-        Member member = createEvent.extractEntity();
+        final RemovedMemberEvent removedEvent = createdMember.remove();
+        final Member removedMember = removedEvent.extractEntity();
 
-        RemovedMemberEvent removeEvent = member.remove();
-
-        assertNotNull(removeEvent);
-        assertNotNull(removeEvent.extractEntity());
-        assertSame(member, removeEvent.extractEntity());
-        assertEquals(1, member.getDeleted());
-        assertNotNull(member.getDeleteTime());
+        assertNotNull(createdEvent);
+        assertNotNull(createdMember);
+        assertNotNull(removedEvent);
+        assertNotNull(removedMember);
+        assertNotSame(createdMember, removedMember);
+        assertNotNull(removedMember.getDeleteTime());
+        assertEquals(1, removedMember.getDeleted());
     }
 }

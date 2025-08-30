@@ -14,7 +14,7 @@ import lombok.ToString;
 
 import java.time.Instant;
 
-@Builder
+@Builder(toBuilder = true)
 @Getter
 @ToString
 @EqualsAndHashCode
@@ -42,8 +42,8 @@ public class Member implements DomainEntity<Long> {
         final String lastName,
         final String email,
         final PhoneNumber phoneNumber,
-        final Gender gender,
-        final MemberStatus status) {
+        final Gender gender
+    ) {
         final Member entity = Member
             .builder()
             .id(null)
@@ -59,7 +59,7 @@ public class Member implements DomainEntity<Long> {
             .email(email)
             .phoneNumber(phoneNumber)
             .gender(gender)
-            .status(status)
+            .status(MemberStatus.INACTIVE)
             .build();
 
         return CreatedMemberEvent
@@ -69,21 +69,26 @@ public class Member implements DomainEntity<Long> {
     }
 
     public ModifiedMemberEvent modifyEmail(String email) {
-        this.email = email;
+        final Member modifiedMember = toBuilder()
+            .lastModifyTime(Instant.now())
+            .email(email)
+            .build();
 
         return ModifiedMemberEvent
             .builder()
-            .entity(this)
+            .entity(modifiedMember)
             .build();
     }
 
     public RemovedMemberEvent remove() {
-        this.deleteTime = Instant.now();
-        this.deleted = 1;
+        final Member removedMember = toBuilder()
+            .deleteTime(Instant.now())
+            .deleted(1)
+            .build();
 
         return RemovedMemberEvent
             .builder()
-            .entity(this)
+            .entity(removedMember)
             .build();
     }
 }

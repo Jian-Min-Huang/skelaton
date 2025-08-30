@@ -13,7 +13,6 @@ import com.example.member.domain.repository.readonly.MemberReadonlyRepository;
 import com.example.member.domain.repository.writable.MemberWritableRepository;
 import com.example.member.domain.vo.PhoneNumber;
 import com.example.member.domain.vo.enu.Gender;
-import com.example.member.domain.vo.enu.MemberStatus;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
@@ -35,8 +34,7 @@ public class MemberCommandUseCase implements CqrsTemplate {
                             createMemberInput.getLastName(),
                             createMemberInput.getEmail(),
                             PhoneNumber.builder().countryCode(createMemberInput.getPhoneNumber().getCountryCode()).number(createMemberInput.getPhoneNumber().getNumber()).build(),
-                            Gender.valueOf(createMemberInput.getGender().name()),
-                            MemberStatus.INACTIVE
+                            Gender.valueOf(createMemberInput.getGender().name())
                         );
                     final Member saveEntity = memberWritableRepository.save(event.extractEntity());
                     eventBus.publishAsync(event);
