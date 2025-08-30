@@ -25,7 +25,7 @@ public class MemberReadonlyRepositoryImpl implements MemberReadonlyRepository<Me
 
     @Override
     public Optional<Member> findById(final Long id) {
-        return memberDao.findById(id).map(MemberMapper::toEntity);
+        return memberDao.findByIdAndDeletedIs(id, 0).map(MemberMapper::toEntity);
     }
 
     @Override

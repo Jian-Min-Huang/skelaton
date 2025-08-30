@@ -51,6 +51,14 @@ public class MemberTestCases {
                 .getResponseBody();
     }
 
+    void queryMemberById404(final Long id) {
+        webTestClient
+                .get()
+                .uri("/api/v1/members/{id}", id)
+                .exchange()
+                .expectStatus().isNotFound();
+    }
+
     Pagination<QueryMemberResponse> queryMembers(final Integer registeredInXDays, final List<MemberStatusEnuDto> statuses, final Integer pageNumber, final Integer pageSize) {
         return webTestClient
                 .post()

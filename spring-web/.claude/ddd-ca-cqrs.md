@@ -1,7 +1,6 @@
 # ddd-ca-cqrs
 
-這份文件定義了基於 `Domain Driven Design`、`Clean Architecture` 和 `Command Query Responsibility Segregation` 的 Spring
-Boot 專案架構標準。
+這份文件定義了基於 `Domain Driven Design`、`Clean Architecture` 和 `Command Query Responsibility Segregation` 的專案架構標準
 
 ## 領域劃分原則
 
@@ -13,7 +12,7 @@ Boot 專案架構標準。
 
 ## 套件結構與職責說明
 
-以 `member` 領域為例，說明各層級的職責與實作原則：
+我以 `member` 領域為例，說明各層級的職責與實作原則：
 
 - [domain layer](domain.md)
 - [application layer](application.md)

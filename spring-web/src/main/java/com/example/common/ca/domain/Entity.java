@@ -17,9 +17,7 @@ public abstract class Entity<ID> {
     public Instant createTime;
     public Instant lastModifyTime;
     public Instant deleteTime;
-    //    protected String remark;
     public Integer deleted;
-//    protected Integer version;
 
     protected void markDeleted() {
         this.deleted = 1;

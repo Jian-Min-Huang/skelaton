@@ -23,7 +23,7 @@ public class MemberControllerTests {
     private WebTestClient webTestClient;
 
     @Test
-    void testCreateMember() {
+    void test_Create_Modify_Remove_Member() {
         final MemberTestCases memberProtocolTestCases = new MemberTestCases(webTestClient);
 
         final HttpHeaders headers = memberProtocolTestCases.createMember("John", "Cena", "john.cena@example.com", PhoneNumberDto.builder().countryCode("+886").number("912345678").build(), GenderEnuDto.MALE);
@@ -49,6 +49,8 @@ public class MemberControllerTests {
         assertThat(queryMemberResponse.getGender()).isEqualTo(GenderEnuDto.MALE);
 
         memberProtocolTestCases.removeMemberById(queryMemberResponse.getId());
+
+        memberProtocolTestCases.queryMemberById404(queryMemberResponse.getId());
     }
 
     @Test
