@@ -18,13 +18,13 @@ public class MemberWritableRepositoryImpl implements MemberWritableRepository<Me
     @Override
     public void modifyEmail(final Member entity) {
         memberDao
-                .findById(entity.id)
-                .ifPresent(po -> {
-                    po.setEmail(entity.getEmail());
-                    po.setLastModifyTime(Instant.now());
+            .findById(entity.getId())
+            .ifPresent(po -> {
+                po.setEmail(entity.getEmail());
+                po.setLastModifyTime(Instant.now());
 
-                    memberDao.save(po);
-                });
+                memberDao.save(po);
+            });
     }
 
     @Override
@@ -38,12 +38,12 @@ public class MemberWritableRepositoryImpl implements MemberWritableRepository<Me
     @Override
     public void markDeleted(final Member entity) {
         memberDao
-                .findById(entity.id)
-                .ifPresent(po -> {
-                    po.setDeleteTime(entity.deleteTime);
-                    po.setDeleted(entity.deleted);
+            .findById(entity.getId())
+            .ifPresent(po -> {
+                po.setDeleteTime(entity.getDeleteTime());
+                po.setDeleted(entity.getDeleted());
 
-                    memberDao.save(po);
-                });
+                memberDao.save(po);
+            });
     }
 }

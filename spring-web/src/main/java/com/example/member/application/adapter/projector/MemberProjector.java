@@ -10,26 +10,26 @@ import com.example.member.domain.entity.Member;
 public class MemberProjector {
     public static QueryMemberOutputData toOutput(final Member entity) {
         return QueryMemberOutputData
-                .builder()
-                .id(entity.id)
-                .createTime(entity.createTime)
-                .firstName(entity.getFirstName())
-                .lastName(entity.getLastName())
-                .email(entity.getEmail())
-                .phoneNumber(PhoneNumberVoModel.builder().countryCode(entity.getPhoneNumber().getCountryCode()).number(entity.getPhoneNumber().getNumber()).build())
-                .gender(GenderEnuModel.valueOf(entity.getGender().name()))
-                .status(MemberStatusEnuModel.valueOf(entity.getStatus().name()))
-                .build();
+            .builder()
+            .id(entity.getId())
+            .createTime(entity.getCreateTime())
+            .firstName(entity.getFirstName())
+            .lastName(entity.getLastName())
+            .email(entity.getEmail())
+            .phoneNumber(PhoneNumberVoModel.builder().countryCode(entity.getPhoneNumber().getCountryCode()).number(entity.getPhoneNumber().getNumber()).build())
+            .gender(GenderEnuModel.valueOf(entity.getGender().name()))
+            .status(MemberStatusEnuModel.valueOf(entity.getStatus().name()))
+            .build();
     }
 
     public static Pagination<QueryMemberOutputData> toOutput(final Pagination<Member> entities) {
         return Pagination
-                .<QueryMemberOutputData>builder()
-                .content(entities.getContent().stream().map(MemberProjector::toOutput).toList())
-                .currentPage(entities.getCurrentPage())
-                .pageSize(entities.getPageSize())
-                .totalPages(entities.getTotalPages())
-                .totalElements(entities.getTotalElements())
-                .build();
+            .<QueryMemberOutputData>builder()
+            .content(entities.getContent().stream().map(MemberProjector::toOutput).toList())
+            .currentPage(entities.getCurrentPage())
+            .pageSize(entities.getPageSize())
+            .totalPages(entities.getTotalPages())
+            .totalElements(entities.getTotalElements())
+            .build();
     }
 }

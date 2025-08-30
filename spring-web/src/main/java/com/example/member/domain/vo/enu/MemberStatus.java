@@ -1,6 +1,8 @@
 package com.example.member.domain.vo.enu;
 
-public enum MemberStatus {
+import com.example.common.ca.domain.ValueObject;
+
+public enum MemberStatus implements ValueObject {
     INACTIVE,
     SUSPENDED,
     ACTIVE,

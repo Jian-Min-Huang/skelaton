@@ -9,8 +9,8 @@ import com.example.member.application.adapter.projector.MemberProjector;
 import com.example.member.application.port.input.QueryMemberInputData;
 import com.example.member.application.port.input.QueryMembersInputData;
 import com.example.member.domain.entity.Member;
-import com.example.member.domain.event.QueryMemberEvent;
-import com.example.member.domain.event.QueryMembersEvent;
+import com.example.member.domain.event.QueriedMemberEvent;
+import com.example.member.domain.event.QueriedMembersEvent;
 import com.example.member.domain.repository.readonly.MemberReadonlyRepository;
 import com.example.member.domain.vo.enu.MemberStatus;
 import lombok.RequiredArgsConstructor;
@@ -27,22 +27,22 @@ public class MemberQueryUseCase implements CqrsTemplate {
         try {
             if (input instanceof QueryMemberInputData queryMemberInput) {
                 return memberReadonlyRepository
-                        .findById(queryMemberInput.id)
-                        .map(entity -> {
-                            eventBus.publishAsync(QueryMemberEvent.builder().entity(entity).build());
+                    .findById(queryMemberInput.id)
+                    .map(entity -> {
+                        eventBus.publishAsync(QueriedMemberEvent.builder().entity(entity).build());
 
-                            return CqrsOutput.success(MemberProjector.toOutput(entity));
-                        })
-                        .orElse(CqrsOutput.failure(""));
+                        return CqrsOutput.success(MemberProjector.toOutput(entity));
+                    })
+                    .orElse(CqrsOutput.failure(""));
             } else if (input instanceof QueryMembersInputData queryMembersInput) {
                 final Pagination<Member> entities = memberReadonlyRepository.findAll(
-                        queryMembersInput.getRegisteredInXDays(),
-                        queryMembersInput.getStatuses().stream().map(element -> MemberStatus.valueOf(element.name())).toList(),
-                        queryMembersInput.getPageNumber(),
-                        queryMembersInput.getPageSize()
+                    queryMembersInput.getRegisteredInXDays(),
+                    queryMembersInput.getStatuses().stream().map(element -> MemberStatus.valueOf(element.name())).toList(),
+                    queryMembersInput.getPageNumber(),
+                    queryMembersInput.getPageSize()
                 );
 
-                eventBus.publishAsync(QueryMembersEvent.builder().entityIds(entities.getContent().stream().map(entity -> entity.id).toList()).build());
+                eventBus.publishAsync(QueriedMembersEvent.builder().entityIds(entities.getContent().stream().map(Member::getId).toList()).build());
 
                 return CqrsOutput.success(MemberProjector.toOutput(entities));
             } else {

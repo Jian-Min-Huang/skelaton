@@ -1,17 +1,13 @@
 package com.example.member.domain.event;
 
-import com.example.common.ca.domain.Event;
+import com.example.common.ca.domain.DomainEvent;
 import com.example.member.domain.entity.Member;
 import lombok.Builder;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
 import lombok.ToString;
 
 @Builder(toBuilder = true)
-@Getter
-@ToString(callSuper = true)
-@EqualsAndHashCode(callSuper = true)
-public class QueryMemberEvent extends Event<Member> {
+@ToString
+public class QueriedMemberEvent implements DomainEvent<Member> {
     private Member entity;
 
     @Override

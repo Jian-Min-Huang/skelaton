@@ -8,7 +8,7 @@ import com.example.member.application.port.input.CreateMemberInputData;
 import com.example.member.application.port.input.ModifyMemberEmailInputData;
 import com.example.member.application.port.input.RemoveMemberInputData;
 import com.example.member.domain.entity.Member;
-import com.example.member.domain.event.CreateMemberEvent;
+import com.example.member.domain.event.CreatedMemberEvent;
 import com.example.member.domain.repository.readonly.MemberReadonlyRepository;
 import com.example.member.domain.repository.writable.MemberWritableRepository;
 import com.example.member.domain.vo.PhoneNumber;
@@ -29,45 +29,45 @@ public class MemberCommandUseCase implements CqrsTemplate {
         try {
             switch (input) {
                 case CreateMemberInputData createMemberInput -> {
-                    final CreateMemberEvent event = Member
-                            .create(
-                                    createMemberInput.getFirstName(),
-                                    createMemberInput.getLastName(),
-                                    createMemberInput.getEmail(),
-                                    PhoneNumber.builder().countryCode(createMemberInput.getPhoneNumber().getCountryCode()).number(createMemberInput.getPhoneNumber().getNumber()).build(),
-                                    Gender.valueOf(createMemberInput.getGender().name()),
-                                    MemberStatus.INACTIVE
-                            );
+                    final CreatedMemberEvent event = Member
+                        .create(
+                            createMemberInput.getFirstName(),
+                            createMemberInput.getLastName(),
+                            createMemberInput.getEmail(),
+                            PhoneNumber.builder().countryCode(createMemberInput.getPhoneNumber().getCountryCode()).number(createMemberInput.getPhoneNumber().getNumber()).build(),
+                            Gender.valueOf(createMemberInput.getGender().name()),
+                            MemberStatus.INACTIVE
+                        );
                     final Member saveEntity = memberWritableRepository.save(event.extractEntity());
                     eventBus.publishAsync(event);
 
-                    return CqrsOutput.success(saveEntity.id);
+                    return CqrsOutput.success(saveEntity.getId());
                 }
                 case ModifyMemberEmailInputData modifyMemberEmailInput -> {
                     return memberReadonlyRepository
-                            .findById(modifyMemberEmailInput.id)
-                            .map(entity -> entity.modifyEmail(modifyMemberEmailInput.getEmail()))
-                            .map(event -> {
-                                final Member entity = event.extractEntity();
-                                memberWritableRepository.modifyEmail(entity);
-                                eventBus.publishAsync(event);
+                        .findById(modifyMemberEmailInput.id)
+                        .map(entity -> entity.modifyEmail(modifyMemberEmailInput.getEmail()))
+                        .map(event -> {
+                            final Member entity = event.extractEntity();
+                            memberWritableRepository.modifyEmail(entity);
+                            eventBus.publishAsync(event);
 
-                                return CqrsOutput.success(entity.id);
-                            })
-                            .orElse(CqrsOutput.failure(""));
+                            return CqrsOutput.success(entity.getId());
+                        })
+                        .orElse(CqrsOutput.failure(""));
                 }
                 case RemoveMemberInputData removeMemberInput -> {
                     return memberReadonlyRepository
-                            .findById(removeMemberInput.id)
-                            .map(Member::remove)
-                            .map(event -> {
-                                final Member entity = event.extractEntity();
-                                memberWritableRepository.markDeleted(entity);
-                                eventBus.publishAsync(event);
+                        .findById(removeMemberInput.id)
+                        .map(Member::remove)
+                        .map(event -> {
+                            final Member entity = event.extractEntity();
+                            memberWritableRepository.markDeleted(entity);
+                            eventBus.publishAsync(event);
 
-                                return CqrsOutput.success(entity.id);
-                            })
-                            .orElse(CqrsOutput.failure(""));
+                            return CqrsOutput.success(entity.getId());
+                        })
+                        .orElse(CqrsOutput.failure(""));
                 }
                 default -> {
                     return CqrsOutput.failure(MemberCommandUseCase.class.getSimpleName() + " Invalid Input: " + input);

@@ -1,11 +1,11 @@
 package com.example.member.infrastructure.eventbus;
 
 import com.example.common.ca.EventBus;
-import com.example.common.ca.domain.Event;
-import com.example.member.domain.event.CreateMemberEvent;
-import com.example.member.domain.event.ModifyMemberEvent;
-import com.example.member.domain.event.QueryMemberEvent;
-import com.example.member.domain.event.RemoveMemberEvent;
+import com.example.common.ca.domain.DomainEvent;
+import com.example.member.domain.event.CreatedMemberEvent;
+import com.example.member.domain.event.ModifiedMemberEvent;
+import com.example.member.domain.event.QueriedMemberEvent;
+import com.example.member.domain.event.RemovedMemberEvent;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
@@ -13,13 +13,13 @@ import org.springframework.stereotype.Component;
 @Component
 public class EventBusImpl implements EventBus {
     @Override
-    public void publishAsync(final Event<?> event) {
+    public void publishAsync(final DomainEvent<?> event) {
         try {
             switch (event) {
-                case CreateMemberEvent createMemberEvent -> log.info("CreateMemberEvent: {}", createMemberEvent);
-                case QueryMemberEvent queryMemberEvent -> log.info("QueryMemberEvent: {}", queryMemberEvent);
-                case ModifyMemberEvent modifyMemberEvent -> log.info("ModifyMemberEvent: {}", modifyMemberEvent);
-                case RemoveMemberEvent removeMemberEvent -> log.info("RemoveMemberEvent: {}", removeMemberEvent);
+                case CreatedMemberEvent createMemberEvent -> log.info("CreateMemberEvent: {}", createMemberEvent);
+                case QueriedMemberEvent queryMemberEvent -> log.info("QueryMemberEvent: {}", queryMemberEvent);
+                case ModifiedMemberEvent modifyMemberEvent -> log.info("ModifyMemberEvent: {}", modifyMemberEvent);
+                case RemovedMemberEvent removeMemberEvent -> log.info("RemoveMemberEvent: {}", removeMemberEvent);
                 default -> log.warn("Unknown event type: {}", event.getClass().getSimpleName());
             }
         } catch (Exception ex) {

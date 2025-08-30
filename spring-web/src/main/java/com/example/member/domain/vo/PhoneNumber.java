@@ -1,24 +1,29 @@
 package com.example.member.domain.vo;
 
+import com.example.common.ca.domain.ValueObject;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
-import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 @Builder(toBuilder = true)
-@Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class PhoneNumber {
+@Getter
+@ToString
+@EqualsAndHashCode
+public class PhoneNumber implements ValueObject {
     private String countryCode;
     private String number;
 
     public static PhoneNumber fromRawString(final String phoneNumber) {
         return PhoneNumber
-                .builder()
-                .countryCode(phoneNumber.substring(0, 4))
-                .number(phoneNumber.substring(4))
-                .build();
+            .builder()
+            .countryCode(phoneNumber.substring(0, 4))
+            .number(phoneNumber.substring(4))
+            .build();
     }
 
     public String toRawString() {

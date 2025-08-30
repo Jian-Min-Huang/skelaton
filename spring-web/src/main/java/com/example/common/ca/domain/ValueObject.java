@@ -1,4 +1,6 @@
 package com.example.common.ca.domain;
 
-public interface ValueObject {
+import java.io.Serializable;
+
+public interface ValueObject extends Serializable {
 }

@@ -1,7 +1,7 @@
 package com.example.common.ca;
 
-import com.example.common.ca.domain.Event;
+import com.example.common.ca.domain.DomainEvent;
 
 public interface EventBus {
-    void publishAsync(Event<?> event);
+    void publishAsync(DomainEvent<?> event);
 }

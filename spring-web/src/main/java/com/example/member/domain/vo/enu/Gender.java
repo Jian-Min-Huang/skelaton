@@ -1,6 +1,8 @@
 package com.example.member.domain.vo.enu;
 
-public enum Gender {
+import com.example.common.ca.domain.ValueObject;
+
+public enum Gender implements ValueObject {
     MALE,
     FEMALE,
     OTHER
