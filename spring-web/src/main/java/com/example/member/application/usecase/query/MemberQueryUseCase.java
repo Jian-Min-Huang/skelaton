@@ -9,12 +9,12 @@ import com.example.member.application.adapter.projector.MemberProjector;
 import com.example.member.application.port.input.QueryMemberInputData;
 import com.example.member.application.port.input.QueryMembersInputData;
 import com.example.member.domain.entity.Member;
+import com.example.member.domain.event.QueryMemberEvent;
+import com.example.member.domain.event.QueryMembersEvent;
 import com.example.member.domain.repository.readonly.MemberReadonlyRepository;
 import com.example.member.domain.vo.enu.MemberStatus;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-
-import java.util.Optional;
 
 @Slf4j
 @RequiredArgsConstructor
@@ -26,11 +26,14 @@ public class MemberQueryUseCase implements CqrsTemplate {
     public CqrsOutput<?> execute(final CqrsInput<?> input) {
         try {
             if (input instanceof QueryMemberInputData queryMemberInput) {
-                final Optional<Member> entity = memberReadonlyRepository.findById(queryMemberInput.id);
+                return memberReadonlyRepository
+                        .findById(queryMemberInput.id)
+                        .map(entity -> {
+                            eventBus.publishAsync(QueryMemberEvent.builder().entity(entity).build());
 
-                return entity
-                        .map(element -> CqrsOutput.success(MemberProjector.toOutput(element)))
-                        .orElseGet(() -> CqrsOutput.failure("Member not found, ID: " + queryMemberInput.id));
+                            return CqrsOutput.success(MemberProjector.toOutput(entity));
+                        })
+                        .orElse(CqrsOutput.failure(""));
             } else if (input instanceof QueryMembersInputData queryMembersInput) {
                 final Pagination<Member> entities = memberReadonlyRepository.findAll(
                         queryMembersInput.getRegisteredInXDays(),
@@ -38,6 +41,8 @@ public class MemberQueryUseCase implements CqrsTemplate {
                         queryMembersInput.getPageNumber(),
                         queryMembersInput.getPageSize()
                 );
+
+                eventBus.publishAsync(QueryMembersEvent.builder().entityIds(entities.getContent().stream().map(entity -> entity.id).toList()).build());
 
                 return CqrsOutput.success(MemberProjector.toOutput(entities));
             } else {

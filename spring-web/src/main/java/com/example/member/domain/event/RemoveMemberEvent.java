@@ -2,16 +2,14 @@ package com.example.member.domain.event;
 
 import com.example.common.ca.domain.Event;
 import com.example.member.domain.entity.Member;
-import lombok.AllArgsConstructor;
 import lombok.Builder;
-import lombok.Data;
 import lombok.EqualsAndHashCode;
-import lombok.NoArgsConstructor;
+import lombok.Getter;
+import lombok.ToString;
 
 @Builder(toBuilder = true)
-@Data
-@NoArgsConstructor
-@AllArgsConstructor
+@Getter
+@ToString(callSuper = true)
 @EqualsAndHashCode(callSuper = true)
 public class RemoveMemberEvent extends Event<Member> {
     private Member entity;

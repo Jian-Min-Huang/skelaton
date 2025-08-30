@@ -2,11 +2,15 @@ package com.example.member.domain.event;
 
 import com.example.common.ca.domain.Event;
 import com.example.member.domain.entity.Member;
+import lombok.Builder;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.ToString;
 
-//@Builder(toBuilder = true)
-//@NoArgsConstructor
-//@AllArgsConstructor
-//@EqualsAndHashCode(callSuper = true)
+@Builder(toBuilder = true)
+@Getter
+@ToString(callSuper = true)
+@EqualsAndHashCode(callSuper = true)
 public class QueryMemberEvent extends Event<Member> {
     private Member entity;
 

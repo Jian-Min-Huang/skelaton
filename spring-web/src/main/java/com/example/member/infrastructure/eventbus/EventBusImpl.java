@@ -16,18 +16,10 @@ public class EventBusImpl implements EventBus {
     public void publishAsync(final Event<?> event) {
         try {
             switch (event) {
-                case CreateMemberEvent createMemberEvent -> {
-                    log.info("CreateMemberEvent: {}", createMemberEvent);
-                }
-                case QueryMemberEvent queryMemberEvent -> {
-                    log.info("QueryMemberEvent: {}", queryMemberEvent);
-                }
-                case ModifyMemberEvent modifyMemberEvent -> {
-                    log.info("ModifyMemberEvent: {}", modifyMemberEvent);
-                }
-                case RemoveMemberEvent removeMemberEvent -> {
-                    log.info("RemoveMemberEvent: {}", removeMemberEvent);
-                }
+                case CreateMemberEvent createMemberEvent -> log.info("CreateMemberEvent: {}", createMemberEvent);
+                case QueryMemberEvent queryMemberEvent -> log.info("QueryMemberEvent: {}", queryMemberEvent);
+                case ModifyMemberEvent modifyMemberEvent -> log.info("ModifyMemberEvent: {}", modifyMemberEvent);
+                case RemoveMemberEvent removeMemberEvent -> log.info("RemoveMemberEvent: {}", removeMemberEvent);
                 default -> log.warn("Unknown event type: {}", event.getClass().getSimpleName());
             }
         } catch (Exception ex) {
