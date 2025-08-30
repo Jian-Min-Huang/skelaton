@@ -13,16 +13,18 @@ import org.springframework.context.annotation.Configuration;
 public class MemberConfiguration {
     @Bean
     MemberCommandUseCase memberCommandUseCase(
-            final EventBus eventBus,
-            final MemberReadonlyRepository<Member, Long> memberReadonlyRepository,
-            final MemberWritableRepository<Member, Long> memberWritableRepository) {
+        final EventBus eventBus,
+        final MemberReadonlyRepository<Member, Long> memberReadonlyRepository,
+        final MemberWritableRepository<Member, Long> memberWritableRepository
+    ) {
         return new MemberCommandUseCase(eventBus, memberReadonlyRepository, memberWritableRepository);
     }
 
     @Bean
     MemberQueryUseCase memberQueryUseCase(
-            final EventBus eventBus,
-            final MemberReadonlyRepository<Member, Long> memberReadonlyRepository) {
+        final EventBus eventBus,
+        final MemberReadonlyRepository<Member, Long> memberReadonlyRepository
+    ) {
         return new MemberQueryUseCase(eventBus, memberReadonlyRepository);
     }
 }

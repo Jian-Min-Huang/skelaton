@@ -30,35 +30,36 @@ public class MemberReadonlyRepositoryImpl implements MemberReadonlyRepository<Me
 
     @Override
     public Pagination<Member> findAll(
-            final Integer registeredInXDays,
-            final List<MemberStatus> statuses,
-            final Integer pageNumber,
-            final Integer pageSize
+        final Integer registeredInXDays,
+        final List<MemberStatus> statuses,
+        final Integer pageNumber,
+        final Integer pageSize
     ) {
         final List<Member> content = memberDao
-                .findAll(
-                        buildSpec(registeredInXDays, statuses),
-                        PageRequest.of(pageNumber, pageSize, Sort.by(Sort.Direction.DESC, "id"))
-                )
-                .stream()
-                .map(MemberMapper::toEntity)
-                .toList();
+            .findAll(
+                buildSpec(registeredInXDays, statuses),
+                PageRequest.of(pageNumber, pageSize, Sort.by(Sort.Direction.DESC, "id"))
+            )
+            .stream()
+            .map(MemberMapper::toEntity)
+            .toList();
         final Long totalElements = memberDao.count(buildSpec(registeredInXDays, statuses));
 
         return Pagination
-                .<Member>builder()
-                .content(content)
-                .currentPage(pageNumber)
-                .pageSize(pageSize)
-                .totalPages((int) Math.ceil((double) totalElements / pageSize))
-                .totalElements(totalElements)
-                .build();
+            .<Member>builder()
+            .content(content)
+            .currentPage(pageNumber)
+            .pageSize(pageSize)
+            .totalPages((int) Math.ceil((double) totalElements / pageSize))
+            .totalElements(totalElements)
+            .build();
     }
 
     public Specification<MemberPo> buildSpec(final Integer registeredInXDays, final List<MemberStatus> statusList) {
         return Specification
-                .where(hasRegisteredInXDays(registeredInXDays))
-                .and(hasStatus(statusList));
+            .where(hasRegisteredInXDays(registeredInXDays))
+            .and(hasStatus(statusList))
+            .and(notDeleted());
     }
 
     private Specification<MemberPo> hasRegisteredInXDays(final Integer registeredInXDays) {
@@ -78,5 +79,9 @@ public class MemberReadonlyRepositoryImpl implements MemberReadonlyRepository<Me
             }
             return criteriaBuilder.in(root.get("status")).value(statusList.stream().map(Enum::name).toList());
         };
+    }
+
+    private Specification<MemberPo> notDeleted() {
+        return (root, query, criteriaBuilder) -> criteriaBuilder.equal(root.get("deleted"), 0);
     }
 }

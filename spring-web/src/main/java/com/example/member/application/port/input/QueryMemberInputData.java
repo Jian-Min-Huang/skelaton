@@ -1,14 +1,20 @@
 package com.example.member.application.port.input;
 
 import com.example.common.ca.cqrs.CqrsInput;
+import lombok.Builder;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.ToString;
-import lombok.experimental.SuperBuilder;
 
-@SuperBuilder(toBuilder = true)
+@Builder(toBuilder = true)
 @Getter
-@ToString(callSuper = true)
-@EqualsAndHashCode(callSuper = true)
-public class QueryMemberInputData extends CqrsInput<Long> {
+@ToString
+@EqualsAndHashCode
+public class QueryMemberInputData implements CqrsInput<Long> {
+    private Long id;
+
+    @Override
+    public Long getId() {
+        return id;
+    }
 }

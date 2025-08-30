@@ -80,10 +80,23 @@ public class Member implements DomainEntity<Long> {
             .build();
     }
 
+    public ModifiedMemberEvent activate() {
+        final Member activatedMember = toBuilder()
+            .lastModifyTime(Instant.now())
+            .status(MemberStatus.ACTIVE)
+            .build();
+
+        return ModifiedMemberEvent
+            .builder()
+            .entity(activatedMember)
+            .build();
+    }
+
     public RemovedMemberEvent remove() {
         final Member removedMember = toBuilder()
             .deleteTime(Instant.now())
             .deleted(1)
+            .status(MemberStatus.DELETED)
             .build();
 
         return RemovedMemberEvent

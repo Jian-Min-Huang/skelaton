@@ -19,7 +19,7 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 @RequiredArgsConstructor
 public class MemberCommandUseCase implements CqrsTemplate {
-    private final EventBus eventBus;
+    private final EventBus memberEventBus;
     private final MemberReadonlyRepository<Member, Long> memberReadonlyRepository;
     private final MemberWritableRepository<Member, Long> memberWritableRepository;
 
@@ -37,18 +37,18 @@ public class MemberCommandUseCase implements CqrsTemplate {
                             Gender.valueOf(createMemberInput.getGender().name())
                         );
                     final Member saveEntity = memberWritableRepository.save(event.extractEntity());
-                    eventBus.publishAsync(event);
+                    memberEventBus.publishAsync(event);
 
                     return CqrsOutput.success(saveEntity.getId());
                 }
                 case ModifyMemberEmailInputData modifyMemberEmailInput -> {
                     return memberReadonlyRepository
-                        .findById(modifyMemberEmailInput.id)
+                        .findById(modifyMemberEmailInput.getId())
                         .map(entity -> entity.modifyEmail(modifyMemberEmailInput.getEmail()))
                         .map(event -> {
                             final Member entity = event.extractEntity();
                             memberWritableRepository.modifyEmail(entity);
-                            eventBus.publishAsync(event);
+                            memberEventBus.publishAsync(event);
 
                             return CqrsOutput.success(entity.getId());
                         })
@@ -56,12 +56,12 @@ public class MemberCommandUseCase implements CqrsTemplate {
                 }
                 case RemoveMemberInputData removeMemberInput -> {
                     return memberReadonlyRepository
-                        .findById(removeMemberInput.id)
+                        .findById(removeMemberInput.getId())
                         .map(Member::remove)
                         .map(event -> {
                             final Member entity = event.extractEntity();
                             memberWritableRepository.markDeleted(entity);
-                            eventBus.publishAsync(event);
+                            memberEventBus.publishAsync(event);
 
                             return CqrsOutput.success(entity.getId());
                         })

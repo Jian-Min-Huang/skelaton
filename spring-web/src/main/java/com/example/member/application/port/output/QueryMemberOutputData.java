@@ -3,17 +3,17 @@ package com.example.member.application.port.output;
 import com.example.member.application.adapter.vo.PhoneNumberVoModel;
 import com.example.member.application.adapter.vo.enu.GenderEnuModel;
 import com.example.member.application.adapter.vo.enu.MemberStatusEnuModel;
-import lombok.AllArgsConstructor;
 import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.ToString;
 
 import java.time.Instant;
 
 @Builder(toBuilder = true)
-@Data
-@NoArgsConstructor
-@AllArgsConstructor
+@Getter
+@ToString
+@EqualsAndHashCode
 public class QueryMemberOutputData {
     private Long id;
     private Instant createTime;

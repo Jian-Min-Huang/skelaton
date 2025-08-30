@@ -42,6 +42,7 @@ public class MemberWritableRepositoryImpl implements MemberWritableRepository<Me
             .ifPresent(po -> {
                 po.setDeleteTime(entity.getDeleteTime());
                 po.setDeleted(entity.getDeleted());
+                po.setStatus(entity.getStatus());
 
                 memberDao.save(po);
             });

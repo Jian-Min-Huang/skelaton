@@ -73,6 +73,28 @@ public class MemberTests {
     }
 
     @Test
+    void testActiveUser() {
+        final CreatedMemberEvent createdEvent = Member.create(
+            "Alice",
+            "Brown",
+            "alice.brown@example.com",
+            PhoneNumber.builder().countryCode("+886").number("111222333").build(),
+            Gender.FEMALE
+        );
+        final Member createdMember = createdEvent.extractEntity();
+
+        final ModifiedMemberEvent activatedEvent = createdMember.activate();
+        final Member activatedMember = activatedEvent.extractEntity();
+
+        assertNotNull(createdEvent);
+        assertNotNull(createdMember);
+        assertNotNull(activatedEvent);
+        assertNotNull(activatedMember);
+        assertNotSame(createdMember, activatedMember);
+        assertEquals(MemberStatus.ACTIVE, activatedMember.getStatus());
+    }
+
+    @Test
     void testRemove() {
         final CreatedMemberEvent createdEvent = Member
             .create(
@@ -94,5 +116,6 @@ public class MemberTests {
         assertNotSame(createdMember, removedMember);
         assertNotNull(removedMember.getDeleteTime());
         assertEquals(1, removedMember.getDeleted());
+        assertEquals(MemberStatus.DELETED, removedMember.getStatus());
     }
 }

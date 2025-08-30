@@ -27,7 +27,7 @@ public class MemberQueryUseCase implements CqrsTemplate {
         try {
             if (input instanceof QueryMemberInputData queryMemberInput) {
                 return memberReadonlyRepository
-                    .findById(queryMemberInput.id)
+                    .findById(queryMemberInput.getId())
                     .map(entity -> {
                         eventBus.publishAsync(QueriedMemberEvent.builder().entity(entity).build());
 

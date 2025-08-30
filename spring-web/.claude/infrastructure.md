@@ -5,15 +5,15 @@
 - 職責：領域相關的 Spring 配置
 - 實作原則：
     - 定義 Bean 配置
-    - 整合外部服務
     - 例如：`MemberConfiguration`
 
 ## `com.example.member.infrastructure.eventbus`
 
 - 職責：事件匯流排實作
 - 實作原則：
-    - 處理領域事件的發布和訂閱
+    - 處理領域事件的發布與訂閱
     - 支援非同步處理
+    - 需要實作 `EventBus`
     - 例如：`MemberEventBusImpl`
 
 ## `com.example.member.infrastructure.persistence.dao`
@@ -33,7 +33,7 @@
 
 - 職責：持久化物件，對應資料庫表結構
 - 實作原則：
-    - 使用 JPA 註解定義表對應
+    - 使用 JPA 註解定義資料表的對應
     - 例如：`MemberPo`
 
 ## `com.example.member.infrastructure.repository`
@@ -41,6 +41,9 @@
 - 職責：存儲庫介面的實作
 - 實作原則：
     - 實作領域層定義的存儲庫介面
+  - 需要實作 `MemberReadonlyRepository<T, ID>` 或 `MemberWritableRepository<T, ID>` 介面
+      - T 為實體類型，例如： `Member`
+      - ID 為實體的唯一標識類型，例如：`Long` 或 `UUID`
     - 例如：
         - `MemberReadonlyRepositoryImpl`
         - `MemberWritableRepositoryImpl`
