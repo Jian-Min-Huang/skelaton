@@ -1,4 +1,4 @@
-package com.example.common.ca.cqrs;
+package com.example.common.ddd.cqrs;
 
 public class CqrsOutput<T> {
     private String message;

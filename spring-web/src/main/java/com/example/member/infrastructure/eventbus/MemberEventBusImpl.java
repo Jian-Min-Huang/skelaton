@@ -1,7 +1,7 @@
 package com.example.member.infrastructure.eventbus;
 
-import com.example.common.ca.EventBus;
-import com.example.common.ca.domain.DomainEvent;
+import com.example.common.ddd.EventBus;
+import com.example.common.ddd.domain.DomainEvent;
 import com.example.member.domain.event.CreatedMemberEvent;
 import com.example.member.domain.event.ModifiedMemberEvent;
 import com.example.member.domain.event.QueriedMemberEvent;

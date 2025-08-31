@@ -1,6 +1,6 @@
 package com.example.member.application.port.input;
 
-import com.example.common.ca.cqrs.CqrsInput;
+import com.example.common.ddd.cqrs.CqrsInput;
 import com.example.member.application.adapter.vo.PhoneNumberVoModel;
 import com.example.member.application.adapter.vo.enu.GenderEnuModel;
 import com.example.member.application.adapter.vo.enu.MemberStatusEnuModel;

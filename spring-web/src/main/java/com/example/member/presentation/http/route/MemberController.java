@@ -1,8 +1,8 @@
 package com.example.member.presentation.http.route;
 
-import com.example.common.ca.cqrs.CqrsOutput;
-import com.example.common.ca.cqrs.ExitCode;
 import com.example.common.data.Pagination;
+import com.example.common.ddd.cqrs.CqrsOutput;
+import com.example.common.ddd.cqrs.ExitCode;
 import com.example.member.application.port.input.CreateMemberInputData;
 import com.example.member.application.port.input.ModifyMemberEmailInputData;
 import com.example.member.application.port.input.QueryMemberInputData;

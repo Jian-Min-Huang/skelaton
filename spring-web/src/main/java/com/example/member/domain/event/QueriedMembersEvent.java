@@ -1,6 +1,6 @@
 package com.example.member.domain.event;
 
-import com.example.common.ca.domain.DomainEvent;
+import com.example.common.ddd.domain.DomainEvent;
 import lombok.Builder;
 import lombok.ToString;
 

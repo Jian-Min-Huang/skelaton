@@ -1,7 +1,7 @@
 package com.example.member.domain.repository.readonly;
 
-import com.example.common.ca.domain.ReadonlyRepository;
 import com.example.common.data.Pagination;
+import com.example.common.ddd.domain.ReadonlyRepository;
 import com.example.member.domain.vo.enu.MemberStatus;
 
 import java.util.List;

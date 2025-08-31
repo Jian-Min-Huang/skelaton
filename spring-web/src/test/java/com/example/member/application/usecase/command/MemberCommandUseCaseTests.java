@@ -1,8 +1,8 @@
 package com.example.member.application.usecase.command;
 
-import com.example.common.ca.EventBus;
-import com.example.common.ca.cqrs.CqrsOutput;
-import com.example.common.ca.cqrs.ExitCode;
+import com.example.common.ddd.EventBus;
+import com.example.common.ddd.cqrs.CqrsOutput;
+import com.example.common.ddd.cqrs.ExitCode;
 import com.example.member.application.adapter.vo.PhoneNumberVoModel;
 import com.example.member.application.adapter.vo.enu.GenderEnuModel;
 import com.example.member.application.adapter.vo.enu.MemberStatusEnuModel;

@@ -1,7 +1,7 @@
 package com.example.member.presentation.ipc.route;
 
-import com.example.common.ca.cqrs.CqrsOutput;
-import com.example.common.ca.cqrs.ExitCode;
+import com.example.common.ddd.cqrs.CqrsOutput;
+import com.example.common.ddd.cqrs.ExitCode;
 import com.example.member.application.port.input.QueryMemberInputData;
 import com.example.member.application.port.output.QueryMemberOutputData;
 import com.example.member.application.usecase.query.MemberQueryUseCase;

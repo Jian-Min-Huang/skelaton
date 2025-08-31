@@ -12,10 +12,11 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNotSame;
 import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class MemberTests {
     @Test
-    void testCreate() {
+    void test_Create_Member() {
         final String firstName = "John";
         final String lastName = "Doe";
         final String email = "john.doe@example.com";
@@ -50,7 +51,7 @@ public class MemberTests {
     }
 
     @Test
-    void testModifyEmail() {
+    void test_Modify_Member_Email() {
         final CreatedMemberEvent createdEvent = Member.create(
             "Jane",
             "Smith",
@@ -73,7 +74,7 @@ public class MemberTests {
     }
 
     @Test
-    void testActiveUser() {
+    void test_Activate_Member() {
         final CreatedMemberEvent createdEvent = Member.create(
             "Alice",
             "Brown",
@@ -91,11 +92,12 @@ public class MemberTests {
         assertNotNull(activatedEvent);
         assertNotNull(activatedMember);
         assertNotSame(createdMember, activatedMember);
+        assertTrue(createdMember.getCreateTime().isBefore(activatedMember.getLastModifyTime()));
         assertEquals(MemberStatus.ACTIVE, activatedMember.getStatus());
     }
 
     @Test
-    void testRemove() {
+    void test_Remove_Member() {
         final CreatedMemberEvent createdEvent = Member
             .create(
                 "Bob",

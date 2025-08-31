@@ -1,6 +1,6 @@
 package com.example.member.domain.entity;
 
-import com.example.common.ca.domain.DomainEntity;
+import com.example.common.ddd.domain.DomainEntity;
 import com.example.member.domain.event.CreatedMemberEvent;
 import com.example.member.domain.event.ModifiedMemberEvent;
 import com.example.member.domain.event.RemovedMemberEvent;

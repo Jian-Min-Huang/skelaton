@@ -1,6 +1,6 @@
 package com.example.member.infrastructure.config;
 
-import com.example.common.ca.EventBus;
+import com.example.common.ddd.EventBus;
 import com.example.member.application.usecase.command.MemberCommandUseCase;
 import com.example.member.application.usecase.query.MemberQueryUseCase;
 import com.example.member.domain.entity.Member;

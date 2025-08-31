@@ -1,9 +1,9 @@
 package com.example.member.application.usecase.command;
 
-import com.example.common.ca.EventBus;
-import com.example.common.ca.cqrs.CqrsInput;
-import com.example.common.ca.cqrs.CqrsOutput;
-import com.example.common.ca.cqrs.CqrsTemplate;
+import com.example.common.ddd.EventBus;
+import com.example.common.ddd.cqrs.CqrsInput;
+import com.example.common.ddd.cqrs.CqrsOutput;
+import com.example.common.ddd.cqrs.CqrsTemplate;
 import com.example.member.application.port.input.CreateMemberInputData;
 import com.example.member.application.port.input.ModifyMemberEmailInputData;
 import com.example.member.application.port.input.RemoveMemberInputData;

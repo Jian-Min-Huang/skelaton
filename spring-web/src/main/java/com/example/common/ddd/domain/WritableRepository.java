@@ -1,4 +1,4 @@
-package com.example.common.ca.domain;
+package com.example.common.ddd.domain;
 
 public interface WritableRepository<T, ID> {
     T save(T entity);

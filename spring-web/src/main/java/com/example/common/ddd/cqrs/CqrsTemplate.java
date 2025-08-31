@@ -1,6 +1,6 @@
-package com.example.common.ca.cqrs;
+package com.example.common.ddd.cqrs;
 
-import com.example.common.ca.UseCase;
+import com.example.common.ddd.UseCase;
 
 public interface CqrsTemplate extends UseCase<CqrsInput<?>, CqrsOutput<?>> {
 }
