@@ -2,9 +2,16 @@
 
 ## `com.example.member.application.adapter.projector`
 
-- 職責：物件投影器，將領域物件轉換為資料傳輸物件
+- 職責：資料投影器，負責領域物件與應用層資料物件的轉換
 - 實作原則：
     - 例如：`MemberProjector`
+
+## `com.example.member.application.adapter.vo`
+
+- 職責：應用層使用的值物件模型，用於應用層的資料傳遞
+- 實作原則：
+    - 封裝領域層值物件，避免直接暴露領域概念到外層
+    - 例如：`PhoneNumberVoModel`
 
 ## `com.example.member.application.adapter.vo.enu`
 
@@ -14,13 +21,6 @@
   - 例如：
       - `GenderEnuModel`
       - `MemberStatusEnuModel`
-
-## `com.example.member.application.adapter.vo`
-
-- 職責：應用層使用的值物件模型，用於應用層的資料傳遞
-- 實作原則：
-    - 封裝領域層值物件，避免直接暴露領域概念到外層
-    - 例如：`PhoneNumberVoModel`
 
 ## `com.example.member.application.port.input`
 

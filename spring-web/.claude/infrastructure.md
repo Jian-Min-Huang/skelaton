@@ -24,11 +24,11 @@
     - 繼承 `org.springframework.data.jpa.repository.JpaRepository<T, ID>` 和 `org.springframework.data.jpa.repository.JpaSpecificationExecutor<T>`
         - `T` 為持久化物件的類別，例如： `MemberPo`
         - `ID` 為實體的唯一標識類型，例如：`Long` 或 `UUID`
-        - 例如：`MemberDao`
+  - 例如：`MemberDao`
 
 ## `com.example.member.infrastructure.persistence.mapper`
 
-- 職責：物件映射器，負責領域物件與持久化物件的轉換
+- 職責：資料映射器，負責領域物件與持久化物件的轉換
 - 實作原則：
     - 例如：`MemberMapper`
 
@@ -47,6 +47,6 @@
   - 需要實作 `MemberReadonlyRepository<T, ID>` 和 `MemberWritableRepository<T, ID>` 介面
       - `T` 為實體類型，例如： `Member`
       - `ID` 為實體的唯一標識類型，例如：`Long` 或 `UUID`
-      - 例如：
-          - `MemberReadonlyRepositoryImpl`
-          - `MemberWritableRepositoryImpl`
+  - 例如：
+      - `MemberReadonlyRepositoryImpl`
+      - `MemberWritableRepositoryImpl`

@@ -6,8 +6,10 @@
 - 實作原則
     - 實體應負責維護自身的一致性與業務規則
   - 當實體的狀態因業務行為而改變時，應產生相應的領域事件來通知系統其他部分
-  - 需要實作 `com.example.common.ddd.domain.DomainEntity<ID>` 介面，`ID` 為實體的唯一標識類型，例如 `Long` 或 `UUID`
   - 例如：當調用 `Member` 物件的 `modifyEmail("foo.bar@example.com")` 方法時，會更新內部的 `email` 狀態，並產生一個 `ModifiedMemberEvent` 事件
+  - 需要實作 `com.example.common.ddd.domain.DomainEntity<ID>` 介面，`ID` 為實體的唯一標識類型，例如 `Long` 或 `UUID`
+- 範例檔案：
+    - `Member`
 
 ## `com.example.member.domain.vo`
 
@@ -16,7 +18,8 @@
     - 專注於封裝單一業務概念
     - 設計為不可變的物件
   - 需要實作 `com.example.common.ddd.domain.ValueObject` 介面
-    - 例如：`PhoneNumber`
+- 範例檔案：
+    - `PhoneNumber`
 
 ## `com.example.member.domain.vo.enu`
 
@@ -24,24 +27,24 @@
 - 實作原則：
     - 用於表示狀態、類型或分類等業務概念
   - 需要實作 `com.example.common.ddd.domain.ValueObject` 介面
-    - 例如：
-        - `Gender`
-        - `MemberStatus`
+- 範例檔案：
+    - `Gender`
+    - `MemberStatus`
 
 ## `com.example.member.domain.event`
 
 - 職責：記錄領域模型中已發生的重要業務事實，用於記錄業務實體狀態變更的相關資訊
 - 實作原則：
-    - 事件的命名應清晰地反映其業務含義
     - 使用過去式動詞來命名
+    - 事件的命名應清晰地反映其業務含義
     - 事件應攜帶與該業務事實相關的不可變資料
-  - 需要實作 `com.example.common.ddd.domain.DomainEvent<T>` 介面
-      - `T` 為事件的對應的實體類型，例如 `Member`
-    - 例如：
-        - `CreatedMemberEvent`
-        - `ModifiedMemberEvent`
-        - `QueriedMemberEvent`
-        - `RemovedMemberEvent`
+    - 需要實作 `com.example.common.ddd.domain.DomainEvent<T>` 介面
+        - `T` 為事件的對應的實體類型，例如 `Member`
+- 範例檔案：
+    - `CreatedMemberEvent`
+    - `ModifiedMemberEvent`
+    - `QueriedMemberEvent`
+    - `RemovedMemberEvent`
 
 ## `com.example.member.domain.repository.readonly`
 
@@ -51,7 +54,8 @@
   - 需要繼承 `com.example.common.ddd.domain.ReadonlyRepository<T, ID>` 介面
       - `T` 為實體類型，例如： `Member`
       - `ID` 為實體的唯一標識類型，例如：`Long` 或 `UUID`
-    - 例如：`MemberReadonlyRepository`
+- 範例檔案：
+    - `MemberReadonlyRepository`
 
 ## `com.example.member.domain.repository.writable`
 
@@ -61,4 +65,5 @@
   - 需要繼承 `com.example.common.ddd.domain.WritableRepository<T, ID>` 介面
       - `T` 為實體類型，例如：`Member`
       - `ID` 為實體的唯一標識類型，例如：`Long` 或 `UUID`
-    - 例如：`MemberWritableRepository`
+- 範例檔案：
+    - `MemberWritableRepository`
