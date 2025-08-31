@@ -19,10 +19,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
-// We have 3 type annotations in this protocol
-// OpenAPI
-// Spring MVC
-// Jakarta Validation or Spring Validation
 public interface MemberProtocol {
     @Operation(
             summary = "Create a new member",
