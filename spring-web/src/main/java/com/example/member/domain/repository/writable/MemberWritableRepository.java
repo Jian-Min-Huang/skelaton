@@ -5,4 +5,6 @@ import com.example.member.domain.entity.Member;
 
 public interface MemberWritableRepository<T, ID> extends WritableRepository<T, ID> {
     void modifyEmail(final Member entity);
+
+    void activate(final Member entity);
 }

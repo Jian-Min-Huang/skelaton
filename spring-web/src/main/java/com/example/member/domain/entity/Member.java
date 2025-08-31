@@ -1,8 +1,9 @@
 package com.example.member.domain.entity;
 
 import com.example.common.ddd.domain.DomainEntity;
+import com.example.member.domain.event.ActivateMemberEvent;
 import com.example.member.domain.event.CreatedMemberEvent;
-import com.example.member.domain.event.ModifiedMemberEvent;
+import com.example.member.domain.event.ModifiedMemberEmailEvent;
 import com.example.member.domain.event.RemovedMemberEvent;
 import com.example.member.domain.vo.PhoneNumber;
 import com.example.member.domain.vo.enu.Gender;
@@ -68,26 +69,32 @@ public class Member implements DomainEntity<Long> {
             .build();
     }
 
-    public ModifiedMemberEvent modifyEmail(String email) {
+    public ModifiedMemberEmailEvent modifyEmail(String email) {
+        if (this.email.equals(email)) {
+            throw new IllegalArgumentException("same email");
+        }
+
         final Member modifiedMember = toBuilder()
             .lastModifyTime(Instant.now())
             .email(email)
             .build();
 
-        return ModifiedMemberEvent
+        return ModifiedMemberEmailEvent
             .builder()
+            .originalEntity(this)
             .entity(modifiedMember)
             .build();
     }
 
-    public ModifiedMemberEvent activate() {
+    public ActivateMemberEvent activate() {
         final Member activatedMember = toBuilder()
             .lastModifyTime(Instant.now())
             .status(MemberStatus.ACTIVE)
             .build();
 
-        return ModifiedMemberEvent
+        return ActivateMemberEvent
             .builder()
+            .originalEntity(this)
             .entity(activatedMember)
             .build();
     }

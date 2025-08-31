@@ -28,6 +28,18 @@ public class MemberWritableRepositoryImpl implements MemberWritableRepository<Me
     }
 
     @Override
+    public void activate(final Member entity) {
+        memberDao
+            .findById(entity.getId())
+            .ifPresent(po -> {
+                po.setStatus(entity.getStatus());
+                po.setLastModifyTime(Instant.now());
+
+                memberDao.save(po);
+            });
+    }
+
+    @Override
     public Member save(final Member entity) {
         final MemberPo po = MemberMapper.toNewPo(entity);
         final MemberPo save = memberDao.save(po);

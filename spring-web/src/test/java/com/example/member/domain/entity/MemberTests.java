@@ -1,7 +1,8 @@
 package com.example.member.domain.entity;
 
+import com.example.member.domain.event.ActivateMemberEvent;
 import com.example.member.domain.event.CreatedMemberEvent;
-import com.example.member.domain.event.ModifiedMemberEvent;
+import com.example.member.domain.event.ModifiedMemberEmailEvent;
 import com.example.member.domain.event.RemovedMemberEvent;
 import com.example.member.domain.vo.PhoneNumber;
 import com.example.member.domain.vo.enu.Gender;
@@ -12,6 +13,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNotSame;
 import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class MemberTests {
@@ -62,7 +64,7 @@ public class MemberTests {
         final Member createdMember = createdEvent.extractEntity();
 
         final String newEmail = "jane.doe@example.com";
-        final ModifiedMemberEvent modifiedEvent = createdMember.modifyEmail(newEmail);
+        final ModifiedMemberEmailEvent modifiedEvent = createdMember.modifyEmail(newEmail);
         final Member modifiedMember = modifiedEvent.extractEntity();
 
         assertNotNull(createdEvent);
@@ -71,6 +73,23 @@ public class MemberTests {
         assertNotNull(modifiedMember);
         assertNotSame(createdMember, modifiedMember);
         assertEquals(newEmail, modifiedMember.getEmail());
+    }
+
+    @Test
+    void test_Modify_Member_Email_Same_Email_Error() {
+        final String email = "jane.smith@example.com";
+        final CreatedMemberEvent createdEvent = Member.create(
+            "Jane",
+            "Smith",
+            email,
+            PhoneNumber.builder().countryCode("+886").number("987654321").build(),
+            Gender.FEMALE
+        );
+        final Member createdMember = createdEvent.extractEntity();
+
+        final IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> createdMember.modifyEmail(email));
+
+        assertEquals("same email", exception.getMessage());
     }
 
     @Test
@@ -84,7 +103,7 @@ public class MemberTests {
         );
         final Member createdMember = createdEvent.extractEntity();
 
-        final ModifiedMemberEvent activatedEvent = createdMember.activate();
+        final ActivateMemberEvent activatedEvent = createdMember.activate();
         final Member activatedMember = activatedEvent.extractEntity();
 
         assertNotNull(createdEvent);

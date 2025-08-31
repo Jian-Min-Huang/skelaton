@@ -2,8 +2,9 @@ package com.example.member.infrastructure.eventbus;
 
 import com.example.common.ddd.EventBus;
 import com.example.common.ddd.domain.DomainEvent;
+import com.example.member.domain.event.ActivateMemberEvent;
 import com.example.member.domain.event.CreatedMemberEvent;
-import com.example.member.domain.event.ModifiedMemberEvent;
+import com.example.member.domain.event.ModifiedMemberEmailEvent;
 import com.example.member.domain.event.QueriedMemberEvent;
 import com.example.member.domain.event.QueriedMembersEvent;
 import com.example.member.domain.event.RemovedMemberEvent;
@@ -36,7 +37,8 @@ public class MemberEventBusImpl implements EventBus {
                         case CreatedMemberEvent createdMemberEvent -> log.info("CreatedMemberEvent: {}", createdMemberEvent);
                         case QueriedMemberEvent queriedMemberEvent -> log.info("QueriedMemberEvent: {}", queriedMemberEvent);
                         case QueriedMembersEvent queriedMembersEvent -> log.info("QueriedMembersEvent: {}", queriedMembersEvent);
-                        case ModifiedMemberEvent modifiedMemberEvent -> log.info("ModifiedMemberEvent: {}", modifiedMemberEvent);
+                        case ModifiedMemberEmailEvent modifiedMemberEvent -> log.info("ModifiedMemberEmailEvent: {}", modifiedMemberEvent);
+                        case ActivateMemberEvent modifiedMemberEvent -> log.info("ModifiedMemberStatusEvent: {}", modifiedMemberEvent);
                         case RemovedMemberEvent removedMemberEvent -> log.info("RemovedMemberEvent: {}", removedMemberEvent);
                         default -> log.warn("Unknown event type: {}", event.getClass().getSimpleName());
                     }

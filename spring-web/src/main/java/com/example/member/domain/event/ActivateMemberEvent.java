@@ -7,7 +7,8 @@ import lombok.ToString;
 
 @Builder(toBuilder = true)
 @ToString
-public class ModifiedMemberEvent implements DomainEvent<Member> {
+public class ActivateMemberEvent implements DomainEvent<Member> {
+    private Member originalEntity;
     private Member entity;
 
     @Override
