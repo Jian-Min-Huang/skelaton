@@ -87,7 +87,7 @@
 - 範例檔案：
     - `MemberProtocol`
 
-#### `com.example.member.presentation.http.route`
+## `com.example.member.presentation.http.route`
 
 - 職責：實作 REST API 的端點
 - 實作原則：

@@ -8,6 +8,7 @@ import com.example.member.application.usecase.query.MemberQueryUseCase;
 import com.example.member.presentation.http.converter.MemberConverter;
 import com.example.member.presentation.ipc.converter.MemberIpcConverter;
 import com.example.member.presentation.ipc.protocol.MemberIpcProtocol;
+import com.example.member.presentation.ipc.request.ModifyMemberStatusRequest;
 import com.example.member.presentation.ipc.response.QueryMemberIpcResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
@@ -27,5 +28,9 @@ public class MemberIpcController implements MemberIpcProtocol {
         } else {
             return null;
         }
+    }
+
+    @Override
+    public void modifyMemberStatus(final ModifyMemberStatusRequest modifyMemberStatusRequest) {
     }
 }
