@@ -27,9 +27,10 @@
             - `@Data`
             - `@NoArgsConstructor`
             - `@AllArgsConstructor`
-  - 使用以下框架來進行對應的標示與驗證註解
-      - `springdoc-openapi-ui`
-      - `jakarta.validation-api`
+    - 使用以下框架來進行對應的標示與驗證註解
+        - `springdoc-openapi-ui`
+        - `jakarta.validation-api`
+    - 命名需要用 `Request` 結尾
 - 範例檔案：
     - `CreateMemberRequest`
     - `ModifyMemberEmailRequest`
@@ -45,9 +46,10 @@
             - `@Data`
             - `@NoArgsConstructor`
             - `@AllArgsConstructor`
-  - 使用以下框架來進行對應的標示與驗證註解
-      - `springdoc-openapi-ui`
-      - `jakarta.validation-api`
+    - 使用以下框架來進行對應的標示與驗證註解
+        - `springdoc-openapi-ui`
+        - `jakarta.validation-api`
+    - 命名需要用 `Response` 結尾
 - 範例檔案：
     - `QueryMemberResponse`
 
@@ -63,6 +65,7 @@
             - `@AllArgsConstructor`
     - 使用以下框架來進行對應的驗證註解
         - `jakarta.validation-api`
+    - 命名需要用 `Dto` 結尾
 - 範例檔案：
     - `PhoneNumberDto`
 
@@ -72,6 +75,7 @@
 - 實作原則：
     - 對外暴露的列舉資料傳輸物件
     - 遵守最小知識原則
+    - 命名需要用 `EnuDto` 結尾
 - 範例檔案：
     - `GenderEnuDto`
     - `MemberStatusEnuDto`

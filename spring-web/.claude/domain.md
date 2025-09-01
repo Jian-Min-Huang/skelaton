@@ -21,8 +21,7 @@
 - 職責：領域值物件，用於封裝沒有獨立身份、但具有業務意義的概念。它們的相等性由其屬性值決定，且是不可變的物件
 - 實作原則：
     - 需要實作 `com.example.common.ddd.domain.ValueObject` 介面
-    - 專注於封裝單一業務概念
-    - 設計為不可變的物件
+    - 專注於封裝單一業務概念的不可變的物件
 - 範例檔案：
     - `PhoneNumber`
 
@@ -42,7 +41,7 @@
 - 實作原則：
     - 需要實作 `com.example.common.ddd.domain.DomainEvent<T>` 介面
         - `T` 為事件的對應的實體類型，例如 `Member`
-    - 使用過去式動詞來命名
+    - 使用過去式動詞來命名，命名需要用 `Event` 結尾
     - 事件的命名應清晰地反映其業務含義
     - 事件應攜帶與該業務事實相關的不可變資料
 - 範例檔案：
@@ -59,6 +58,7 @@
         - `T` 為實體類型，例如： `Member`
         - `ID` 為實體的唯一標識類型，例如：`Long` 或 `UUID`
     - 僅包含查詢相關的方法
+    - 命名需要用 `ReadonlyRepository` 結尾
 - 範例檔案：
     - `MemberReadonlyRepository`
 
@@ -70,5 +70,6 @@
         - `T` 為實體類型，例如：`Member`
         - `ID` 為實體的唯一標識類型，例如：`Long` 或 `UUID`
     - 包含創建、更新、刪除等會改變數據狀態的方法
+    - 命名需要用 `WritableRepository` 結尾
 - 範例檔案：
     - `MemberWritableRepository`

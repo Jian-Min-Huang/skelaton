@@ -21,6 +21,7 @@
 - 職責：應用層使用的值物件模型
 - 實作原則：
     - 封裝領域層值物件，避免直接暴露領域概念到外層
+    - 所有類別命名必須以 `VoModel` 結尾
 - 範例檔案：`PhoneNumberVoModel`
 
 ## `com.example.member.application.adapter.vo.enu`
@@ -28,6 +29,7 @@
 - 職責：應用層使用的列舉模型
 - 實作原則：
     - 封裝領域層列舉，避免直接暴露領域概念到外層
+    - 所有類別命名必須以 `EnuMode` 結尾
 - 範例檔案：
     - `GenderEnuModel`
     - `MemberStatusEnuModel`
@@ -36,8 +38,8 @@
 
 - 職責：定義輸入埠的資料傳輸物件，用於接收外部請求
 - 實作原則：
+    - 需要實作 `com.example.common.ddd.cqrs.CqrsInput<ID>` 介面
     - 所有類別命名必須以 `InputData` 結尾
-  - 需要實作 `com.example.common.ddd.cqrs.CqrsInput<ID>` 介面
 - 範例檔案：
     - `CreateMemberInputData`
     - `ModifyMemberEmailInputData`
@@ -61,6 +63,7 @@
     - 處理創建、修改、刪除等會改變狀態的操作
     - 發布對應的領域事件
     - 需要實作 `com.example.common.ddd.cqrs.CqrsTemplate` 介面
+    - 命名需要用 `CommandUseCase` 結尾
 - 範例檔案：
     - `MemberCommandUseCase`
 
@@ -72,5 +75,6 @@
     - 只處理資料查詢，不改變狀態
     - 發布對應的領域事件
     - 需要實作 `com.example.common.ddd.cqrs.CqrsTemplate` 介面
+    - 命名需要用 `QueryUseCase` 結尾
 - 範例檔案：
     - `MemberQueryUseCase`
