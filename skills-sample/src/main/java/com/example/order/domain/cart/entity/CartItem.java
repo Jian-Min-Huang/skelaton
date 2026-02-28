@@ -1,6 +1,7 @@
 package com.example.order.domain.cart.entity;
 
 import com.example.order.domain.cart.vo.Money;
+import com.example.shared.domain.DomainResult;
 import com.example.shared.domain.Entity;
 import lombok.Builder;
 import lombok.Value;
@@ -27,4 +28,9 @@ public class CartItem implements Entity {
     String productName;
     Integer quantity;
     Money unitPrice;
+
+    public DomainResult<CartItem> updateQuantity(final Integer newQuantity) {
+        final CartItem updated = this.withQuantity(newQuantity);
+        return DomainResult.withoutEvents(updated);
+    }
 }

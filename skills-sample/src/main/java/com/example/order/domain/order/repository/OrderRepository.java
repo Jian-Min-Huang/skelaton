@@ -6,10 +6,7 @@ import java.util.Optional;
 
 public interface OrderRepository {
     Order save(Order entity);
-
     Optional<Order> queryById(Long id);
-
     Integer removeById(Long id);
-
     Boolean existsById(Long id);
 }

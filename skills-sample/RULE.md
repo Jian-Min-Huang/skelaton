@@ -32,12 +32,30 @@
 - no var, declare with type and final modifier
 - no primitive type, use wrapper class instead
 - Instant
+- layout for single arguments method
+
+```java
+public void singleArgsMethod(final String arg) {
+    // method body
+}
+```
+
+- layout for multiple arguments method, each argument on a new line, aligned with the opening parenthesis of the method declaration, and the closing parenthesis on a new line after the last argument
+
+```java
+public void multipleArgsMethod(final String arg1, 
+                               final Integer arg2,
+                               final BigDecimal arg3) {
+  // method body
+}
+```
 
 ## Aggregate Root
 
 - 要用 @Builder, @Value, @With 標注 Aggregate Root，並實作 AggregateRoot 介面
 - common fields 包含 id, createdBy, lastModifiedBy, deletedBy, createTime, lastModifyTime, deleteTime, deleted
 - custom fields 使用 @Singular 來標記 List, Set, Map 等集合類型的欄位
+- 所有方法都要回傳 DomainResult<T>，其中 T 是 Aggregate Root 的類型，並且在 DomainResult 中包含對應的 Domain Event
 
 ```java
 @Builder
@@ -63,6 +81,8 @@ public class Product implements AggregateRoot {
     Category category;
     ProductStatus status;
     @Singular List<ProductVariant> variants;
+    
+    // methods
 }
 ```
 
@@ -91,6 +111,8 @@ public class ProductVariant implements Entity {
     Sku sku;
     Money price;
     Integer stockQuantity;
+    
+    // methods
 }
 ```
 
@@ -101,12 +123,14 @@ public class ProductVariant implements Entity {
 
 ```java
 public record Sku(String code) implements ValueObject {
+    // methods
 }
 
 public record Money(
         BigDecimal amount, 
         Currency currency
 ) implements ValueObject {
+    // methods
 }
 ```
 
@@ -123,6 +147,8 @@ public enum Category {
     BOOKS,
     OTHER,
     ;
+    
+    // methods
 }
 ```
 
@@ -133,11 +159,8 @@ public enum Category {
 ```java
 public interface ProductRepository {
     Product save(Product entity);
-
     Optional<Product> queryById(Long id);
-
     Integer removeById(Long id);
-
     Boolean existsById(Long id);
 }
 ```
@@ -145,7 +168,7 @@ public interface ProductRepository {
 ## Domain Event
 
 - Aggregate Root 定義一個 sealed interface 作為 Domain Event 的基底，並且使用 permits 關鍵字列出所有的 Domain Event 類別
-- 每個 Domain Event 類別都要用 record 實作，並且實作 ProductEvent 介面
+- 每個 Domain Event 類別都要用 record 實作，並且實作基底的 sealed interface
 
 ```java
 public sealed interface ProductEvent extends DomainEvent
