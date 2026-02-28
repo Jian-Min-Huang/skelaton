@@ -1,6 +1,7 @@
 # RULE
 
-## 
+## Package Structure
+
 - com.example.inventory.domain.product
   - Aggregate Root: Product
 - com.example.inventory.domain.product.entity
@@ -24,7 +25,7 @@
 - com.example.order.domain.order.vo
 - com.example.order.domain.service
 
-## General Rules
+## General
 
 - Clean Architecture, Functional DDD, CQRS
 - final arguments in methods
@@ -32,7 +33,7 @@
 - no primitive type, use wrapper class instead
 - Instant
 
-## Aggregate Root Template
+## Aggregate Root
 
 - 要用 @Builder, @Value, @With 標注 Aggregate Root，並實作 AggregateRoot 介面
 - common fields 包含 id, createdBy, lastModifiedBy, deletedBy, createTime, lastModifyTime, deleteTime, deleted
@@ -93,7 +94,7 @@ public class ProductVariant implements Entity {
 }
 ```
 
-## Value Object Template
+## Value Object
 
 - 要用 record 實作 Value Object，並實作 ValueObject 介面
 - 下面展示了單一欄位的排版與多欄位的排版，嚴格遵守此排版方式
@@ -101,9 +102,7 @@ public class ProductVariant implements Entity {
 ```java
 public record Sku(String code) implements ValueObject {
 }
-```
 
-```java
 public record Money(
         BigDecimal amount, 
         Currency currency
@@ -127,7 +126,7 @@ public enum Category {
 }
 ```
 
-## Repository
+## Domain Repository
 
 - Domain Repository 介面只包含這四個基本方法，不能包含任何其他方法
 
@@ -140,5 +139,35 @@ public interface ProductRepository {
     Integer removeById(Long id);
 
     Boolean existsById(Long id);
+}
+```
+
+## Domain Event
+
+- Aggregate Root 定義一個 sealed interface 作為 Domain Event 的基底，並且使用 permits 關鍵字列出所有的 Domain Event 類別
+- 每個 Domain Event 類別都要用 record 實作，並且實作 ProductEvent 介面
+
+```java
+public sealed interface ProductEvent extends DomainEvent
+        permits ProductCreatedEvent, ProductActivatedEvent, ProductDiscontinuedEvent {
+    Long productId();
+}
+
+public record ProductCreatedEvent(
+        Long productId,
+        Instant occurredAt
+) implements ProductEvent {
+}
+
+public record ProductActivatedEvent(
+        Long productId,
+        Instant occurredAt
+) implements ProductEvent {
+}
+
+public record ProductDiscontinuedEvent(
+        Long productId,
+        Instant occurredAt
+) implements ProductEvent {
 }
 ```
