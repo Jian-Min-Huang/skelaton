@@ -126,3 +126,19 @@ public enum Category {
     ;
 }
 ```
+
+## Repository
+
+- Domain Repository 介面只包含這四個基本方法，不能包含任何其他方法
+
+```java
+public interface ProductRepository {
+    Product save(Product entity);
+
+    Optional<Product> queryById(Long id);
+
+    Integer removeById(Long id);
+
+    Boolean existsById(Long id);
+}
+```
