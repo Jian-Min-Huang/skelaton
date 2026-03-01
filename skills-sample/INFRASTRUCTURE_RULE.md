@@ -1,6 +1,6 @@
 # INFRASTRUCTURE_RULE
 
-## Gateway Adapter
+## Adapter
 
 - 使用 @Component 和 @Transactional 標注 Gateway Adapter 類別並實作對應的 Domain Gateway 介面
 
@@ -12,3 +12,5 @@ public class InventoryGatewayAdapter implements InventoryGateway {
     // methods
 }
 ```
+
+## Persistence

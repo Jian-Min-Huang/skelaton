@@ -137,38 +137,7 @@ public interface WarehouseFinder extends Finder {
 
 ## Event Handler
 
-### 概述
-
-- Event Handler 是 Application 層的元件，負責監聽 Domain Event 並執行應用層面的副作用（side effect）
-- Event Handler 不包含商業邏輯，只負責協調（orchestration）：呼叫 Gateway、發送通知、觸發其他 BC 的操作等
 - 使用 `@Component` 和 `@RequiredArgsConstructor` 標注，並實作 `EventHandler` 標記介面
-
-### 事件發布流程
-
-Command Use Case 從 `DomainResult` 取出事件，透過 Spring 的 `ApplicationEventPublisher` 發布：
-
-```java
-@Service
-@RequiredArgsConstructor
-@Transactional
-public class OrderCommandUseCase implements CqrsCommandUseCase {
-    private final ApplicationEventPublisher eventPublisher;
-    // other dependencies...
-
-    public OrderCqrsCommandOutput confirmOrder(final ConfirmOrderCqrsCommand command) {
-        final Order order = orderRepository.queryById(command.orderId())
-                .orElseThrow(() -> new IllegalArgumentException("Order not found: " + command.orderId()));
-        final DomainResult<Order> result = order.confirm();
-        final Order saved = orderRepository.save(result.entity());
-        publishEvents(result);
-        return orderCommandAssembler.toOutput(saved);
-    }
-
-    private void publishEvents(final DomainResult<?> result) {
-        result.events().forEach(eventPublisher::publishEvent);
-    }
-}
-```
 
 ### 同 BC 事件處理：@EventListener
 
@@ -224,25 +193,3 @@ public class OrderPlacedNotificationHandler implements EventHandler {
     }
 }
 ```
-
-### 套件結構
-
-```
-com.example.order.application
-├── handler/
-│   ├── OrderPlacedEventHandler.java           ← 跨 BC：透過 Gateway 通知 inventory
-│   └── OrderPlacedNotificationHandler.java    ← 非同步：寄送通知
-├── gateway/
-│   └── InventoryGateway.java                  ← 跨 BC Gateway 介面
-
-com.example.inventory.application
-├── adapter/
-│   └── InventoryGatewayAdapter.java           ← Gateway 實作，由被呼叫方的 BC 提供
-```
-
-### 命名規則
-
-- Handler 命名格式：`{EventName}Handler` 或 `{EventName}{Purpose}Handler`
-- 當同一個事件有多個 Handler 時，用 Purpose 區分，例如：
-  - `OrderPlacedEventHandler`（跨 BC 庫存預留）
-  - `OrderPlacedNotificationHandler`（發送通知）
