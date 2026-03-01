@@ -3,6 +3,7 @@
 ## CQRS Command
 
 - 要用 record 實作 CQRS Command，並實作 CqrsCommand 介面來做為標記
+- 每個 Command 代表一個業務意圖（Business Intention），命名使用動詞開頭，對應一個業務操作
 
 ```java
 public record AddProductVariantCqrsCommand(
@@ -85,6 +86,7 @@ public class ProductQueryAssembler implements CqrsQueryAssembler {
 ## Command Use Case
 
 - 要用 @Service, @RequiredArgsConstructor, @Transactional 標注 Command Use Case 類別並實作 CqrsCommandUseCase 介面來做為標記
+- 標準操作流程：receive command → assemble VO → load/create aggregate → call domain method → save → publish events → return output
 
 ```java
 @Service
@@ -160,7 +162,7 @@ public class ProductActivatedEventHandler implements EventHandler {
 ### 跨 BC 事件處理：@EventListener + Gateway
 
 - 當事件需要通知另一個 Bounded Context 時，透過 Gateway 介面解耦
-- Handler 位於事件發起方的 BC，Gateway 介面也定義在發起方的 BC，Adapter 實作由被呼叫方的 BC 提供
+- Handler 位於事件發起方的 Bounded Context，Gateway 介面也定義在發起方的 Bounded Context，Adapter 實作放在呼叫方的 Infrastructure 層
 
 ```java
 // order BC 的 Handler：監聽 OrderPlacedEvent，透過 Gateway 通知 inventory BC

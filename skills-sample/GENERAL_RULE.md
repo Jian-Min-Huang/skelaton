@@ -3,7 +3,8 @@
 ## Guidelines
 
 - Clean Architecture, Functional DDD, CQRS
-- each boundary context should be in its own package, and each layer (domain, application, presentation, infrastructure)
+- Dependency Rule: 依賴方向由外向內，內層不依賴外層（domain ← application ← presentation / infrastructure）
+- each bounded context should be in its own package, and each layer (domain, application, presentation, infrastructure)
   should be in its own subpackage
 - final arguments in methods
 - no var, declare with type and final modifier
@@ -51,6 +52,8 @@ public void multipleArgsMethod(final String arg1,
 
 ## Package Structure
 
+- com.example.shared.domain
+- com.example.shared.application
 - com.example.inventory.domain.product
 - com.example.inventory.domain.product.entity
 - com.example.inventory.domain.product.enu
@@ -73,7 +76,10 @@ public void multipleArgsMethod(final String arg1,
 - com.example.inventory.application.query
 - com.example.inventory.application.query.output
 - com.example.inventory.application.query.assembler
+- com.example.inventory.presentation
 - com.example.inventory.infrastructure.adapter
+- com.example.inventory.infrastructure.configuration
+- com.example.inventory.infrastructure.persistence
 - com.example.order.domain.cart
 - com.example.order.domain.cart.entity
 - com.example.order.domain.cart.enu
@@ -96,4 +102,7 @@ public void multipleArgsMethod(final String arg1,
 - com.example.order.application.query
 - com.example.order.application.query.output
 - com.example.order.application.query.assembler
+- com.example.order.presentation
 - com.example.order.infrastructure.adapter
+- com.example.order.infrastructure.configuration
+- com.example.order.infrastructure.persistence
