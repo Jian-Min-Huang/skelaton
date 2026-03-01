@@ -2,107 +2,72 @@
 
 ## Guidelines
 
-- Clean Architecture, Functional DDD, CQRS
-- Dependency Rule: 依賴方向由外向內，內層不依賴外層（domain ← application ← presentation / infrastructure）
-- each bounded context should be in its own package, and each layer (domain, application, presentation, infrastructure)
-  should be in its own subpackage
-- final arguments in methods
-- no var, declare with type and final modifier
-- no primitive type, use wrapper class instead
-- all date or time fields should use java.time.Instant
-- least knowledge principle, only expose necessary methods and fields from inside to outside
-- layout for single field record class
-
-```java
-public record SingleFieldRecordClass(String args) implements SomeInterface {
-    // methods
-}
-```
-
-- layout for multiple fields record class
-
-```java
-public record MultipleFieldRecordClass(
-        String args1,
-        Integer args2,
-        BigDecimal args3
-) implements SomeInterface {
-    // methods
-}
-```
-
-- layout for single arguments method
-
-```java
-public void singleArgsMethod(final String arg) {
-    // method body
-}
-```
-
-- layout for multiple arguments method, each argument on a new line, aligned with the opening parenthesis of the method
-  declaration, and the closing parenthesis on a new line after the last argument
-
-```java
-public void multipleArgsMethod(final String arg1,
-                               final Integer arg2,
-                               final BigDecimal arg3) {
-    // method body
-}
-```
+- Clean Architecture, Functional DDD, CQRS 等架構風格的原則和實踐
+- 依賴方向由外向內，內層不依賴外層（domain ← application ← presentation / infrastructure）
+- 遵守跨層原則，Domain 層的物件不可以直接暴露到 Presentation 層，應該透過 Application 層來做轉換
+- 每個 Bounded Context 都有自己的 `package`，每個 `package` 都會有這些 domain, application, presentation, infrastructure `package`
+- 預設使用 `final` 修飾子來保護方法和變數不被繼承或修改
+- 不要使用 `var` 來宣告變數，應該明確指定變數的型別並使用 `final` 修飾子
+- 不要使用基本類型（primitive type），應該使用對應的包裝類（wrapper class）來宣告變數
+- 所有日期或時間相關的欄位都應該使用 `java.time.Instant` 類型來表示
+- 盡可能使用不可變類（immutable class）來定義資料結構，確保物件的狀態在創建後不會改變
+- 盡可能使用 `Optional` 來處理可能為 null 的值，避免直接使用 null 來表示缺失的值
+- 遵守單一職責原則（Single Responsibility Principle），確保每個類別或方法只有一個明確的職責
+- 遵守最小知識原則（Least Knowledge Principle），確保每個類別或方法只暴露必要的方法和欄位
 
 ## Package Structure
 
-- com.example.shared.domain
-- com.example.shared.application
-- com.example.inventory.domain.product
-- com.example.inventory.domain.product.entity
-- com.example.inventory.domain.product.enu
-- com.example.inventory.domain.product.event
-- com.example.inventory.domain.product.repository
-- com.example.inventory.domain.product.vo
-- com.example.inventory.domain.warehouse
-- com.example.inventory.domain.warehouse.entity
-- com.example.inventory.domain.warehouse.enu
-- com.example.inventory.domain.warehouse.event
-- com.example.inventory.domain.warehouse.repository
-- com.example.inventory.domain.warehouse.vo
-- com.example.inventory.domain.service
-- com.example.inventory.application
-- com.example.inventory.application.command
-- com.example.inventory.application.command.output
-- com.example.inventory.application.command.assembler
-- com.example.inventory.application.gateway
-- com.example.inventory.application.handler
-- com.example.inventory.application.query
-- com.example.inventory.application.query.output
-- com.example.inventory.application.query.assembler
-- com.example.inventory.presentation
-- com.example.inventory.infrastructure.adapter
-- com.example.inventory.infrastructure.configuration
-- com.example.inventory.infrastructure.persistence
-- com.example.order.domain.cart
-- com.example.order.domain.cart.entity
-- com.example.order.domain.cart.enu
-- com.example.order.domain.cart.event
-- com.example.order.domain.cart.repository
-- com.example.order.domain.cart.vo
-- com.example.order.domain.order
-- com.example.order.domain.order.entity
-- com.example.order.domain.order.enu
-- com.example.order.domain.order.event
-- com.example.order.domain.order.repository
-- com.example.order.domain.order.vo
-- com.example.order.domain.service
-- com.example.order.application
-- com.example.order.application.command
-- com.example.order.application.command.output
-- com.example.order.application.command.assembler
-- com.example.order.application.gateway
-- com.example.order.application.handler
-- com.example.order.application.query
-- com.example.order.application.query.output
-- com.example.order.application.query.assembler
-- com.example.order.presentation
-- com.example.order.infrastructure.adapter
-- com.example.order.infrastructure.configuration
-- com.example.order.infrastructure.persistence
+- `com.example.shared.domain`
+- `com.example.shared.application`
+- `com.example.inventory.domain.product`
+- `com.example.inventory.domain.product.entity`
+- `com.example.inventory.domain.product.enu`
+- `com.example.inventory.domain.product.event`
+- `com.example.inventory.domain.product.repository`
+- `com.example.inventory.domain.product.vo`
+- `com.example.inventory.domain.warehouse`
+- `com.example.inventory.domain.warehouse.entity`
+- `com.example.inventory.domain.warehouse.enu`
+- `com.example.inventory.domain.warehouse.event`
+- `com.example.inventory.domain.warehouse.repository`
+- `com.example.inventory.domain.warehouse.vo`
+- `com.example.inventory.domain.service`
+- `com.example.inventory.application`
+- `com.example.inventory.application.command`
+- `com.example.inventory.application.command.output`
+- `com.example.inventory.application.command.assembler`
+- `com.example.inventory.application.gateway`
+- `com.example.inventory.application.handler`
+- `com.example.inventory.application.query`
+- `com.example.inventory.application.query.output`
+- `com.example.inventory.application.query.assembler`
+- `com.example.inventory.presentation`
+- `com.example.inventory.infrastructure.adapter`
+- `com.example.inventory.infrastructure.configuration`
+- `com.example.inventory.infrastructure.persistence`
+- `com.example.order.domain.cart`
+- `com.example.order.domain.cart.entity`
+- `com.example.order.domain.cart.enu`
+- `com.example.order.domain.cart.event`
+- `com.example.order.domain.cart.repository`
+- `com.example.order.domain.cart.vo`
+- `com.example.order.domain.order`
+- `com.example.order.domain.order.entity`
+- `com.example.order.domain.order.enu`
+- `com.example.order.domain.order.event`
+- `com.example.order.domain.order.repository`
+- `com.example.order.domain.order.vo`
+- `com.example.order.domain.service`
+- `com.example.order.application`
+- `com.example.order.application.command`
+- `com.example.order.application.command.output`
+- `com.example.order.application.command.assembler`
+- `com.example.order.application.gateway`
+- `com.example.order.application.handler`
+- `com.example.order.application.query`
+- `com.example.order.application.query.output`
+- `com.example.order.application.query.assembler`
+- `com.example.order.presentation`
+- `com.example.order.infrastructure.adapter`
+- `com.example.order.infrastructure.configuration`
+- `com.example.order.infrastructure.persistence`
