@@ -9,7 +9,7 @@ import com.example.order.domain.order.event.OrderPlacedEvent;
 import com.example.order.domain.order.event.OrderShippedEvent;
 import com.example.order.domain.order.vo.Money;
 import com.example.order.domain.order.vo.ShippingAddress;
-import com.example.shared.domain.AggregateRoot;
+import com.example.shared.domain.DomainAggRoot;
 import com.example.shared.domain.DomainResult;
 import lombok.Builder;
 import lombok.Singular;
@@ -22,7 +22,7 @@ import java.util.List;
 @Builder
 @Value
 @With
-public class Order implements AggregateRoot {
+public class Order implements DomainAggRoot {
     // common fields
     Long id;
     String createdBy;

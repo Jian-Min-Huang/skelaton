@@ -1,12 +1,7 @@
 package com.example.inventory.domain.product.repository;
 
 import com.example.inventory.domain.product.Product;
+import com.example.shared.domain.DomainRepository;
 
-import java.util.Optional;
-
-public interface ProductRepository {
-    Product save(Product entity);
-    Optional<Product> queryById(Long id);
-    Integer removeById(Long id);
-    Boolean existsById(Long id);
+public interface ProductRepository extends DomainRepository<Product> {
 }

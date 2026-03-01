@@ -7,7 +7,7 @@ import com.example.inventory.domain.warehouse.event.StockReservedEvent;
 import com.example.inventory.domain.warehouse.event.WarehouseCreatedEvent;
 import com.example.inventory.domain.warehouse.vo.Address;
 import com.example.inventory.domain.warehouse.vo.StockLevel;
-import com.example.shared.domain.AggregateRoot;
+import com.example.shared.domain.DomainAggRoot;
 import com.example.shared.domain.DomainResult;
 import lombok.Builder;
 import lombok.Singular;
@@ -20,7 +20,7 @@ import java.util.List;
 @Builder
 @Value
 @With
-public class Warehouse implements AggregateRoot {
+public class Warehouse implements DomainAggRoot {
     // common fields
     Long id;
     String createdBy;

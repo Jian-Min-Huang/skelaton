@@ -1,4 +1,4 @@
 package com.example.shared.domain;
 
-public interface Entity {
+public interface DomainEntity {
 }

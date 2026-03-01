@@ -3,7 +3,7 @@ package com.example.inventory.domain.warehouse.entity;
 import com.example.inventory.domain.warehouse.enu.LocationType;
 import com.example.inventory.domain.warehouse.vo.StockLevel;
 import com.example.shared.domain.DomainResult;
-import com.example.shared.domain.Entity;
+import com.example.shared.domain.DomainEntity;
 import lombok.Builder;
 import lombok.Value;
 import lombok.With;
@@ -13,7 +13,7 @@ import java.time.Instant;
 @Builder
 @Value
 @With
-public class StorageLocation implements Entity {
+public class StorageLocation implements DomainEntity {
     // common fields
     Long id;
     String createdBy;

@@ -2,7 +2,7 @@ package com.example.order.domain.order.entity;
 
 import com.example.order.domain.order.vo.Money;
 import com.example.shared.domain.DomainResult;
-import com.example.shared.domain.Entity;
+import com.example.shared.domain.DomainEntity;
 import lombok.Builder;
 import lombok.Value;
 import lombok.With;
@@ -13,7 +13,7 @@ import java.time.Instant;
 @Builder
 @Value
 @With
-public class OrderItem implements Entity {
+public class OrderItem implements DomainEntity {
     // common fields
     Long id;
     String createdBy;

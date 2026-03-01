@@ -1,10 +1,10 @@
 package com.example.inventory.domain.warehouse.vo;
 
-import com.example.shared.domain.ValueObject;
+import com.example.shared.domain.DomainValueObject;
 
 public record StockLevel(
         Integer onHand,
         Integer reserved,
         Integer available
-) implements ValueObject {
+) implements DomainValueObject {
 }

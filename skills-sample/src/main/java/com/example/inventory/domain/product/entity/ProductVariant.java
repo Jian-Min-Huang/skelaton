@@ -3,7 +3,7 @@ package com.example.inventory.domain.product.entity;
 import com.example.inventory.domain.product.vo.Money;
 import com.example.inventory.domain.product.vo.Sku;
 import com.example.shared.domain.DomainResult;
-import com.example.shared.domain.Entity;
+import com.example.shared.domain.DomainEntity;
 import lombok.Builder;
 import lombok.Value;
 import lombok.With;
@@ -13,7 +13,7 @@ import java.time.Instant;
 @Builder
 @Value
 @With
-public class ProductVariant implements Entity {
+public class ProductVariant implements DomainEntity {
     // common fields
     Long id;
     String createdBy;

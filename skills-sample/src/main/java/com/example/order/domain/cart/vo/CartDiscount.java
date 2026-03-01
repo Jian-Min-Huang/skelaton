@@ -1,9 +1,9 @@
 package com.example.order.domain.cart.vo;
 
-import com.example.shared.domain.ValueObject;
+import com.example.shared.domain.DomainValueObject;
 
 public record CartDiscount(
         String couponCode,
         Money discountAmount
-) implements ValueObject {
+) implements DomainValueObject {
 }

@@ -13,6 +13,15 @@
 - com.example.inventory.domain.warehouse.enu
 - com.example.inventory.domain.warehouse.vo
 - com.example.inventory.domain.service
+- com.example.inventory.usecase
+- com.example.inventory.usecase.adapter
+- com.example.inventory.usecase.command
+- com.example.inventory.usecase.command.output
+- com.example.inventory.usecase.command.projector
+- com.example.inventory.usecase.handler
+- com.example.inventory.usecase.query
+- com.example.inventory.usecase.query.output
+- com.example.inventory.usecase.query.projector
 - com.example.order.domain.cart
   - Aggregate Root: Cart
 - com.example.order.domain.cart.entity
@@ -24,6 +33,15 @@
 - com.example.order.domain.order.enu
 - com.example.order.domain.order.vo
 - com.example.order.domain.service
+- com.example.order.usecase
+- com.example.order.usecase.adapter
+- com.example.order.usecase.command
+- com.example.order.usecase.command.output
+- com.example.order.usecase.command.projector
+- com.example.order.usecase.handler
+- com.example.order.usecase.query
+- com.example.order.usecase.query.output
+- com.example.order.usecase.query.projector
 
 ## General
 
@@ -31,7 +49,26 @@
 - final arguments in methods
 - no var, declare with type and final modifier
 - no primitive type, use wrapper class instead
-- Instant
+- all date or time fields should use java.time.Instant
+- layout for single field record class
+
+```java
+public record SingleFieldRecordClass(String args) implements SomeInterface {
+    // methods
+}
+```
+- layout for multiple fields record class
+
+
+```java
+public record MultipleFieldRecordClass(
+        String args1,
+        Integer args2,
+        BigDecimal args3
+) implements SomeInterface {
+    // methods
+}
+```
 - layout for single arguments method
 
 ```java
@@ -119,13 +156,8 @@ public class ProductVariant implements Entity {
 ## Value Object
 
 - 要用 record 實作 Value Object，並實作 ValueObject 介面
-- 下面展示了單一欄位的排版與多欄位的排版，嚴格遵守此排版方式
 
 ```java
-public record Sku(String code) implements ValueObject {
-    // methods
-}
-
 public record Money(
         BigDecimal amount, 
         Currency currency
@@ -154,14 +186,10 @@ public enum Category {
 
 ## Domain Repository
 
-- Domain Repository 介面只包含這四個基本方法，不能包含任何其他方法
+- 要用 interface 定義 Domain Repository，並繼承 DomainRepository<T> 介面，其中 T 是 Aggregate Root 的類型
 
 ```java
-public interface ProductRepository {
-    Product save(Product entity);
-    Optional<Product> queryById(Long id);
-    Integer removeById(Long id);
-    Boolean existsById(Long id);
+public interface ProductRepository extends DomainRepository<Product> {
 }
 ```
 
@@ -193,4 +221,103 @@ public record ProductDiscontinuedEvent(
         Instant occurredAt
 ) implements ProductEvent {
 }
+```
+
+## Domain Service
+
+```java
+
+```
+
+## CQRS Command
+
+- 使用 record class，並實作 CqrsCommand 介面
+
+```java
+public record AddProductVariantCqrsCommand(
+        Long productId,
+        String variantName,
+        String skuCode,
+        BigDecimal price,
+        Currency currency,
+        Integer stockQuantity
+) implements CqrsCommand {
+}
+```
+
+## CQRS Command Output
+
+```java
+```
+
+## CQRS Command Projector
+
+```java
+```
+
+## CQRS Query
+
+- 使用 record class，並實作 CqrsInput 介面
+
+```java
+public record QueryProductByIdCqrsInput(Long productId) implements CqrsQuery {
+}
+```
+
+## CQRS Query Output
+
+```java
+```
+
+## CQRS Query Projector
+
+- 使用 @Component 標注 Projector 類別
+- Projector 的職責為轉換 Aggregate Root 為 CqrsOutput
+
+```java
+@Component
+public class ProductProjector {
+    public ProductCqrsOutput toOutput(final Product product) {
+        // ignore details
+    }
+}
+```
+
+## Command Use Case
+
+- 要用 @Service, @RequiredArgsConstructor, @Transactional 標注 Command Use Case 類別
+
+```java
+```
+
+## Query Use Case
+
+- 要用 @Service, @RequiredArgsConstructor, @Transactional(readOnly = true) 標注 Query Use Case 類別
+
+```java
+
+```
+
+## Domain Gateway
+
+```java
+
+```
+
+## Gateway Adapter
+
+```java
+
+```
+
+## Query Repository
+
+```java
+
+```
+
+## Event Handler
+
+```java
+
 ```

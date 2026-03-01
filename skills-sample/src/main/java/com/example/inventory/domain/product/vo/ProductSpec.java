@@ -1,6 +1,6 @@
 package com.example.inventory.domain.product.vo;
 
-import com.example.shared.domain.ValueObject;
+import com.example.shared.domain.DomainValueObject;
 
 public record ProductSpec(
         String brand,
@@ -8,5 +8,5 @@ public record ProductSpec(
         Double weight,
         String weightUnit,
         String dimensions
-) implements ValueObject {
+) implements DomainValueObject {
 }

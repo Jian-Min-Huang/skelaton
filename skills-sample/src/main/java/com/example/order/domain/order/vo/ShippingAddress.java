@@ -1,6 +1,6 @@
 package com.example.order.domain.order.vo;
 
-import com.example.shared.domain.ValueObject;
+import com.example.shared.domain.DomainValueObject;
 
 public record ShippingAddress(
         String recipientName,
@@ -9,5 +9,5 @@ public record ShippingAddress(
         String district,
         String street,
         String zipCode
-) implements ValueObject {
+) implements DomainValueObject {
 }
