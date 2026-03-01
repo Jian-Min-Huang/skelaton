@@ -1,23 +1,21 @@
-package com.example.inventory.presentation.http.converter;
+package com.example.inventory.presentation.http.request.converter;
 
 import com.example.inventory.application.command.ActivateProductCqrsCommand;
 import com.example.inventory.application.command.AddProductVariantCqrsCommand;
 import com.example.inventory.application.command.CreateProductCqrsCommand;
 import com.example.inventory.application.command.DiscontinueProductCqrsCommand;
-import com.example.inventory.application.query.output.ProductCqrsQueryOutput;
 import com.example.inventory.domain.product.enu.Category;
 import com.example.inventory.presentation.http.request.ActivateProductRequestDTO;
 import com.example.inventory.presentation.http.request.AddProductVariantRequestDTO;
 import com.example.inventory.presentation.http.request.CreateProductRequestDTO;
 import com.example.inventory.presentation.http.request.DiscontinueProductRequestDTO;
-import com.example.inventory.presentation.http.response.ProductResponseDTO;
-import com.example.shared.presentation.http.Converter;
+import com.example.shared.presentation.http.RequestConverter;
 import org.springframework.stereotype.Component;
 
 import java.util.Currency;
 
 @Component
-public class ProductConverter implements Converter {
+public class ProductRequestConverter implements RequestConverter {
     public CreateProductCqrsCommand toCommand(final CreateProductRequestDTO request) {
         return new CreateProductCqrsCommand(
                 request.name(),
@@ -50,24 +48,6 @@ public class ProductConverter implements Converter {
                 request.price(),
                 Currency.getInstance(request.currency()),
                 request.stockQuantity()
-        );
-    }
-
-    public ProductResponseDTO toResponse(final ProductCqrsQueryOutput output) {
-        return new ProductResponseDTO(
-                output.id(),
-                output.name(),
-                output.description(),
-                output.skuCode(),
-                output.basePrice(),
-                output.currency() != null ? output.currency().getCurrencyCode() : null,
-                output.brand(),
-                output.model(),
-                output.weight(),
-                output.weightUnit(),
-                output.dimensions(),
-                output.categoryName(),
-                output.statusName()
         );
     }
 }

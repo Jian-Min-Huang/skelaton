@@ -14,7 +14,9 @@ import com.example.inventory.application.command.ActivateProductCqrsCommand;
 import com.example.inventory.application.command.AddProductVariantCqrsCommand;
 import com.example.inventory.application.command.CreateProductCqrsCommand;
 import com.example.inventory.application.command.CreateWarehouseCqrsCommand;
+import com.example.inventory.application.command.AllocateStockCqrsCommand;
 import com.example.inventory.application.command.DiscontinueProductCqrsCommand;
+import com.example.inventory.application.command.ReleaseStockCqrsCommand;
 import com.example.inventory.application.command.output.ProductCqrsCommandOutput;
 import com.example.inventory.application.command.output.WarehouseCqrsCommandOutput;
 import com.example.inventory.application.command.assembler.ProductCommandAssembler;
@@ -22,6 +24,8 @@ import com.example.inventory.application.command.assembler.WarehouseCommandAssem
 import com.example.shared.application.CqrsCommandUseCase;
 import com.example.shared.domain.DomainResult;
 import lombok.RequiredArgsConstructor;
+
+import java.util.List;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -32,6 +36,7 @@ import org.springframework.transaction.annotation.Transactional;
 public class InventoryCommandUseCase implements CqrsCommandUseCase {
     private final ProductRepository productRepository;
     private final WarehouseRepository warehouseRepository;
+    private final WarehouseFinder warehouseFinder;
     private final StockAllocationService stockAllocationService;
     private final ApplicationEventPublisher eventPublisher;
     private final ProductCommandAssembler productCommandAssembler;
@@ -109,6 +114,27 @@ public class InventoryCommandUseCase implements CqrsCommandUseCase {
                 address,
                 command.capacity()
         );
+        final Warehouse saved = warehouseRepository.save(result.entity());
+        publishEvents(result);
+        return warehouseCommandAssembler.toOutput(saved);
+    }
+
+    public WarehouseCqrsCommandOutput allocateStock(final AllocateStockCqrsCommand command) {
+        final Product product = productRepository.queryById(command.productId())
+                .orElseThrow(() -> new IllegalArgumentException("Product not found: " + command.productId()));
+        final List<Warehouse> candidates = warehouseFinder.queryAll();
+        final DomainResult<Warehouse> result = stockAllocationService.allocateStock(product, candidates, command.quantity());
+        final Warehouse saved = warehouseRepository.save(result.entity());
+        publishEvents(result);
+        return warehouseCommandAssembler.toOutput(saved);
+    }
+
+    public WarehouseCqrsCommandOutput releaseStock(final ReleaseStockCqrsCommand command) {
+        final Product product = productRepository.queryById(command.productId())
+                .orElseThrow(() -> new IllegalArgumentException("Product not found: " + command.productId()));
+        final Warehouse warehouse = warehouseRepository.queryById(command.warehouseId())
+                .orElseThrow(() -> new IllegalArgumentException("Warehouse not found: " + command.warehouseId()));
+        final DomainResult<Warehouse> result = stockAllocationService.releaseStock(product, warehouse, command.quantity());
         final Warehouse saved = warehouseRepository.save(result.entity());
         publishEvents(result);
         return warehouseCommandAssembler.toOutput(saved);

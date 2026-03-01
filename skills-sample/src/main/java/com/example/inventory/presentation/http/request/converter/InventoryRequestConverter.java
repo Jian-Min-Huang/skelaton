@@ -1,14 +1,14 @@
-package com.example.inventory.presentation.http.converter;
+package com.example.inventory.presentation.http.request.converter;
 
 import com.example.inventory.application.command.AllocateStockCqrsCommand;
 import com.example.inventory.application.command.ReleaseStockCqrsCommand;
 import com.example.inventory.presentation.http.request.AllocateStockRequestDTO;
 import com.example.inventory.presentation.http.request.ReleaseStockRequestDTO;
-import com.example.shared.presentation.http.Converter;
+import com.example.shared.presentation.http.RequestConverter;
 import org.springframework.stereotype.Component;
 
 @Component
-public class InventoryConverter implements Converter {
+public class InventoryRequestConverter implements RequestConverter {
     public AllocateStockCqrsCommand toCommand(final AllocateStockRequestDTO request) {
         return new AllocateStockCqrsCommand(
                 request.productId(),
