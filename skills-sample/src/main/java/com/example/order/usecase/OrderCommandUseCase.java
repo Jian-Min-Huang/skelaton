@@ -18,6 +18,7 @@ import com.example.order.usecase.command.output.CartCqrsCommandOutput;
 import com.example.order.usecase.command.output.OrderCqrsCommandOutput;
 import com.example.order.usecase.command.projector.CartCommandProjector;
 import com.example.order.usecase.command.projector.OrderCommandProjector;
+import com.example.shared.domain.CqrsCommandUseCase;
 import com.example.shared.domain.DomainResult;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.ApplicationEventPublisher;
@@ -27,7 +28,7 @@ import org.springframework.transaction.annotation.Transactional;
 @Service
 @RequiredArgsConstructor
 @Transactional
-public class OrderCommandUseCase {
+public class OrderCommandUseCase implements CqrsCommandUseCase {
     private final CartRepository cartRepository;
     private final OrderRepository orderRepository;
     private final CheckoutService checkoutService;

@@ -10,6 +10,7 @@ import com.example.inventory.usecase.query.output.ProductCqrsQueryOutput;
 import com.example.inventory.usecase.query.output.WarehouseCqrsQueryOutput;
 import com.example.inventory.usecase.query.projector.ProductQueryProjector;
 import com.example.inventory.usecase.query.projector.WarehouseQueryProjector;
+import com.example.shared.domain.CqrsQueryUseCase;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -17,7 +18,7 @@ import org.springframework.transaction.annotation.Transactional;
 @Service
 @RequiredArgsConstructor
 @Transactional(readOnly = true)
-public class InventoryQueryUseCase {
+public class InventoryQueryUseCase implements CqrsQueryUseCase {
     private final ProductRepository productRepository;
     private final WarehouseRepository warehouseRepository;
     private final ProductQueryProjector productQueryProjector;

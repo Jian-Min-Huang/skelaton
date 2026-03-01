@@ -19,6 +19,7 @@ import com.example.inventory.usecase.command.output.ProductCqrsCommandOutput;
 import com.example.inventory.usecase.command.output.WarehouseCqrsCommandOutput;
 import com.example.inventory.usecase.command.projector.ProductCommandProjector;
 import com.example.inventory.usecase.command.projector.WarehouseCommandProjector;
+import com.example.shared.domain.CqrsCommandUseCase;
 import com.example.shared.domain.DomainResult;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.ApplicationEventPublisher;
@@ -28,7 +29,7 @@ import org.springframework.transaction.annotation.Transactional;
 @Service
 @RequiredArgsConstructor
 @Transactional
-public class InventoryCommandUseCase {
+public class InventoryCommandUseCase implements CqrsCommandUseCase {
     private final ProductRepository productRepository;
     private final WarehouseRepository warehouseRepository;
     private final StockAllocationService stockAllocationService;

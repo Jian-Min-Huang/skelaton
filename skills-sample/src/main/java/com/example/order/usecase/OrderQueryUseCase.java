@@ -10,6 +10,7 @@ import com.example.order.usecase.query.output.CartCqrsQueryOutput;
 import com.example.order.usecase.query.output.OrderCqrsQueryOutput;
 import com.example.order.usecase.query.projector.CartQueryProjector;
 import com.example.order.usecase.query.projector.OrderQueryProjector;
+import com.example.shared.domain.CqrsQueryUseCase;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -17,7 +18,7 @@ import org.springframework.transaction.annotation.Transactional;
 @Service
 @RequiredArgsConstructor
 @Transactional(readOnly = true)
-public class OrderQueryUseCase {
+public class OrderQueryUseCase implements CqrsQueryUseCase {
     private final CartRepository cartRepository;
     private final OrderRepository orderRepository;
     private final CartQueryProjector cartQueryProjector;
