@@ -1,4 +1,4 @@
-package com.example.inventory.usecase.command.projector;
+package com.example.inventory.usecase.command.assembler;
 
 import com.example.inventory.domain.product.Product;
 import com.example.inventory.usecase.command.output.ProductCqrsCommandOutput;

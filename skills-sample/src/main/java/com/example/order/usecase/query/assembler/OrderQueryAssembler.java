@@ -1,4 +1,4 @@
-package com.example.order.usecase.query.projector;
+package com.example.order.usecase.query.assembler;
 
 import com.example.order.domain.order.Order;
 import com.example.order.domain.order.vo.Money;

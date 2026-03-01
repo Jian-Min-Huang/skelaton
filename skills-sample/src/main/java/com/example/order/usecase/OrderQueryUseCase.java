@@ -8,8 +8,8 @@ import com.example.order.usecase.query.QueryCartByIdCqrsQuery;
 import com.example.order.usecase.query.QueryOrderByIdCqrsQuery;
 import com.example.order.usecase.query.output.CartCqrsQueryOutput;
 import com.example.order.usecase.query.output.OrderCqrsQueryOutput;
-import com.example.order.usecase.query.projector.CartQueryAssembler;
-import com.example.order.usecase.query.projector.OrderQueryAssembler;
+import com.example.order.usecase.query.assembler.CartQueryAssembler;
+import com.example.order.usecase.query.assembler.OrderQueryAssembler;
 import com.example.shared.cqrs.CqrsQueryUseCase;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -21,18 +21,18 @@ import org.springframework.transaction.annotation.Transactional;
 public class OrderQueryUseCase implements CqrsQueryUseCase {
     private final CartRepository cartRepository;
     private final OrderRepository orderRepository;
-    private final CartQueryAssembler cartQueryProjector;
-    private final OrderQueryAssembler orderQueryProjector;
+    private final CartQueryAssembler cartQueryAssembler;
+    private final OrderQueryAssembler orderQueryAssembler;
 
     public CartCqrsQueryOutput queryCartById(final QueryCartByIdCqrsQuery input) {
         final Cart cart = cartRepository.queryById(input.cartId())
                 .orElseThrow(() -> new IllegalArgumentException("Cart not found: " + input.cartId()));
-        return cartQueryProjector.toOutput(cart);
+        return cartQueryAssembler.toOutput(cart);
     }
 
     public OrderCqrsQueryOutput queryOrderById(final QueryOrderByIdCqrsQuery input) {
         final Order order = orderRepository.queryById(input.orderId())
                 .orElseThrow(() -> new IllegalArgumentException("Order not found: " + input.orderId()));
-        return orderQueryProjector.toOutput(order);
+        return orderQueryAssembler.toOutput(order);
     }
 }

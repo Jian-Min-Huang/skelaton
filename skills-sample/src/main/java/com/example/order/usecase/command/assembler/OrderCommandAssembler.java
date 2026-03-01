@@ -1,4 +1,4 @@
-package com.example.order.usecase.command.projector;
+package com.example.order.usecase.command.assembler;
 
 import com.example.order.domain.order.Order;
 import com.example.order.usecase.command.output.OrderCqrsCommandOutput;

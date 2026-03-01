@@ -17,8 +17,8 @@ import com.example.inventory.usecase.command.CreateWarehouseCqrsCommand;
 import com.example.inventory.usecase.command.DiscontinueProductCqrsCommand;
 import com.example.inventory.usecase.command.output.ProductCqrsCommandOutput;
 import com.example.inventory.usecase.command.output.WarehouseCqrsCommandOutput;
-import com.example.inventory.usecase.command.projector.ProductCommandAssembler;
-import com.example.inventory.usecase.command.projector.WarehouseCommandAssembler;
+import com.example.inventory.usecase.command.assembler.ProductCommandAssembler;
+import com.example.inventory.usecase.command.assembler.WarehouseCommandAssembler;
 import com.example.shared.cqrs.CqrsCommandUseCase;
 import com.example.shared.domain.DomainResult;
 import lombok.RequiredArgsConstructor;
@@ -34,8 +34,8 @@ public class InventoryCommandUseCase implements CqrsCommandUseCase {
     private final WarehouseRepository warehouseRepository;
     private final StockAllocationService stockAllocationService;
     private final ApplicationEventPublisher eventPublisher;
-    private final ProductCommandAssembler productCommandProjector;
-    private final WarehouseCommandAssembler warehouseCommandProjector;
+    private final ProductCommandAssembler productCommandAssembler;
+    private final WarehouseCommandAssembler warehouseCommandAssembler;
 
     public ProductCqrsCommandOutput createProduct(final CreateProductCqrsCommand command) {
         final Sku sku = new Sku(command.skuCode());
@@ -57,7 +57,7 @@ public class InventoryCommandUseCase implements CqrsCommandUseCase {
         );
         final Product saved = productRepository.save(result.entity());
         publishEvents(result);
-        return productCommandProjector.toOutput(saved);
+        return productCommandAssembler.toOutput(saved);
     }
 
     public ProductCqrsCommandOutput activateProduct(final ActivateProductCqrsCommand command) {
@@ -66,7 +66,7 @@ public class InventoryCommandUseCase implements CqrsCommandUseCase {
         final DomainResult<Product> result = product.activate();
         final Product saved = productRepository.save(result.entity());
         publishEvents(result);
-        return productCommandProjector.toOutput(saved);
+        return productCommandAssembler.toOutput(saved);
     }
 
     public ProductCqrsCommandOutput discontinueProduct(final DiscontinueProductCqrsCommand command) {
@@ -75,7 +75,7 @@ public class InventoryCommandUseCase implements CqrsCommandUseCase {
         final DomainResult<Product> result = product.discontinue();
         final Product saved = productRepository.save(result.entity());
         publishEvents(result);
-        return productCommandProjector.toOutput(saved);
+        return productCommandAssembler.toOutput(saved);
     }
 
     public ProductCqrsCommandOutput addProductVariant(final AddProductVariantCqrsCommand command) {
@@ -93,7 +93,7 @@ public class InventoryCommandUseCase implements CqrsCommandUseCase {
         final DomainResult<Product> result = product.addVariant(variant);
         final Product saved = productRepository.save(result.entity());
         publishEvents(result);
-        return productCommandProjector.toOutput(saved);
+        return productCommandAssembler.toOutput(saved);
     }
 
     public WarehouseCqrsCommandOutput createWarehouse(final CreateWarehouseCqrsCommand command) {
@@ -111,7 +111,7 @@ public class InventoryCommandUseCase implements CqrsCommandUseCase {
         );
         final Warehouse saved = warehouseRepository.save(result.entity());
         publishEvents(result);
-        return warehouseCommandProjector.toOutput(saved);
+        return warehouseCommandAssembler.toOutput(saved);
     }
 
     private void publishEvents(final DomainResult<?> result) {

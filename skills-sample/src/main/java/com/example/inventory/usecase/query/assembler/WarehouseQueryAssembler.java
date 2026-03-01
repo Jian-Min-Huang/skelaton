@@ -1,4 +1,4 @@
-package com.example.inventory.usecase.query.projector;
+package com.example.inventory.usecase.query.assembler;
 
 import com.example.inventory.domain.warehouse.Warehouse;
 import com.example.inventory.domain.warehouse.vo.Address;

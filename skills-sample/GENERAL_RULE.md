@@ -65,12 +65,12 @@ public void multipleArgsMethod(final String arg1,
 - com.example.inventory.usecase.adapter
 - com.example.inventory.usecase.command
 - com.example.inventory.usecase.command.output
-- com.example.inventory.usecase.command.projector
+- com.example.inventory.usecase.command.assembler
 - com.example.inventory.usecase.gateway
 - com.example.inventory.usecase.handler
 - com.example.inventory.usecase.query
 - com.example.inventory.usecase.query.output
-- com.example.inventory.usecase.query.projector
+- com.example.inventory.usecase.query.assembler
 - com.example.order.domain.cart
 - com.example.order.domain.cart.entity
 - com.example.order.domain.cart.enu
@@ -88,9 +88,9 @@ public void multipleArgsMethod(final String arg1,
 - com.example.order.usecase.adapter
 - com.example.order.usecase.command
 - com.example.order.usecase.command.output
-- com.example.order.usecase.command.projector
+- com.example.order.usecase.command.assembler
 - com.example.order.usecase.gateway
 - com.example.order.usecase.handler
 - com.example.order.usecase.query
 - com.example.order.usecase.query.output
-- com.example.order.usecase.query.projector
+- com.example.order.usecase.query.assembler

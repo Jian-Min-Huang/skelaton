@@ -16,8 +16,8 @@ import com.example.order.usecase.command.CreateCartCqrsCommand;
 import com.example.order.usecase.command.ShipOrderCqrsCommand;
 import com.example.order.usecase.command.output.CartCqrsCommandOutput;
 import com.example.order.usecase.command.output.OrderCqrsCommandOutput;
-import com.example.order.usecase.command.projector.CartCommandAssembler;
-import com.example.order.usecase.command.projector.OrderCommandAssembler;
+import com.example.order.usecase.command.assembler.CartCommandAssembler;
+import com.example.order.usecase.command.assembler.OrderCommandAssembler;
 import com.example.shared.cqrs.CqrsCommandUseCase;
 import com.example.shared.domain.DomainResult;
 import lombok.RequiredArgsConstructor;
@@ -33,14 +33,14 @@ public class OrderCommandUseCase implements CqrsCommandUseCase {
     private final OrderRepository orderRepository;
     private final CheckoutService checkoutService;
     private final ApplicationEventPublisher eventPublisher;
-    private final CartCommandAssembler cartCommandProjector;
-    private final OrderCommandAssembler orderCommandProjector;
+    private final CartCommandAssembler cartCommandAssembler;
+    private final OrderCommandAssembler orderCommandAssembler;
 
     public CartCqrsCommandOutput createCart(final CreateCartCqrsCommand command) {
         final DomainResult<Cart> result = Cart.create(command.customerId());
         final Cart saved = cartRepository.save(result.entity());
         publishEvents(result);
-        return cartCommandProjector.toOutput(saved);
+        return cartCommandAssembler.toOutput(saved);
     }
 
     public CartCqrsCommandOutput addCartItem(final AddCartItemCqrsCommand command) {
@@ -54,7 +54,7 @@ public class OrderCommandUseCase implements CqrsCommandUseCase {
                 unitPrice);
         final Cart saved = cartRepository.save(result.entity());
         publishEvents(result);
-        return cartCommandProjector.toOutput(saved);
+        return cartCommandAssembler.toOutput(saved);
     }
 
     public OrderCqrsCommandOutput checkout(final CheckoutCqrsCommand command) {
@@ -78,7 +78,7 @@ public class OrderCommandUseCase implements CqrsCommandUseCase {
         final Order savedOrder = orderRepository.save(orderResult.entity());
         publishEvents(cartResult);
         publishEvents(orderResult);
-        return orderCommandProjector.toOutput(savedOrder);
+        return orderCommandAssembler.toOutput(savedOrder);
     }
 
     public OrderCqrsCommandOutput confirmOrder(final ConfirmOrderCqrsCommand command) {
@@ -87,7 +87,7 @@ public class OrderCommandUseCase implements CqrsCommandUseCase {
         final DomainResult<Order> result = order.confirm();
         final Order saved = orderRepository.save(result.entity());
         publishEvents(result);
-        return orderCommandProjector.toOutput(saved);
+        return orderCommandAssembler.toOutput(saved);
     }
 
     public OrderCqrsCommandOutput shipOrder(final ShipOrderCqrsCommand command) {
@@ -96,7 +96,7 @@ public class OrderCommandUseCase implements CqrsCommandUseCase {
         final DomainResult<Order> result = order.ship();
         final Order saved = orderRepository.save(result.entity());
         publishEvents(result);
-        return orderCommandProjector.toOutput(saved);
+        return orderCommandAssembler.toOutput(saved);
     }
 
     public OrderCqrsCommandOutput cancelOrder(final CancelOrderCqrsCommand command) {
@@ -105,7 +105,7 @@ public class OrderCommandUseCase implements CqrsCommandUseCase {
         final DomainResult<Order> result = order.cancel();
         final Order saved = orderRepository.save(result.entity());
         publishEvents(result);
-        return orderCommandProjector.toOutput(saved);
+        return orderCommandAssembler.toOutput(saved);
     }
 
     private void publishEvents(final DomainResult<?> result) {
