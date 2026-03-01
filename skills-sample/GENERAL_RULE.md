@@ -3,6 +3,8 @@
 ## Guidelines
 
 - Clean Architecture, Functional DDD, CQRS
+- each boundary context should be in its own package, and each layer (domain, application, presentation, infrastructure)
+  should be in its own subpackage
 - final arguments in methods
 - no var, declare with type and final modifier
 - no primitive type, use wrapper class instead
@@ -36,13 +38,14 @@ public void singleArgsMethod(final String arg) {
 }
 ```
 
-- layout for multiple arguments method, each argument on a new line, aligned with the opening parenthesis of the method declaration, and the closing parenthesis on a new line after the last argument
+- layout for multiple arguments method, each argument on a new line, aligned with the opening parenthesis of the method
+  declaration, and the closing parenthesis on a new line after the last argument
 
 ```java
-public void multipleArgsMethod(final String arg1, 
+public void multipleArgsMethod(final String arg1,
                                final Integer arg2,
                                final BigDecimal arg3) {
-  // method body
+    // method body
 }
 ```
 
@@ -61,16 +64,16 @@ public void multipleArgsMethod(final String arg1,
 - com.example.inventory.domain.warehouse.repository
 - com.example.inventory.domain.warehouse.vo
 - com.example.inventory.domain.service
-- com.example.inventory.usecase
-- com.example.inventory.usecase.adapter
-- com.example.inventory.usecase.command
-- com.example.inventory.usecase.command.output
-- com.example.inventory.usecase.command.assembler
-- com.example.inventory.usecase.gateway
-- com.example.inventory.usecase.handler
-- com.example.inventory.usecase.query
-- com.example.inventory.usecase.query.output
-- com.example.inventory.usecase.query.assembler
+- com.example.inventory.application
+- com.example.inventory.application.adapter
+- com.example.inventory.application.command
+- com.example.inventory.application.command.output
+- com.example.inventory.application.command.assembler
+- com.example.inventory.application.gateway
+- com.example.inventory.application.handler
+- com.example.inventory.application.query
+- com.example.inventory.application.query.output
+- com.example.inventory.application.query.assembler
 - com.example.order.domain.cart
 - com.example.order.domain.cart.entity
 - com.example.order.domain.cart.enu
@@ -84,13 +87,13 @@ public void multipleArgsMethod(final String arg1,
 - com.example.order.domain.order.repository
 - com.example.order.domain.order.vo
 - com.example.order.domain.service
-- com.example.order.usecase
-- com.example.order.usecase.adapter
-- com.example.order.usecase.command
-- com.example.order.usecase.command.output
-- com.example.order.usecase.command.assembler
-- com.example.order.usecase.gateway
-- com.example.order.usecase.handler
-- com.example.order.usecase.query
-- com.example.order.usecase.query.output
-- com.example.order.usecase.query.assembler
+- com.example.order.application
+- com.example.order.application.adapter
+- com.example.order.application.command
+- com.example.order.application.command.output
+- com.example.order.application.command.assembler
+- com.example.order.application.gateway
+- com.example.order.application.handler
+- com.example.order.application.query
+- com.example.order.application.query.output
+- com.example.order.application.query.assembler
