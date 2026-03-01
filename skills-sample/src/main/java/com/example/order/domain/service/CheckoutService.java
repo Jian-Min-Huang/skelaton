@@ -7,23 +7,24 @@ import com.example.order.domain.order.entity.OrderItem;
 import com.example.order.domain.order.enu.PaymentMethod;
 import com.example.order.domain.order.vo.Money;
 import com.example.order.domain.order.vo.ShippingAddress;
+import com.example.shared.domain.DomainException;
 import com.example.shared.domain.DomainResult;
 import com.example.shared.domain.DomainService;
 
 import java.math.BigDecimal;
 import java.util.List;
 
-public class CheckoutService implements DomainService {
+public final class CheckoutService implements DomainService {
     public CheckoutResult checkout(final Cart cart,
                                    final String orderNumber,
                                    final ShippingAddress shippingAddress,
                                    final PaymentMethod paymentMethod) {
         if (!CartStatus.ACTIVE.equals(cart.getStatus())) {
-            throw new IllegalStateException("Cart is not active: " + cart.getId());
+            throw new DomainException("Cart is not active: " + cart.getId());
         }
 
         if (cart.getItems().isEmpty()) {
-            throw new IllegalStateException("Cart is empty: " + cart.getId());
+            throw new DomainException("Cart is empty: " + cart.getId());
         }
 
         final List<OrderItem> orderItems = cart.getItems().stream()

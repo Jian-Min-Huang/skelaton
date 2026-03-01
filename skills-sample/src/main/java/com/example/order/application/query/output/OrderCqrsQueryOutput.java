@@ -4,11 +4,12 @@ import com.example.shared.application.CqrsQueryOutput;
 
 import java.math.BigDecimal;
 import java.util.Currency;
+import java.util.UUID;
 
 public record OrderCqrsQueryOutput(
-        Long id,
+        UUID id,
         String orderNumber,
-        Long customerId,
+        UUID customerId,
         String recipientName,
         String phone,
         String city,

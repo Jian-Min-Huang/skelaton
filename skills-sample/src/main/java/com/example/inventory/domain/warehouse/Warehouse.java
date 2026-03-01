@@ -6,7 +6,6 @@ import com.example.inventory.domain.warehouse.event.StockReleasedEvent;
 import com.example.inventory.domain.warehouse.event.StockReservedEvent;
 import com.example.inventory.domain.warehouse.event.WarehouseCreatedEvent;
 import com.example.inventory.domain.warehouse.vo.Address;
-import com.example.inventory.domain.warehouse.vo.StockLevel;
 import com.example.shared.domain.DomainAggregateRoot;
 import com.example.shared.domain.DomainResult;
 import lombok.Builder;
@@ -16,18 +15,19 @@ import lombok.With;
 
 import java.time.Instant;
 import java.util.List;
+import java.util.UUID;
 
 @Builder
 @Value
 @With
 public class Warehouse implements DomainAggregateRoot {
     // common fields
-    Long id;
+    UUID id;
     String createdBy;
-    String lastModifiedBy;
+    String updatedBy;
     String deletedBy;
     Instant createTime;
-    Instant lastModifyTime;
+    Instant updateTime;
     Instant deleteTime;
     Boolean deleted;
 
@@ -44,6 +44,7 @@ public class Warehouse implements DomainAggregateRoot {
                                                  final Address address,
                                                  final Integer capacity) {
         final Warehouse warehouse = Warehouse.builder()
+                .id(UUID.randomUUID())
                 .name(name)
                 .code(code)
                 .address(address)
@@ -54,17 +55,11 @@ public class Warehouse implements DomainAggregateRoot {
         return DomainResult.of(warehouse, new WarehouseCreatedEvent(warehouse.id, Instant.now()));
     }
 
-    public DomainResult<Warehouse> reserveStock(final Long productId, final Integer quantity) {
+    public DomainResult<Warehouse> reserveStock(final UUID productId, final Integer quantity) {
         final List<StorageLocation> updatedLocations = this.storageLocations.stream()
                 .map(location -> {
                     if (location.getProductId().equals(productId)) {
-                        final StockLevel current = location.getStockLevel();
-                        final StockLevel updated = new StockLevel(
-                                current.onHand(),
-                                current.reserved() + quantity,
-                                current.available() - quantity
-                        );
-                        return location.withStockLevel(updated);
+                        return location.withStockLevel(location.getStockLevel().reserve(quantity));
                     }
                     return location;
                 })
@@ -74,17 +69,11 @@ public class Warehouse implements DomainAggregateRoot {
                 new StockReservedEvent(this.id, productId, quantity, Instant.now()));
     }
 
-    public DomainResult<Warehouse> releaseStock(final Long productId, final Integer quantity) {
+    public DomainResult<Warehouse> releaseStock(final UUID productId, final Integer quantity) {
         final List<StorageLocation> updatedLocations = this.storageLocations.stream()
                 .map(location -> {
                     if (location.getProductId().equals(productId)) {
-                        final StockLevel current = location.getStockLevel();
-                        final StockLevel updated = new StockLevel(
-                                current.onHand(),
-                                current.reserved() - quantity,
-                                current.available() + quantity
-                        );
-                        return location.withStockLevel(updated);
+                        return location.withStockLevel(location.getStockLevel().release(quantity));
                     }
                     return location;
                 })

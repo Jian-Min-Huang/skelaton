@@ -4,9 +4,10 @@ import com.example.shared.application.CqrsCommand;
 
 import java.math.BigDecimal;
 import java.util.Currency;
+import java.util.UUID;
 
 public record AddProductVariantCqrsCommand(
-        Long productId,
+        UUID productId,
         String variantName,
         String skuCode,
         BigDecimal price,

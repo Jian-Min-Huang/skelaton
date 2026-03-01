@@ -2,41 +2,39 @@ package com.example.inventory.domain.warehouse.entity;
 
 import com.example.inventory.domain.warehouse.enu.LocationType;
 import com.example.inventory.domain.warehouse.vo.StockLevel;
-import com.example.shared.domain.DomainResult;
 import com.example.shared.domain.DomainEntity;
 import lombok.Builder;
 import lombok.Value;
 import lombok.With;
 
 import java.time.Instant;
+import java.util.UUID;
 
 @Builder
 @Value
 @With
 public class StorageLocation implements DomainEntity {
     // common fields
-    Long id;
+    UUID id;
     String createdBy;
-    String lastModifiedBy;
+    String updatedBy;
     String deletedBy;
     Instant createTime;
-    Instant lastModifyTime;
+    Instant updateTime;
     Instant deleteTime;
     Boolean deleted;
 
     // custom fields
     String locationCode;
-    Long productId;
+    UUID productId;
     LocationType locationType;
     StockLevel stockLevel;
 
-    public DomainResult<StorageLocation> updateStockLevel(final StockLevel newStockLevel) {
-        final StorageLocation updated = this.withStockLevel(newStockLevel);
-        return DomainResult.withoutEvents(updated);
+    public StorageLocation updateStockLevel(final StockLevel newStockLevel) {
+        return this.withStockLevel(newStockLevel);
     }
 
-    public DomainResult<StorageLocation> changeLocationType(final LocationType newType) {
-        final StorageLocation updated = this.withLocationType(newType);
-        return DomainResult.withoutEvents(updated);
+    public StorageLocation changeLocationType(final LocationType newType) {
+        return this.withLocationType(newType);
     }
 }

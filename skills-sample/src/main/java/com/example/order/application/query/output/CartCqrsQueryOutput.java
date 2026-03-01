@@ -4,10 +4,11 @@ import com.example.shared.application.CqrsQueryOutput;
 
 import java.math.BigDecimal;
 import java.util.Currency;
+import java.util.UUID;
 
 public record CartCqrsQueryOutput(
-        Long id,
-        Long customerId,
+        UUID id,
+        UUID customerId,
         String statusName,
         String couponCode,
         BigDecimal discountAmount,

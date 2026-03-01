@@ -11,9 +11,12 @@
 - 不要使用基本類型（primitive type），應該使用對應的包裝類（wrapper class）來宣告變數
 - 所有日期或時間相關的欄位都應該使用 `java.time.Instant` 類型來表示
 - 盡可能使用不可變類（immutable class）來定義資料結構，確保物件的狀態在創建後不會改變
-- 盡可能使用 `Optional` 來處理可能為 null 的值，避免直接使用 null 來表示缺失的值
 - 遵守單一職責原則（Single Responsibility Principle），確保每個類別或方法只有一個明確的職責
 - 遵守最小知識原則（Least Knowledge Principle），確保每個類別或方法只暴露必要的方法和欄位
+
+## Package Naming Conventions
+
+- Enum 的 package 命名為 `enu` 而非 `enum`，因為 `enum` 是 Java 保留字，不可作為 package 名稱
 
 ## Package Structure
 

@@ -4,9 +4,10 @@ import com.example.shared.application.CqrsQueryOutput;
 
 import java.math.BigDecimal;
 import java.util.Currency;
+import java.util.UUID;
 
 public record ProductCqrsQueryOutput(
-        Long id,
+        UUID id,
         String name,
         String description,
         String skuCode,

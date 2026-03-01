@@ -1,9 +1,10 @@
 package com.example.order.domain.cart.event;
 
 import java.time.Instant;
+import java.util.UUID;
 
 public record CartCheckedOutEvent(
-        Long cartId,
+        UUID cartId,
         Instant occurredAt
 ) implements CartEvent {
 }

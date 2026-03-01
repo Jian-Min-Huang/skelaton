@@ -1,9 +1,10 @@
 package com.example.inventory.domain.warehouse.event;
 
 import java.time.Instant;
+import java.util.UUID;
 
 public record WarehouseCreatedEvent(
-        Long warehouseId,
+        UUID warehouseId,
         Instant occurredAt
 ) implements WarehouseEvent {
 }

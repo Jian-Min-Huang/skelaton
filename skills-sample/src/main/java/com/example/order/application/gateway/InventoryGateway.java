@@ -2,6 +2,8 @@ package com.example.order.application.gateway;
 
 import com.example.shared.application.Gateway;
 
+import java.util.UUID;
+
 public interface InventoryGateway extends Gateway {
-    void allocateStock(final Long productId, final Integer quantity);
+    void allocateStock(final UUID productId, final Integer quantity);
 }

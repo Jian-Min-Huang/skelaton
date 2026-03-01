@@ -2,7 +2,9 @@ package com.example.order.domain.order.event;
 
 import com.example.shared.domain.DomainEvent;
 
+import java.util.UUID;
+
 public sealed interface OrderEvent extends DomainEvent
         permits OrderPlacedEvent, OrderConfirmedEvent, OrderShippedEvent, OrderCancelledEvent {
-    Long orderId();
+    UUID orderId();
 }

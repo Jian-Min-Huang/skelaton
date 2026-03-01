@@ -1,7 +1,6 @@
 package com.example.order.domain.order.entity;
 
 import com.example.order.domain.order.vo.Money;
-import com.example.shared.domain.DomainResult;
 import com.example.shared.domain.DomainEntity;
 import lombok.Builder;
 import lombok.Value;
@@ -9,34 +8,34 @@ import lombok.With;
 
 import java.math.BigDecimal;
 import java.time.Instant;
+import java.util.UUID;
 
 @Builder
 @Value
 @With
 public class OrderItem implements DomainEntity {
     // common fields
-    Long id;
+    UUID id;
     String createdBy;
-    String lastModifiedBy;
+    String updatedBy;
     String deletedBy;
     Instant createTime;
-    Instant lastModifyTime;
+    Instant updateTime;
     Instant deleteTime;
     Boolean deleted;
 
     // custom fields
-    Long productId;
+    UUID productId;
     String productName;
     Integer quantity;
     Money unitPrice;
     Money subtotal;
 
-    public DomainResult<OrderItem> updateQuantity(final Integer newQuantity) {
+    public OrderItem updateQuantity(final Integer newQuantity) {
         final Money newSubtotal = new Money(
                 this.unitPrice.amount().multiply(BigDecimal.valueOf(newQuantity)),
                 this.unitPrice.currency()
         );
-        final OrderItem updated = this.withQuantity(newQuantity).withSubtotal(newSubtotal);
-        return DomainResult.withoutEvents(updated);
+        return this.withQuantity(newQuantity).withSubtotal(newSubtotal);
     }
 }

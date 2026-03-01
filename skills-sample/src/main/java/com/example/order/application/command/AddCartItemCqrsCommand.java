@@ -4,10 +4,11 @@ import com.example.shared.application.CqrsCommand;
 
 import java.math.BigDecimal;
 import java.util.Currency;
+import java.util.UUID;
 
 public record AddCartItemCqrsCommand(
-        Long cartId,
-        Long productId,
+        UUID cartId,
+        UUID productId,
         String productName,
         Integer quantity,
         BigDecimal unitPrice,

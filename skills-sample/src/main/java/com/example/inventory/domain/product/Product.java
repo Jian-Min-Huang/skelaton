@@ -10,6 +10,7 @@ import com.example.inventory.domain.product.vo.Money;
 import com.example.inventory.domain.product.vo.ProductSpec;
 import com.example.inventory.domain.product.vo.Sku;
 import com.example.shared.domain.DomainAggregateRoot;
+import com.example.shared.domain.DomainException;
 import com.example.shared.domain.DomainResult;
 import lombok.Builder;
 import lombok.Singular;
@@ -19,18 +20,19 @@ import lombok.With;
 import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 @Builder
 @Value
 @With
 public class Product implements DomainAggregateRoot {
     // common fields
-    Long id;
+    UUID id;
     String createdBy;
-    String lastModifiedBy;
+    String updatedBy;
     String deletedBy;
     Instant createTime;
-    Instant lastModifyTime;
+    Instant updateTime;
     Instant deleteTime;
     Boolean deleted;
 
@@ -51,6 +53,7 @@ public class Product implements DomainAggregateRoot {
                                                final ProductSpec spec,
                                                final Category category) {
         final Product product = Product.builder()
+                .id(UUID.randomUUID())
                 .name(name)
                 .description(description)
                 .sku(sku)
@@ -64,11 +67,17 @@ public class Product implements DomainAggregateRoot {
     }
 
     public DomainResult<Product> activate() {
+        if (!ProductStatus.DRAFT.equals(this.status)) {
+            throw new DomainException("Product can only be activated from DRAFT status, current: " + this.status);
+        }
         final Product activated = this.withStatus(ProductStatus.ACTIVE);
         return DomainResult.of(activated, new ProductActivatedEvent(this.id, Instant.now()));
     }
 
     public DomainResult<Product> discontinue() {
+        if (!ProductStatus.ACTIVE.equals(this.status)) {
+            throw new DomainException("Product can only be discontinued from ACTIVE status, current: " + this.status);
+        }
         final Product discontinued = this.withStatus(ProductStatus.DISCONTINUED);
         return DomainResult.of(discontinued, new ProductDiscontinuedEvent(this.id, Instant.now()));
     }
@@ -80,7 +89,7 @@ public class Product implements DomainAggregateRoot {
         return DomainResult.withoutEvents(updated);
     }
 
-    public DomainResult<Product> removeVariant(final Long variantId) {
+    public DomainResult<Product> removeVariant(final UUID variantId) {
         final List<ProductVariant> newVariants = this.variants.stream()
                 .filter(v -> !v.getId().equals(variantId))
                 .toList();

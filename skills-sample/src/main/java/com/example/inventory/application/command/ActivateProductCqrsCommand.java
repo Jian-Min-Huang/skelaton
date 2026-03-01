@@ -2,5 +2,7 @@ package com.example.inventory.application.command;
 
 import com.example.shared.application.CqrsCommand;
 
-public record ActivateProductCqrsCommand(Long productId) implements CqrsCommand {
+import java.util.UUID;
+
+public record ActivateProductCqrsCommand(UUID productId) implements CqrsCommand {
 }
