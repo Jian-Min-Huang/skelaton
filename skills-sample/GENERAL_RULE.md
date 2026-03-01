@@ -65,7 +65,6 @@ public void multipleArgsMethod(final String arg1,
 - com.example.inventory.domain.warehouse.vo
 - com.example.inventory.domain.service
 - com.example.inventory.application
-- com.example.inventory.application.adapter
 - com.example.inventory.application.command
 - com.example.inventory.application.command.output
 - com.example.inventory.application.command.assembler
@@ -74,6 +73,7 @@ public void multipleArgsMethod(final String arg1,
 - com.example.inventory.application.query
 - com.example.inventory.application.query.output
 - com.example.inventory.application.query.assembler
+- com.example.inventory.infrastructure.adapter
 - com.example.order.domain.cart
 - com.example.order.domain.cart.entity
 - com.example.order.domain.cart.enu
@@ -88,7 +88,6 @@ public void multipleArgsMethod(final String arg1,
 - com.example.order.domain.order.vo
 - com.example.order.domain.service
 - com.example.order.application
-- com.example.order.application.adapter
 - com.example.order.application.command
 - com.example.order.application.command.output
 - com.example.order.application.command.assembler
@@ -97,3 +96,4 @@ public void multipleArgsMethod(final String arg1,
 - com.example.order.application.query
 - com.example.order.application.query.output
 - com.example.order.application.query.assembler
+- com.example.order.infrastructure.adapter

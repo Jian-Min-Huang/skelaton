@@ -1,4 +1,4 @@
-package com.example.inventory.application.adapter;
+package com.example.order.infrastructure.adapter;
 
 import com.example.inventory.domain.product.Product;
 import com.example.inventory.domain.product.repository.ProductRepository;
