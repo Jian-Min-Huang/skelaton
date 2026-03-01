@@ -1,6 +1,6 @@
 package com.example.order.usecase.query.output;
 
-import com.example.shared.domain.CqrsQueryOutput;
+import com.example.shared.cqrs.CqrsQueryOutput;
 
 import java.math.BigDecimal;
 import java.util.Currency;

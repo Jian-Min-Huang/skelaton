@@ -1,7 +1,7 @@
 package com.example.order.usecase.command;
 
 import com.example.order.domain.order.enu.PaymentMethod;
-import com.example.shared.domain.CqrsCommand;
+import com.example.shared.cqrs.CqrsCommand;
 
 public record CheckoutCqrsCommand(
         Long cartId,

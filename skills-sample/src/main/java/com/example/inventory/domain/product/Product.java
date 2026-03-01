@@ -9,7 +9,7 @@ import com.example.inventory.domain.product.event.ProductDiscontinuedEvent;
 import com.example.inventory.domain.product.vo.Money;
 import com.example.inventory.domain.product.vo.ProductSpec;
 import com.example.inventory.domain.product.vo.Sku;
-import com.example.shared.domain.DomainAggRoot;
+import com.example.shared.domain.DomainAggregateRoot;
 import com.example.shared.domain.DomainResult;
 import lombok.Builder;
 import lombok.Singular;
@@ -23,7 +23,7 @@ import java.util.List;
 @Builder
 @Value
 @With
-public class Product implements DomainAggRoot {
+public class Product implements DomainAggregateRoot {
     // common fields
     Long id;
     String createdBy;

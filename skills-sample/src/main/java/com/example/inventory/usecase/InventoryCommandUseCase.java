@@ -17,9 +17,9 @@ import com.example.inventory.usecase.command.CreateWarehouseCqrsCommand;
 import com.example.inventory.usecase.command.DiscontinueProductCqrsCommand;
 import com.example.inventory.usecase.command.output.ProductCqrsCommandOutput;
 import com.example.inventory.usecase.command.output.WarehouseCqrsCommandOutput;
-import com.example.inventory.usecase.command.projector.ProductCommandProjector;
-import com.example.inventory.usecase.command.projector.WarehouseCommandProjector;
-import com.example.shared.domain.CqrsCommandUseCase;
+import com.example.inventory.usecase.command.projector.ProductCommandAssembler;
+import com.example.inventory.usecase.command.projector.WarehouseCommandAssembler;
+import com.example.shared.cqrs.CqrsCommandUseCase;
 import com.example.shared.domain.DomainResult;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.ApplicationEventPublisher;
@@ -34,8 +34,8 @@ public class InventoryCommandUseCase implements CqrsCommandUseCase {
     private final WarehouseRepository warehouseRepository;
     private final StockAllocationService stockAllocationService;
     private final ApplicationEventPublisher eventPublisher;
-    private final ProductCommandProjector productCommandProjector;
-    private final WarehouseCommandProjector warehouseCommandProjector;
+    private final ProductCommandAssembler productCommandProjector;
+    private final WarehouseCommandAssembler warehouseCommandProjector;
 
     public ProductCqrsCommandOutput createProduct(final CreateProductCqrsCommand command) {
         final Sku sku = new Sku(command.skuCode());

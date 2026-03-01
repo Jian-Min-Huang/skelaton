@@ -8,9 +8,9 @@ import com.example.order.usecase.query.QueryCartByIdCqrsQuery;
 import com.example.order.usecase.query.QueryOrderByIdCqrsQuery;
 import com.example.order.usecase.query.output.CartCqrsQueryOutput;
 import com.example.order.usecase.query.output.OrderCqrsQueryOutput;
-import com.example.order.usecase.query.projector.CartQueryProjector;
-import com.example.order.usecase.query.projector.OrderQueryProjector;
-import com.example.shared.domain.CqrsQueryUseCase;
+import com.example.order.usecase.query.projector.CartQueryAssembler;
+import com.example.order.usecase.query.projector.OrderQueryAssembler;
+import com.example.shared.cqrs.CqrsQueryUseCase;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -21,8 +21,8 @@ import org.springframework.transaction.annotation.Transactional;
 public class OrderQueryUseCase implements CqrsQueryUseCase {
     private final CartRepository cartRepository;
     private final OrderRepository orderRepository;
-    private final CartQueryProjector cartQueryProjector;
-    private final OrderQueryProjector orderQueryProjector;
+    private final CartQueryAssembler cartQueryProjector;
+    private final OrderQueryAssembler orderQueryProjector;
 
     public CartCqrsQueryOutput queryCartById(final QueryCartByIdCqrsQuery input) {
         final Cart cart = cartRepository.queryById(input.cartId())

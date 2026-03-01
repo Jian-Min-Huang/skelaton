@@ -3,11 +3,11 @@ package com.example.inventory.usecase.query.projector;
 import com.example.inventory.domain.warehouse.Warehouse;
 import com.example.inventory.domain.warehouse.vo.Address;
 import com.example.inventory.usecase.query.output.WarehouseCqrsQueryOutput;
-import com.example.shared.domain.CqrsQueryProjector;
+import com.example.shared.cqrs.CqrsQueryAssembler;
 import org.springframework.stereotype.Component;
 
 @Component
-public class WarehouseQueryProjector implements CqrsQueryProjector {
+public class WarehouseQueryAssembler implements CqrsQueryAssembler {
     public WarehouseCqrsQueryOutput toOutput(final Warehouse warehouse) {
         final Address address = warehouse.getAddress();
 

@@ -1,6 +1,6 @@
 package com.example.inventory.usecase.command;
 
-import com.example.shared.domain.CqrsCommand;
+import com.example.shared.cqrs.CqrsCommand;
 
 import java.math.BigDecimal;
 import java.util.Currency;

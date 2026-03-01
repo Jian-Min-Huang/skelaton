@@ -1,6 +1,6 @@
 package com.example.order.usecase.command.output;
 
-import com.example.shared.domain.CqrsCommandOutput;
+import com.example.shared.cqrs.CqrsCommandOutput;
 
 public record OrderCqrsCommandOutput(Long orderId) implements CqrsCommandOutput {
 }

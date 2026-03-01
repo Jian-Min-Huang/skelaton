@@ -1,6 +1,6 @@
 package com.example.inventory.usecase.query.output;
 
-import com.example.shared.domain.CqrsQueryOutput;
+import com.example.shared.cqrs.CqrsQueryOutput;
 
 public record WarehouseCqrsQueryOutput(
         Long id,

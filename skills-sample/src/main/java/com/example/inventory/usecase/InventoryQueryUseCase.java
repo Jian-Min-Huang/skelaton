@@ -8,9 +8,9 @@ import com.example.inventory.usecase.query.QueryProductByIdCqrsQuery;
 import com.example.inventory.usecase.query.QueryWarehouseByIdCqrsQuery;
 import com.example.inventory.usecase.query.output.ProductCqrsQueryOutput;
 import com.example.inventory.usecase.query.output.WarehouseCqrsQueryOutput;
-import com.example.inventory.usecase.query.projector.ProductQueryProjector;
-import com.example.inventory.usecase.query.projector.WarehouseQueryProjector;
-import com.example.shared.domain.CqrsQueryUseCase;
+import com.example.inventory.usecase.query.projector.ProductQueryAssembler;
+import com.example.inventory.usecase.query.projector.WarehouseQueryAssembler;
+import com.example.shared.cqrs.CqrsQueryUseCase;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -21,8 +21,8 @@ import org.springframework.transaction.annotation.Transactional;
 public class InventoryQueryUseCase implements CqrsQueryUseCase {
     private final ProductRepository productRepository;
     private final WarehouseRepository warehouseRepository;
-    private final ProductQueryProjector productQueryProjector;
-    private final WarehouseQueryProjector warehouseQueryProjector;
+    private final ProductQueryAssembler productQueryProjector;
+    private final WarehouseQueryAssembler warehouseQueryProjector;
 
     public ProductCqrsQueryOutput queryProductById(final QueryProductByIdCqrsQuery input) {
         final Product product = productRepository.queryById(input.productId())

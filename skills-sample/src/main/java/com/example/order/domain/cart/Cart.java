@@ -7,7 +7,7 @@ import com.example.order.domain.cart.event.CartCreatedEvent;
 import com.example.order.domain.cart.event.CartItemAddedEvent;
 import com.example.order.domain.cart.vo.CartDiscount;
 import com.example.order.domain.cart.vo.Money;
-import com.example.shared.domain.DomainAggRoot;
+import com.example.shared.domain.DomainAggregateRoot;
 import com.example.shared.domain.DomainResult;
 import lombok.Builder;
 import lombok.Singular;
@@ -21,7 +21,7 @@ import java.util.List;
 @Builder
 @Value
 @With
-public class Cart implements DomainAggRoot {
+public class Cart implements DomainAggregateRoot {
     // common fields
     Long id;
     String createdBy;

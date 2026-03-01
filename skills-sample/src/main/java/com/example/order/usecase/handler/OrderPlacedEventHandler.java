@@ -1,16 +1,16 @@
 package com.example.order.usecase.handler;
 
 import com.example.order.domain.order.event.OrderPlacedEvent;
-import com.example.order.port.InventoryDomainGateway;
-import com.example.shared.domain.DomainEventHandler;
+import com.example.order.usecase.gateway.InventoryGateway;
+import com.example.shared.EventHandler;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.event.EventListener;
 import org.springframework.stereotype.Component;
 
 @Component
 @RequiredArgsConstructor
-public class OrderPlacedEventHandler implements DomainEventHandler {
-    private final InventoryDomainGateway inventoryPort;
+public class OrderPlacedEventHandler implements EventHandler {
+    private final InventoryGateway inventoryPort;
 
     @EventListener
     public void handle(final OrderPlacedEvent event) {

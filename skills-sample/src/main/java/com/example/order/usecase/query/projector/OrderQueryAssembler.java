@@ -4,11 +4,11 @@ import com.example.order.domain.order.Order;
 import com.example.order.domain.order.vo.Money;
 import com.example.order.domain.order.vo.ShippingAddress;
 import com.example.order.usecase.query.output.OrderCqrsQueryOutput;
-import com.example.shared.domain.CqrsQueryProjector;
+import com.example.shared.cqrs.CqrsQueryAssembler;
 import org.springframework.stereotype.Component;
 
 @Component
-public class OrderQueryProjector implements CqrsQueryProjector {
+public class OrderQueryAssembler implements CqrsQueryAssembler {
     public OrderCqrsQueryOutput toOutput(final Order order) {
         final ShippingAddress shippingAddress = order.getShippingAddress();
         final Money totalAmount = order.getTotalAmount();

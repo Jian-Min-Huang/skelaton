@@ -16,9 +16,9 @@ import com.example.order.usecase.command.CreateCartCqrsCommand;
 import com.example.order.usecase.command.ShipOrderCqrsCommand;
 import com.example.order.usecase.command.output.CartCqrsCommandOutput;
 import com.example.order.usecase.command.output.OrderCqrsCommandOutput;
-import com.example.order.usecase.command.projector.CartCommandProjector;
-import com.example.order.usecase.command.projector.OrderCommandProjector;
-import com.example.shared.domain.CqrsCommandUseCase;
+import com.example.order.usecase.command.projector.CartCommandAssembler;
+import com.example.order.usecase.command.projector.OrderCommandAssembler;
+import com.example.shared.cqrs.CqrsCommandUseCase;
 import com.example.shared.domain.DomainResult;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.ApplicationEventPublisher;
@@ -33,8 +33,8 @@ public class OrderCommandUseCase implements CqrsCommandUseCase {
     private final OrderRepository orderRepository;
     private final CheckoutService checkoutService;
     private final ApplicationEventPublisher eventPublisher;
-    private final CartCommandProjector cartCommandProjector;
-    private final OrderCommandProjector orderCommandProjector;
+    private final CartCommandAssembler cartCommandProjector;
+    private final OrderCommandAssembler orderCommandProjector;
 
     public CartCqrsCommandOutput createCart(final CreateCartCqrsCommand command) {
         final DomainResult<Cart> result = Cart.create(command.customerId());

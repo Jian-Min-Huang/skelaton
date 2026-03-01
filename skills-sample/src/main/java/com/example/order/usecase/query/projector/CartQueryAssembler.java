@@ -3,11 +3,11 @@ package com.example.order.usecase.query.projector;
 import com.example.order.domain.cart.Cart;
 import com.example.order.domain.cart.vo.CartDiscount;
 import com.example.order.usecase.query.output.CartCqrsQueryOutput;
-import com.example.shared.domain.CqrsQueryProjector;
+import com.example.shared.cqrs.CqrsQueryAssembler;
 import org.springframework.stereotype.Component;
 
 @Component
-public class CartQueryProjector implements CqrsQueryProjector {
+public class CartQueryAssembler implements CqrsQueryAssembler {
     public CartCqrsQueryOutput toOutput(final Cart cart) {
         final CartDiscount discount = cart.getDiscount();
         return new CartCqrsQueryOutput(

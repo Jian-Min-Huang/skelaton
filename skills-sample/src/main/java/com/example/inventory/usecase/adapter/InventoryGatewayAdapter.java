@@ -6,7 +6,7 @@ import com.example.inventory.domain.service.StockAllocationService;
 import com.example.inventory.domain.warehouse.Warehouse;
 import com.example.inventory.domain.warehouse.repository.WarehouseRepository;
 import com.example.inventory.usecase.WarehouseFinder;
-import com.example.order.port.InventoryDomainGateway;
+import com.example.order.usecase.gateway.InventoryGateway;
 import com.example.shared.domain.DomainResult;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Component;
@@ -16,7 +16,7 @@ import java.util.List;
 
 @Component
 @Transactional
-public class InventoryGatewayAdapter implements InventoryDomainGateway {
+public class InventoryGatewayAdapter implements InventoryGateway {
 
     private final ProductRepository productRepository;
     private final WarehouseRepository warehouseRepository;

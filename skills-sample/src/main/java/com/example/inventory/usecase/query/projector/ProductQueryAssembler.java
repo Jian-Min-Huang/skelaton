@@ -5,11 +5,11 @@ import com.example.inventory.domain.product.vo.Money;
 import com.example.inventory.domain.product.vo.ProductSpec;
 import com.example.inventory.domain.product.vo.Sku;
 import com.example.inventory.usecase.query.output.ProductCqrsQueryOutput;
-import com.example.shared.domain.CqrsQueryProjector;
+import com.example.shared.cqrs.CqrsQueryAssembler;
 import org.springframework.stereotype.Component;
 
 @Component
-public class ProductQueryProjector implements CqrsQueryProjector {
+public class ProductQueryAssembler implements CqrsQueryAssembler {
     public ProductCqrsQueryOutput toOutput(final Product product) {
         final Sku sku = product.getSku();
         final Money basePrice = product.getBasePrice();
