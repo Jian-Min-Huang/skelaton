@@ -5,13 +5,6 @@
 - 採用兩層測試互補策略：**Domain 單元測試**快速守護商業邏輯，**整合測試**確保各層接線正確
 - Domain 層必須撰寫單元測試，Application / Presentation / Infrastructure 層由整合測試覆蓋，不需額外撰寫單元測試
 
-| 層 | 測試類型 | 說明 |
-|----|---------|------|
-| Domain | 單元測試 | 必寫，守護商業規則 |
-| Application | 整合測試覆蓋 | 編排邏輯（load → call domain → save → publish events）由整合測試驗證 |
-| Presentation | 整合測試覆蓋 | HTTP 綁定（路由、參數解析、回應格式）由整合測試打 API 驗證 |
-| Infrastructure | 整合測試覆蓋 | Repository 實作、Adapter 實作由整合測試搭配測試資料庫驗證 |
-
 ## Domain Unit Test
 
 - Domain 層的測試為純單元測試，不依賴任何框架、不需要 mock，直接對 Domain 物件進行驗證
@@ -39,5 +32,4 @@
 
 ## Integration Test
 
-- 整合測試搭配測試資料庫與 API 呼叫，驗證從 Presentation 層到 Infrastructure 層的端到端流程
-- 整合測試覆蓋 Application 層的編排邏輯、Assembler 的欄位映射、Repository 的持久化、以及 Event 的發布與處理
+- TODO: 待補充
