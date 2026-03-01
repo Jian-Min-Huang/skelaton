@@ -1,6 +1,5 @@
 package com.example.order.application.command;
 
-import com.example.order.domain.order.enu.PaymentMethod;
 import com.example.shared.application.CqrsCommand;
 
 import java.util.UUID;
@@ -14,6 +13,6 @@ public record CheckoutCqrsCommand(
         String district,
         String street,
         String zipCode,
-        PaymentMethod paymentMethod
+        String paymentMethod
 ) implements CqrsCommand {
 }

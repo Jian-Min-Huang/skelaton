@@ -5,6 +5,7 @@ import com.example.order.domain.cart.repository.CartRepository;
 import com.example.order.domain.cart.vo.Money;
 import com.example.order.domain.order.Order;
 import com.example.order.domain.order.repository.OrderRepository;
+import com.example.order.domain.order.enu.PaymentMethod;
 import com.example.order.domain.order.vo.ShippingAddress;
 import com.example.order.domain.service.CheckoutResult;
 import com.example.order.domain.service.CheckoutService;
@@ -19,6 +20,8 @@ import com.example.order.application.command.output.OrderCqrsCommandOutput;
 import com.example.order.application.command.assembler.CartCommandAssembler;
 import com.example.order.application.command.assembler.OrderCommandAssembler;
 import com.example.shared.application.CqrsCommandUseCase;
+
+import java.util.Currency;
 import com.example.shared.domain.DomainResult;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.ApplicationEventPublisher;
@@ -46,7 +49,7 @@ public class OrderCommandUseCase implements CqrsCommandUseCase {
     public CartCqrsCommandOutput addCartItem(final AddCartItemCqrsCommand command) {
         final Cart cart = cartRepository.queryById(command.cartId())
                 .orElseThrow(() -> new IllegalArgumentException("Cart not found: " + command.cartId()));
-        final Money unitPrice = new Money(command.unitPrice(), command.currency());
+        final Money unitPrice = new Money(command.unitPrice(), Currency.getInstance(command.currency()));
         final DomainResult<Cart> result = cart.addItem(
                 command.productId(),
                 command.productName(),
@@ -71,7 +74,7 @@ public class OrderCommandUseCase implements CqrsCommandUseCase {
                 cart,
                 command.orderNumber(),
                 shippingAddress,
-                command.paymentMethod());
+                PaymentMethod.valueOf(command.paymentMethod()));
         final DomainResult<Cart> cartResult = checkoutResult.cartResult();
         final DomainResult<Order> orderResult = checkoutResult.orderResult();
         cartRepository.save(cartResult.entity());

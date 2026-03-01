@@ -2,6 +2,7 @@ package com.example.inventory.application;
 
 import com.example.inventory.domain.product.Product;
 import com.example.inventory.domain.product.entity.ProductVariant;
+import com.example.inventory.domain.product.enu.Category;
 import com.example.inventory.domain.product.repository.ProductRepository;
 import com.example.inventory.domain.product.vo.Money;
 import com.example.inventory.domain.product.vo.ProductSpec;
@@ -25,6 +26,7 @@ import com.example.shared.application.CqrsCommandUseCase;
 import com.example.shared.domain.DomainResult;
 import lombok.RequiredArgsConstructor;
 
+import java.util.Currency;
 import java.util.List;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Service;
@@ -44,7 +46,7 @@ public class InventoryCommandUseCase implements CqrsCommandUseCase {
 
     public ProductCqrsCommandOutput createProduct(final CreateProductCqrsCommand command) {
         final Sku sku = new Sku(command.skuCode());
-        final Money basePrice = new Money(command.basePrice(), command.currency());
+        final Money basePrice = new Money(command.basePrice(), Currency.getInstance(command.currency()));
         final ProductSpec spec = new ProductSpec(
                 command.brand(),
                 command.model(),
@@ -52,13 +54,14 @@ public class InventoryCommandUseCase implements CqrsCommandUseCase {
                 command.weightUnit(),
                 command.dimensions()
         );
+        final Category category = Category.valueOf(command.category());
         final DomainResult<Product> result = Product.create(
                 command.name(),
                 command.description(),
                 sku,
                 basePrice,
                 spec,
-                command.category()
+                category
         );
         final Product saved = productRepository.save(result.entity());
         publishEvents(result);
@@ -87,7 +90,7 @@ public class InventoryCommandUseCase implements CqrsCommandUseCase {
         final Product product = productRepository.queryById(command.productId())
                 .orElseThrow(() -> new IllegalArgumentException("Product not found: " + command.productId()));
         final Sku sku = new Sku(command.skuCode());
-        final Money price = new Money(command.price(), command.currency());
+        final Money price = new Money(command.price(), Currency.getInstance(command.currency()));
         final ProductVariant variant = ProductVariant.builder()
                 .variantName(command.variantName())
                 .sku(sku)

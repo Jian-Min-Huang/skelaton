@@ -3,7 +3,6 @@ package com.example.order.application.command;
 import com.example.shared.application.CqrsCommand;
 
 import java.math.BigDecimal;
-import java.util.Currency;
 import java.util.UUID;
 
 public record AddCartItemCqrsCommand(
@@ -12,6 +11,6 @@ public record AddCartItemCqrsCommand(
         String productName,
         Integer quantity,
         BigDecimal unitPrice,
-        Currency currency
+        String currency
 ) implements CqrsCommand {
 }

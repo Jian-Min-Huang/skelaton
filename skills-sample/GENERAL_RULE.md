@@ -22,6 +22,7 @@
 
 - `com.example.shared.domain`
 - `com.example.shared.application`
+- `com.example.shared.presentation`
 - `com.example.inventory.domain.product`
 - `com.example.inventory.domain.product.entity`
 - `com.example.inventory.domain.product.enu`
@@ -44,7 +45,12 @@
 - `com.example.inventory.application.query`
 - `com.example.inventory.application.query.output`
 - `com.example.inventory.application.query.assembler`
-- `com.example.inventory.presentation`
+- `com.example.inventory.presentation.http`
+- `com.example.inventory.presentation.http.protocol`
+- `com.example.inventory.presentation.http.request`
+- `com.example.inventory.presentation.http.request.converter`
+- `com.example.inventory.presentation.http.response`
+- `com.example.inventory.presentation.http.response.converter`
 - `com.example.inventory.infrastructure.adapter`
 - `com.example.inventory.infrastructure.configuration`
 - `com.example.inventory.infrastructure.persistence`
@@ -70,7 +76,12 @@
 - `com.example.order.application.query`
 - `com.example.order.application.query.output`
 - `com.example.order.application.query.assembler`
-- `com.example.order.presentation`
+- `com.example.order.presentation.http`
+- `com.example.order.presentation.http.protocol`
+- `com.example.order.presentation.http.request`
+- `com.example.order.presentation.http.request.converter`
+- `com.example.order.presentation.http.response`
+- `com.example.order.presentation.http.response.converter`
 - `com.example.order.infrastructure.adapter`
 - `com.example.order.infrastructure.configuration`
 - `com.example.order.infrastructure.persistence`

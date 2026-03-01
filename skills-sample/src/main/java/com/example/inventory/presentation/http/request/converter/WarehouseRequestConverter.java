@@ -9,13 +9,13 @@ import org.springframework.stereotype.Component;
 public class WarehouseRequestConverter implements RequestConverter {
     public CreateWarehouseCqrsCommand toCommand(final CreateWarehouseRequestDTO request) {
         return new CreateWarehouseCqrsCommand(
-                request.name(),
-                request.code(),
-                request.city(),
-                request.district(),
-                request.street(),
-                request.zipCode(),
-                request.capacity()
+                request.getName(),
+                request.getCode(),
+                request.getCity(),
+                request.getDistrict(),
+                request.getStreet(),
+                request.getZipCode(),
+                request.getCapacity()
         );
     }
 }

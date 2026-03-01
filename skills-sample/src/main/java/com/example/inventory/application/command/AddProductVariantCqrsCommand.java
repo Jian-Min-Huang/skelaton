@@ -3,7 +3,6 @@ package com.example.inventory.application.command;
 import com.example.shared.application.CqrsCommand;
 
 import java.math.BigDecimal;
-import java.util.Currency;
 import java.util.UUID;
 
 public record AddProductVariantCqrsCommand(
@@ -11,7 +10,7 @@ public record AddProductVariantCqrsCommand(
         String variantName,
         String skuCode,
         BigDecimal price,
-        Currency currency,
+        String currency,
         Integer stockQuantity
 ) implements CqrsCommand {
 }

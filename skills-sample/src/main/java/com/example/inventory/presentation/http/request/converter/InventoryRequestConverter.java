@@ -11,16 +11,16 @@ import org.springframework.stereotype.Component;
 public class InventoryRequestConverter implements RequestConverter {
     public AllocateStockCqrsCommand toCommand(final AllocateStockRequestDTO request) {
         return new AllocateStockCqrsCommand(
-                request.productId(),
-                request.quantity()
+                request.getProductId(),
+                request.getQuantity()
         );
     }
 
     public ReleaseStockCqrsCommand toCommand(final ReleaseStockRequestDTO request) {
         return new ReleaseStockCqrsCommand(
-                request.productId(),
-                request.warehouseId(),
-                request.quantity()
+                request.getProductId(),
+                request.getWarehouseId(),
+                request.getQuantity()
         );
     }
 }
