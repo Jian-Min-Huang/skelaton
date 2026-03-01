@@ -29,6 +29,7 @@ public record ProductCqrsCommandOutput(Long productId) implements CqrsCommandOut
 
 - 使用 @Component 標注 Command Assembler 類別並實作 CqrsCommandAssembler 介面來做為標記
 - Command Assembler 的職責為轉換 Domain Layer 為 CqrsCommandOutput
+- Command → Value Object 的組裝屬於 Command Use Case 的協調職責，不由 Assembler 負責
 
 ```java
 @Component
@@ -109,11 +110,11 @@ public class InventoryQueryUseCase implements CqrsQueryUseCase {
 }
 ```
 
-## Domain Gateway
+## Gateway
 
 - 要用 interface 定義 Domain Gateway，並繼承 Gateway 介面來做為標記
-- Domain Gateway 的職責是定義跨 Bounded Context 的接口，讓不同 BC 之間可以透過 Gateway 進行通信，而不直接依賴對方的實現
-- Domain Gateway 的實作會放在 Infrastructure 層，並且由被呼叫方的 BC 提供實作，這樣可以達到 BC 之間的解耦
+- Gateway 的職責是定義跨 Bounded Context 的接口，讓不同 BC 之間可以透過 Gateway 進行通信，而不直接依賴對方的實現
+- Gateway 的實作（Adapter）放在呼叫方的 Infrastructure 層
 
 ```java
 public interface InventoryGateway extends Gateway {

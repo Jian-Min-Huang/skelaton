@@ -39,7 +39,8 @@ public class Product implements DomainAggregateRoot {
 ## Entity
 
 - 要用 @Builder, @Value, @With 標注 Entity，並實作 DomainEntity 介面來做為標記
-- 其餘規則同 Aggregate Root
+- Entity 的生命週期由 Aggregate Root 管理，不獨立發出 Domain Event
+- Entity 的方法回傳修改後的自身實例（透過 @With），由 Aggregate Root 負責將變更包裝成 DomainResult 並附帶 Domain Event
 
 ```java
 @Builder
@@ -61,7 +62,7 @@ public class ProductVariant implements DomainEntity {
     Sku sku;
     Money price;
     Integer stockQuantity;
-    
+
     // methods
 }
 ```
